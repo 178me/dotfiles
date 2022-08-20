@@ -69,7 +69,10 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract zsh-syntax-highlighting zsh-autosuggestions git-open sudo )
+# 加载 complete 目前解决asdf 插件的一个bug
+autoload bashcompinit && bashcompinit
+# autoload -U +X bashcompinit && bashcompinit
+plugins=(git extract zsh-syntax-highlighting zsh-autosuggestions git-open sudo asdf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,6 +102,7 @@ alias Rr='shutdown -r now'
 alias r='ranger'
 alias off='shutdown now'
 alias vrc='nvim ~/.vimrc'
+alias vnrc='nvim ~/.config/nvim/init.vim'
 alias vi3='nvim ~/.config/i3/config'
 alias vfi='nvim ~/.config/fish/conf.d/omf.fish'
 alias vpo='nvim ~/.config/polybar/config'
@@ -106,15 +110,17 @@ alias cdmd='cd ~/Blog/source/_posts'
 alias aa='sudo pacman -S'
 alias as='pacman -Ss'
 alias au='sudo pacman -Syyu'
+alias ar='sudo pacman -R'
 alias ys='yay -Ss'
 alias zj='neofetch'
-alias git='p git'
+alias git='pc;git'
 alias gitc="git add -A;git commit"
 alias gits='git status'
 alias gitp='p git push'
 alias gitpd='p git push origin dev'
 alias mymc='cd ~/MC/client;sh ~/MC/start.sh'
 alias pc='export https_proxy="127.0.0.1:12333";export http_proxy="127.0.0.1:12333"'
+alias dpc='unset https_proxy http_proxy;export -p'
 alias adb3='adb -s MTK0002004091859200 push *'
 alias p='proxychains'
 alias de='cd ~/.emacs.d;emacs --batch -q -l /home/yzl178me/.emacs.d/dump.el'
@@ -125,6 +131,11 @@ alias pyuic5='/home/yzl178me/.local/bin/pyuic5'
 alias ax= "aria2c -x16"
 alias ae= "aria2c -x16 -enable-rpc "
 alias myautotools= "cd /home/yzl178me/test/python/python项目和工具/linux自动化操作录制"
+mkcd () {
+  mkdir -p "$1"
+  cd "$1"
+}
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export PATH=/home/yzl178me/.local/bin:$PATH
+xset r rate 200 40
