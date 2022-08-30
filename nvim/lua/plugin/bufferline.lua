@@ -4,7 +4,7 @@ utils.fn.require("bufferline").setup({
 	options = {
 		mode = "buffers",
 		numbers = "ordinal",
-		indicator_icon = "|",
+		indicator = { icon = "|" },
 		buffer_close_icon = "",
 		modified_icon = "●",
 		close_icon = "",
@@ -44,14 +44,13 @@ utils.fn.require("bufferline").setup({
 				return false
 			end
 		end,
-	offsets = {
-		{
-			filetype = "NvimTree",
-			text = "File Explorer",
-			highlight = "Directory",
-			text_align = "left",
+		offsets = {
+			{
+				filetype = "NvimTree",
+				text = "File Explorer",
+				highlight = "Directory",
+				text_align = "left",
+			},
 		},
 	},
-	},
 })
-

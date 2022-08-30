@@ -94,10 +94,10 @@ bindsym $mod+p exec smplayer
 bindsym $mod+g exec java -jar ~/MC/HMCL.jar
 
 # 屏保
-bindsym Control+mod4+l exec i3lock-fancy
+bindsym Control+mod4+l exec i3lock -i ~/Pictures/waller/418515.png
 
 # 锁屏休眠
-bindsym Control+mod1+s exec i3lock-fancy -f 文泉驿正黑 && systemctl suspend
+bindsym Control+mod1+s exec i3lock -i ~/Pictures/waller/418515.png && systemctl suspend
 #bindsym mod4+s exec i3lock -i  && systemctl suspend
 
 # xfce4的程序查找器
@@ -146,7 +146,7 @@ exec_always deadd-notification-center
 # 翻译
 exec_always pkill copytranslator ; /opt/copytranslator/copytranslator %U
 # 半透明
-exec_always --no-startup-id killall picom | sleep 1s && picom --config ~/.config/picom.conf
+exec_always --no-startup-id killall picom | sleep 1s && picom
 # 状态栏
 exec_always --no-startup-id /$HOME/.config/polybar/launch.sh
 # 分辨率
@@ -179,6 +179,8 @@ exec_always pkill clash;clash
 
 #exec_always --no-startup-id syndaemon -t -k -i 2 -d
 
+# 键鼠同步工具
+exec_always --no-startup-id pkill synergy;synergy
 # 网络管理工具
 exec_always --no-startup-id nm-applet
 # 程序启动器
@@ -186,7 +188,6 @@ exec_always --no-startup-id nm-applet
 exec_always utools&
 # 壁纸管理器
 exec --no-startup-id variety
-exec --no-startup-id synergy
 # exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 # 声音系统托盘
 # exec_always --no-startup-id killall pasystray && pasystray
@@ -233,9 +234,9 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # navigate workspaces next / previous
-bindsym $mod+Tab workspace next
-bindsym mod1+Tab workspace prev
-bindsym $mod+Shift+Tab workspace back_and_forth
+bindsym mod1+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+bindsym $mod+Tab workspace back_and_forth
 
 # change focus
 bindsym $mod+h focus left

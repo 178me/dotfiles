@@ -48,7 +48,10 @@ basic.load_options = function()
 end
 
 basic.load_autocmd = function()
+  -- vim.cmd("markdownLinkText xxx gui='#121122' guifg='#222222'")
+  vim.cmd("setf i3config")
   vim.cmd("syntax on")
+  vim.cmd("map J <nop>")
   -- colorscheme
   vim.g.tokyonight_transparent = true
   vim.g.tokyonight_transparent_sidebar = true

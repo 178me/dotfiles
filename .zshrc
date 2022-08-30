@@ -8,8 +8,9 @@ export ZSH="/home/yzl178me/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-#ZSH_THEME="agnoster"
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="arrow"
+ZSH_THEME="awesomepanda"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,7 +73,7 @@ ZSH_THEME="robbyrussell"
 # 加载 complete 目前解决asdf 插件的一个bug
 autoload bashcompinit && bashcompinit
 # autoload -U +X bashcompinit && bashcompinit
-plugins=(git extract zsh-syntax-highlighting zsh-autosuggestions git-open sudo asdf)
+plugins=(git extract zsh-syntax-highlighting zsh-autosuggestions git-open sudo asdf autojump)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,9 +103,9 @@ alias Rr='shutdown -r now'
 alias r='ranger'
 alias off='shutdown now'
 alias vrc='nvim ~/.vimrc'
-alias vnrc='nvim ~/.config/nvim/init.vim'
+alias vnrc='nvim ~/.config/nvim/init.lua'
 alias vi3='nvim ~/.config/i3/config'
-alias vfi='nvim ~/.config/fish/conf.d/omf.fish'
+alias vzsh='nvim ~/.zshrc'
 alias vpo='nvim ~/.config/polybar/config'
 alias cdmd='cd ~/Blog/source/_posts'
 alias aa='sudo pacman -S'
@@ -113,29 +114,23 @@ alias au='sudo pacman -Syyu'
 alias ar='sudo pacman -R'
 alias ys='yay -Ss'
 alias zj='neofetch'
-alias git='pc;git'
-alias gitc="git add -A;git commit"
-alias gits='git status'
-alias gitp='p git push'
-alias gitpd='p git push origin dev'
+alias gs='git status'
+alias gm='git checkout master'
 alias mymc='cd ~/MC/client;sh ~/MC/start.sh'
 alias pc='export https_proxy="127.0.0.1:12333";export http_proxy="127.0.0.1:12333"'
 alias dpc='unset https_proxy http_proxy;export -p'
-alias adb3='adb -s MTK0002004091859200 push *'
 alias p='proxychains'
 alias de='cd ~/.emacs.d;emacs --batch -q -l /home/yzl178me/.emacs.d/dump.el'
 alias deg='emacs --dump-file ~/.emacs.d/emacs.pdmp'
 alias pylupdate5='/home/yzl178me/.local/bin/pylupdate5'
 alias pyrcc5='/home/yzl178me/.local/bin/pyrcc5'
 alias pyuic5='/home/yzl178me/.local/bin/pyuic5'
-alias ax= "aria2c -x16"
-alias ae= "aria2c -x16 -enable-rpc "
-alias myautotools= "cd /home/yzl178me/test/python/python项目和工具/linux自动化操作录制"
-mkcd () {
-  mkdir -p "$1"
-  cd "$1"
-}
+alias ax="aria2c -x16"
+alias ae="aria2c -x16 -enable-rpc "
+alias myautotools="cd /home/yzl178me/test/python/python项目和工具/linux自动化操作录制"
+alias lzc="lzc-cli"
+alias lg="lazygit"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export PATH=/home/yzl178me/.local/bin:$PATH
-xset r rate 200 40
+xset r rate 200 60

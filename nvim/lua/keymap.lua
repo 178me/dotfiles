@@ -83,14 +83,18 @@ local nvim_mappings = {
 	["n|K"] = rhs_opt:new("<cmd>Lspsaga hover_doc<CR>"),
 	["n|gj"] = rhs_opt:new("<cmd>Lspsaga diagnostic_jump_next<CR>"),
 	["n|gk"] = rhs_opt:new("<cmd>Lspsaga diagnostic_jump_prev<CR>"),
-	["n|gd"] = rhs_opt:new("<cmd>lua vim.lsp.buf.definition()<cr>"),
+	["n|gd"] = rhs_opt:new("<cmd>Telescope lsp_definitions<cr>"),
+	["n|gp"] = rhs_opt:new("<cmd>Lspsaga preview_definition<cr>"),
 	["n x|p"] = rhs_opt:new("<Plug>(YankyPutAfter)"),
 	["n x|P"] = rhs_opt:new("<Plug>(YankyPutBefore)"),
 	["n|<C-2>"] = rhs_opt:new("<cmd>BufferLineGoToBuffer 2<cr>"),
 }
 
 local which_key_mappings = {
-	["n|<leader><leader>"] = rhs_opt:new_which_key('<CMD>lua require("Comment.api").toggle.linewise.current()<CR>', "comment code"),
+	["n|<leader><leader>"] = rhs_opt:new_which_key(
+		'<CMD>lua require("Comment.api").toggle.linewise.current()<CR>',
+		"comment code"
+	),
 	["v|<leader><leader>"] = rhs_opt:new_which_key("<Plug>(comment_toggle_linewise_visual)", "comment code"),
 	["n|<leader><cr>"] = rhs_opt:new_which_key("<cmd>nohlsearch<cr>", "nohlsearch"),
 	["v|<leader>y"] = rhs_opt:new_prefix("yank to"),
@@ -105,7 +109,8 @@ local which_key_mappings = {
 	["n|<leader>jr"] = rhs_opt:new_which_key("<cmd>RnvimrToggle<CR>", "Ranger"),
 	["n|<leader>jR"] = rhs_opt:new_which_key(":luafile $MYVIMRC<CR>", "refush config"),
 	["n|<leader>jt"] = rhs_opt:new_which_key("<cmd>BufferLinePick<CR>", "jump tab"),
-	["n|<leader>jp"] = rhs_opt:new_which_key(utils.fn.runCode, "run code"),
+	["n|<leader>jb"] = rhs_opt:new_which_key(require("nvim-toggler").toggle, "toggler"),
+	["n|<leader>jc"] = rhs_opt:new_which_key(utils.fn.runCode, "run code"),
 	-- ["n|<leader>jf"] = rhs_opt:new_which_key('<cmd>lua vim.lsp.buf.formatting()<CR>:w<CR>', "format code"),
 	["n|<leader>jf"] = rhs_opt:new_which_key("<cmd>Neoformat<CR>:w<CR>", "format code"),
 	["n|<leader>l"] = rhs_opt:new_prefix("Lsp"),
@@ -136,24 +141,30 @@ local which_key_mappings = {
 	["n|<leader>oy"] = rhs_opt:new_which_key("<cmd>Telescope yank_history<CR>", "yank history"),
 	["n|<leader>og"] = rhs_opt:new_which_key("<cmd>Telescope grep_string<CR>", "grep string"),
 	["n|<leader>o;"] = rhs_opt:new_which_key("<cmd>Telescope commands<CR>", "grep string"),
+	["n|<leader>r"] = rhs_opt:new_prefix("replace"),
 	["n|<leader>rr"] = rhs_opt:new_which_key(":s/<C-r>a/<C-r>b/g", "replace"),
 	["v|<leader>rr"] = rhs_opt:new_which_key(":s/<C-r>a/<C-r>b/g", "replace"),
 	["n|<leader>rf"] = rhs_opt:new_which_key(":CtrlSF <C-r>a<CR>", "CtrlSF"),
+	["n|<leader>rp"] = rhs_opt:new_which_key("<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "spectre"),
+	["n|<leader>p"] = rhs_opt:new_prefix("plugin"),
 	["n|<leader>pd"] = rhs_opt:new_which_key(":Neogen<CR>", "generate doc"),
 	["n|<leader>ph"] = rhs_opt:new_which_key(":Twilight<CR>", "Twilight"),
 	["n|<leader>pm"] = rhs_opt:new_which_key(":ZenMode<CR>", "ZenMode"),
+	["n|<leader>g"] = rhs_opt:new_prefix("git"),
 	["n|<leader>gl"] = rhs_opt:new_which_key(":LazyGit<CR>", "lazygit"),
 	["n|<leader>gm"] = rhs_opt:new_which_key(":Neogit<CR>", "magit"),
+	["n|<leader>gt"] = rhs_opt:new_which_key(":GitBlameToggle<CR>", "blameToggle"),
+	["n|<leader>go"] = rhs_opt:new_which_key(":GitBlameOpenCommitURL<CR>", "open comment"),
 }
 
 local load_mappings = function(map_type, mappings)
 	for key, value in pairs(mappings) do
 		local mode, lhs = string.match(key, "([^|]*)|?(.*)")
 		if map_type == "nvim" then
-      -- utils.fn.pprint("lhs",mode,lhs)
-      -- utils.fn.pprint(string)
+			-- utils.fn.pprint("lhs",mode,lhs)
+			-- utils.fn.pprint(string)
 			mode = utils.fn.split(mode, " ")
-      -- utils.fn.pprint("mode",mode)
+			-- utils.fn.pprint("mode",mode)
 			vim.keymap.set(mode, lhs, value.rhs, value.options)
 		elseif map_type == "which_key" then
 			value.options.mode = mode

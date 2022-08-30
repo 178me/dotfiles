@@ -60,7 +60,7 @@ require("packer").startup({
 		-- 输入模式自动切换输入法 (base)
 		use({ "alohaia/fcitx.nvim", config = utils.fn.loadConfig({ "plugin/fcitx" }) })
 		-- displays neovim startup time neovim 的启动时间及时间花在了哪里 (base)
-		use({ "dstein64/vim-startuptime", config = utils.fn.loadConfig({ "plugin/vim-startuptime" }) })
+		use({ "dstein64/vim-startuptime" })
 		-- a faster version of filetype.vim 听说是用来加快启动速度的 但是不知道具体怎么用
 		use({ "nathom/filetype.nvim", config = utils.fn.loadConfig({ "plugin/filetype" }) })
 		-- terminal (basically configured) 目前的终端使用方案
@@ -86,6 +86,18 @@ require("packer").startup({
 		use({ "lambdalisue/suda.vim", config = utils.fn.loadConfig({ "plugin/suda" }) })
 		-- session 会话管理的一个工具 #
 		-- use({ "rmagatti/auto-session", config = utils.fn.loadConfig({ "plugin/auto-session" }) })
+		-- 专注高亮
+		use({
+			"folke/twilight.nvim",
+			config = utils.fn.loadConfig({ "plugin/twilight" }),
+		})
+		-- 禅模式
+		use({
+			"folke/zen-mode.nvim",
+			config = utils.fn.loadConfig({ "plugin/zen-mode" }),
+		})
+		-- 切换标签 true -> false
+		use({ "nguyenvukhang/nvim-toggler", config = utils.fn.loadConfig({ "plugin/toggler" }) })
 		--------------------------- highlight --------------------------
 		-- colorizer (basically configured) 高亮颜色组
 		use({ "norcalli/nvim-colorizer.lua", config = utils.fn.loadConfig({ "plugin/nvim-colorizer" }) })
@@ -187,19 +199,18 @@ require("packer").startup({
 			-- Uncomment next line if you want to follow only stable versions
 			-- tag = "*"
 		})
-		-- git管理
+		------------------------------------------------ git管理----------------------------------------------------
 		use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" })
 		use({ "kdheepak/lazygit.nvim", requires = "nvim-lua/plenary.nvim" })
-    -- 专注高亮
+		-- 查看Git文件更改历史信息
+		use({ "f-person/git-blame.nvim", config = utils.fn.loadConfig({ "plugin/git-blame" }) })
+		------------------------------------------debug----------------------------------------------------------------------
+		-- replace
 		use({
-			"folke/twilight.nvim",
-			config = utils.fn.loadConfig({ "plugin/twilight" }),
+			"windwp/nvim-spectre",
+			requires = "nvim-lua/plenary.nvim",
+			config = utils.fn.loadConfig({ "plugin/nvim-spectre" }),
 		})
-    -- 禅模式
-		use({
-			"folke/zen-mode.nvim",
-			config = utils.fn.loadConfig({ "plugin/zen-mode" }),
-		})
-    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+		use({ "ellisonleao/glow.nvim" })
 	end,
 })

@@ -114,6 +114,11 @@ _G.packer_plugins = {
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/ctrlsf.vim",
     url = "https://github.com/dyng/ctrlsf.vim"
   },
+  ["dial.nvim"] = {
+    loaded = true,
+    path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/dial.nvim",
+    url = "https://github.com/monaqa/dial.nvim"
+  },
   ["diffview.nvim"] = {
     loaded = true,
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/diffview.nvim",
@@ -133,6 +138,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
+  },
+  ["git-blame.nvim"] = {
+    loaded = true,
+    path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
+    url = "https://github.com/f-person/git-blame.nvim"
   },
   ["hop.nvim"] = {
     loaded = true,
@@ -229,6 +239,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/nvim-surround",
     url = "https://github.com/kylechui/nvim-surround"
+  },
+  ["nvim-toggler"] = {
+    loaded = true,
+    path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/nvim-toggler",
+    url = "https://github.com/nguyenvukhang/nvim-toggler"
   },
   ["nvim-treesitter"] = {
     loaded = true,
