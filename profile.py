@@ -17,20 +17,21 @@ profile_list = {
 
 def local_to_origin():
     """ 本地到远程 """
-    for k,v in profile_list.items():
+    for k, v in profile_list.items():
         # 处理家目录符号
         if os.path.exists(v):
             print(f"正在复制配置到当前文件夹: {k,os.path.basename(v)}")
             os.system(f"cp -rf {v} ./")
 
+
 def origin_to_local():
     """ 更新本地文件 """
     # 获取当前目录下的配置
     now_config_list = os.listdir()
-    for k,v in profile_list.items():
+    for k, v in profile_list.items():
         if os.path.basename(v) in now_config_list:
             print(f"正在复制配置到本地: {k,os.path.basename(v)}")
-            os.system(f"cp -rf {os.path.basename(v)} {v}")
+            os.system(f"cp -rf {os.path.basename(v)} {os.path.dirname(v)}")
 
 
 if __name__ == "__main__":
