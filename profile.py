@@ -9,9 +9,11 @@ profile_list = {
     "编辑器": f"{HOME}/.config/nvim",
     "窗口渲染": f"{HOME}/.config/picom.conf",
     "X11配置": f"{HOME}/.xprofile",
-    "包管理器": f"/etc/pacman.conf",
+    "包管理器": "/etc/pacman.conf",
     "pip": f"{HOME}/.pip/pip.conf",
     "shell": f"{HOME}/.zshrc",
+    "git": f"{HOME}/.gitconfig",
+    "ssh": f"{HOME}/.ssh/config",
 }
 
 
@@ -20,7 +22,7 @@ def local_to_origin():
     for k, v in profile_list.items():
         # 处理家目录符号
         if os.path.exists(v):
-            print(f"正在复制配置到当前文件夹: {k,os.path.basename(v)}")
+            print(f"将本机配置复制到仓库: {k,os.path.basename(v)}")
             os.system(f"cp -rf {v} ./")
 
 
@@ -30,7 +32,7 @@ def origin_to_local():
     now_config_list = os.listdir()
     for k, v in profile_list.items():
         if os.path.basename(v) in now_config_list:
-            print(f"正在复制配置到本地: {k,os.path.basename(v)}")
+            print(f"将仓库配置复制到本机: {k,os.path.basename(v)}")
             os.system(f"cp -rf {os.path.basename(v)} {os.path.dirname(v)}")
 
 
