@@ -71,7 +71,7 @@ end
 M.fn.runCode = function()
 	local filetype = vim.bo.filetype
 	if filetype == "python" then
-		vim.api.nvim_command("0TermExec size=50 direction=vertical go_back=1 cmd='python %'")
+		vim.api.nvim_command("0TermExec size=50 direction=vertical go_back=1 cmd='cd %:p:h && python %:t'")
 	end
 end
 
@@ -106,7 +106,7 @@ end
 
 M.fn.split = function(str, reps)
 	local resultStrList = {}
-	string.gsub(str, "[^" .. reps .. "]+", function(w)
+	local _ = string.gsub(str, "[^" .. reps .. "]+", function(w)
 		table.insert(resultStrList, w)
 	end)
 	return resultStrList

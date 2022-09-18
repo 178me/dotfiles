@@ -16,7 +16,9 @@ local lspList = {
   "taplo",
   "verible",
   "tailwindcss",
-  "pyright"
+  -- "pyright",
+  "pylsp",
+  -- "sourcery"
 }
 
 -- common lsp config
@@ -53,5 +55,11 @@ for _, value in pairs(lspList) do
     end
   end
 
-  utils.fn.require("lspconfig")[value].setup(config)
+  -- print(value,config)
+  -- utils.fn.require("lspconfig")[value].setup(config)
+  -- print(utils.fn.require("lspconfig")[value])
+  local _,err = pcall(utils.fn.require("lspconfig")[value].setup,config)
+  if err ~= nil then
+    print("err",err)
+  end
 end

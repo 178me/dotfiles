@@ -10,6 +10,7 @@ end
 local root_files = {
   'pyproject.toml',
   'setup.py',
+  'main.py',
   'setup.cfg',
   'requirements.txt',
   'Pipfile',
@@ -55,3 +56,4 @@ https://github.com/microsoft/pyright
   },
 }
 
+-- return {}
