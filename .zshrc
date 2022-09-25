@@ -130,6 +130,8 @@ alias ae="aria2c -x16 -enable-rpc "
 alias myautotools="cd /home/yzl178me/test/python/python项目和工具/linux自动化操作录制"
 alias lzc="lzc-cli"
 alias lg="lazygit"
+alias rlll="python /home/yzl178me/Myfile/r-lzc.py"
+alias llu="python /home/yzl178me/Myfile/update_all.py"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export PATH=/home/yzl178me/.local/bin:$PATH

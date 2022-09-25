@@ -1,12 +1,7 @@
 [user]
-	name = 178me
 	email = 1403341393@qq.com
-[credential]
-	helper = store
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-[color]
-	ui = auto
+	name = yzl178me
+[https]
+	proxy = 127.0.0.1:12333
+[http]
+	proxy = 127.0.0.1:12333

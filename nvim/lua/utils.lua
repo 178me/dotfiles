@@ -106,7 +106,7 @@ end
 
 M.fn.split = function(str, reps)
 	local resultStrList = {}
-	local _ = string.gsub(str, "[^" .. reps .. "]+", function(w)
+	string.gsub(str, "[^" .. reps .. "]+", function(w)
 		table.insert(resultStrList, w)
 	end)
 	return resultStrList

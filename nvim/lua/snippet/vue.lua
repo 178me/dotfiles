@@ -47,7 +47,7 @@ local M = {
 		t({ "", "</style>" }),
 	}),
 	s("ppr", {
-		t({ [[console.log("178me-debug:",]] }),
+		t({ [[console.info("178me-debug:",]] }),
 		i(1),
 		t({ [[)]] }),
 	}),
