@@ -66,7 +66,7 @@ require("packer").startup({
 		-- terminal (basically configured) 目前的终端使用方案
 		use({
 			"akinsho/toggleterm.nvim",
-			tag = "v1.*",
+			branch = "main",
 			config = utils.fn.loadConfig({ "plugin/toggleterm" }),
 		})
 		-- repeat previous cmd 更加强大的重复上一个命令  不知道怎么用 但是应该和别的插件配合起来的

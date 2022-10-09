@@ -32,7 +32,7 @@ utils.fn.require("toggleterm").setup({
 		border = "curved",
 		width = 100,
 		height = 30,
-        bufpos = {100,10},
+		bufpos = { 100, 10 },
 		-- winblend = 1,
 	},
 })
