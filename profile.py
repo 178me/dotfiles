@@ -5,6 +5,7 @@ import sys
 HOME = os.environ["HOME"]
 profile_list = {
     "窗口管理器": f"{HOME}/.config/i3",
+    "文件管理器": f"{HOME}/.config/ranger",
     "虚拟终端": f"{HOME}/.config/alacritty",
     "编辑器": f"{HOME}/.config/nvim",
     "窗口渲染": f"{HOME}/.config/picom.conf",
