@@ -132,6 +132,8 @@ alias lzc="lzc-cli"
 alias lg="lazygit"
 alias rlll="python /home/yzl178me/Myfile/r-lzc.py"
 alias llu="python /home/yzl178me/Myfile/update_all.py"
+alias ppei="pipenv install"
+alias pper="pipenv run"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export PATH=/home/yzl178me/.local/bin:$PATH

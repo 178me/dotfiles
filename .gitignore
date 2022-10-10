@@ -1,2 +1,4 @@
 */img
 nvim/plugin/packer_compiled.lua
+__pycache__
+# */*/__pycache__

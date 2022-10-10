@@ -71,7 +71,16 @@ end
 M.fn.runCode = function()
 	local filetype = vim.bo.filetype
 	if filetype == "python" then
-		vim.api.nvim_command("0TermExec size=50 direction=vertical go_back=1 cmd='cd %:p:h && python %:t'")
+		vim.api.nvim_command("0TermExec size=70 direction=vertical go_back=1 cmd='cd %:p:h && python %:t'")
+	end
+end
+
+-- 运行项目
+M.fn.runProject = function()
+	local filetype = vim.bo.filetype
+	if filetype == "python" then
+    local root_path = M.fn.rootPattern("/Pipfile")
+		vim.api.nvim_command("0TermExec size=70 direction=vertical go_back=0 cmd='cd " .. root_path .. " && pipenv run dev'")
 	end
 end
 
