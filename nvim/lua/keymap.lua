@@ -116,6 +116,7 @@ local which_key_mappings = {
 	["n|<leader>jp"] = rhs_opt:new_which_key(utils.fn.runProject, "run project"),
 	-- ["n|<leader>jf"] = rhs_opt:new_which_key('<cmd>lua vim.lsp.buf.formatting()<CR>:w<CR>', "format code"),
 	["n|<leader>jf"] = rhs_opt:new_which_key("<cmd>Neoformat<CR>:w<CR>", "format code"),
+	["n|<leader>uf"] = rhs_opt:new_which_key(utils.fn.runScript, "upload file"),
 	["n|<leader>l"] = rhs_opt:new_prefix("Lsp"),
 	["n|<leader>lr"] = rhs_opt:new_which_key("<cmd>Lspsaga rename<CR>", "rename"),
 	["n|<leader>lf"] = rhs_opt:new_which_key("<cmd>Lspsaga lsp_finder<CR>", "finder"),

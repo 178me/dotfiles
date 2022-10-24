@@ -14,4 +14,3 @@ utils.fn.require("telescope").setup({
 	pickers = {},
 	extensions = {},
 })
-
