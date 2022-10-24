@@ -71,7 +71,9 @@ local nvim_mappings = {
 	-- ["i|<C-k>"] = rhs_opt:new("<Plug>(TaboutBack)"),
 	["i c|<C-b>"] = rhs_opt:new("<left>"),
 	["i c|<C-f>"] = rhs_opt:new("<right>"),
-	["n i v c|<C-a>"] = rhs_opt:new("<home>"),
+	["n v|<C-a>"] = rhs_opt:new("^"),
+	["i|<C-a>"] = rhs_opt:new("<C-o>^"),
+	["c|<C-a>"] = rhs_opt:new("<home>"),
 	["n i v c|<C-e>"] = rhs_opt:new("<end>"),
 	["n v|<C-j>"] = rhs_opt:new("}"),
 	["n v|<C-k>"] = rhs_opt:new("{"),
@@ -146,7 +148,10 @@ local which_key_mappings = {
 	["n|<leader>rr"] = rhs_opt:new_which_key(":s/<C-r>a/<C-r>b/g", "replace"),
 	["v|<leader>rr"] = rhs_opt:new_which_key(":s/<C-r>a/<C-r>b/g", "replace"),
 	["n|<leader>rf"] = rhs_opt:new_which_key(":CtrlSF <C-r>a<CR>", "CtrlSF"),
-	["n|<leader>rp"] = rhs_opt:new_which_key("<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "spectre"),
+	["n|<leader>rp"] = rhs_opt:new_which_key(
+		"<cmd>lua require('spectre').open_visual({select_word=true})<CR>",
+		"spectre"
+	),
 	["n|<leader>p"] = rhs_opt:new_prefix("plugin"),
 	["n|<leader>pd"] = rhs_opt:new_which_key(":Neogen<CR>", "generate doc"),
 	["n|<leader>ph"] = rhs_opt:new_which_key(":Twilight<CR>", "Twilight"),
