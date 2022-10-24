@@ -267,7 +267,8 @@ assign [class="Emacs"] $ws2
 assign [title="WPS"] $ws2
 assign [class="firefox"] $ws3
 assign [class="Google-chrome"] $ws3
-assign [class="Chromium"] $ws3
+assign [class="Chromium" title="^(?!DevTools).*"] $ws3
+# assign [class="Chromium" title="DevTools"] $ws4
 assign [title="Qt Creator"] $ws4
 assign [title="Feem"] $ws5
 assign [title="Dukto"] $ws5
@@ -293,10 +294,14 @@ popup_during_fullscreen smart
 # for_window [class="^.*"] border pixel 3
 # 将第三个工作区设置为标签模式
 for_window [class="Alacritty"] layout tabbed
+for_window [class="Alacritty" title="lzc.*devshell"] move container to workspace 8;workspace 8
 for_window [class="Chromium"] layout tabbed
+for_window [class="Chromium" title="DevTools"] move container to workspace $ws4;workspace $ws4
 
 for_window [class="uTools"] border pixel 1
 for_window [class="copytranslator"] move scratchpad
+for_window [class="lzc-client-desktop"] move scratchpad
+
 #workspace $ws3 stacking
 # 打开窗口时不聚焦
 #no_focus [class="Chromium"]
