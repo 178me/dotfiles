@@ -67,6 +67,12 @@ M.fn.mergeTable = function(table1, table2, override)
 	return res
 end
 
+-- 运行脚本
+M.fn.runScript = function()
+	local script_path = "/home/yzl178me/Desktop/python-frame/script/jgy_upload.py"
+	vim.api.nvim_command("0TermExec open=0 cmd='python " .. script_path .. " %:p'")
+end
+
 -- 运行代码
 M.fn.runCode = function()
 	local filetype = vim.bo.filetype
@@ -79,8 +85,10 @@ end
 M.fn.runProject = function()
 	local filetype = vim.bo.filetype
 	if filetype == "python" then
-    local root_path = M.fn.rootPattern("/Pipfile")
-		vim.api.nvim_command("0TermExec size=70 direction=vertical go_back=0 cmd='cd " .. root_path .. " && pipenv run dev'")
+		local root_path = M.fn.rootPattern("/Pipfile")
+		vim.api.nvim_command(
+			"0TermExec size=70 direction=vertical go_back=0 cmd='cd " .. root_path .. " && pipenv run dev'"
+		)
 	end
 end
 
