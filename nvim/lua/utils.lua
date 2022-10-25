@@ -73,6 +73,37 @@ M.fn.runScript = function()
 	vim.api.nvim_command("0TermExec open=0 cmd='python " .. script_path .. " %:p'")
 end
 
+M.fn.new_file = function()
+	vim.ui.input({ prompt = "new file: " }, function(filename)
+		local command = "edit " .. vim.fn.expand("%:p:h") .. "/" .. filename
+		vim.api.nvim_command(command)
+	end)
+end
+
+M.fn.replace_global = function()
+  local a = vim.fn.getreg("a")
+  local b = vim.fn.getreg("b")
+  a = string.gsub(a,"/","\\/")
+  b = string.gsub(b,"/","\\/")
+	local command = ":%s/\\V" .. a .. "/" .. b .. "/g"
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
+end
+
+M.fn.replace = function()
+  local a = vim.fn.getreg("a")
+  local b = vim.fn.getreg("b")
+  a = string.gsub(a,"/","\\/")
+  b = string.gsub(b,"/","\\/")
+	local command = ":s/\\V" .. a .. "/" .. b .. "/g"
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
+end
+
+M.fn.test = function()
+ --  local a = vim.fn.getreg("a")
+	-- local command = "CtrlSF " .. a
+ --  vim.api.nvim_command(command)
+end
+
 -- 运行代码
 M.fn.runCode = function()
 	local filetype = vim.bo.filetype
@@ -109,16 +140,6 @@ M.fn.pprint = function(...)
 		end
 	end
 	print(info)
-end
-
--- 替换
-M.fn.replace = function()
-	local a = string.gsub(vim.fn.getreg("a"), "/", "\\/")
-	local b = string.gsub(vim.fn.getreg("b"), "/", "\\/")
-	-- print(vim.cmd("reg a"))
-	-- print(vim.cmd("reg b"))
-	vim.api.nvim_command(":s/" .. a .. "/" .. b .. "/g")
-	return ":s/" .. a .. "/" .. b .. "/g"
 end
 
 M.fn.split = function(str, reps)

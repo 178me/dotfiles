@@ -103,6 +103,7 @@ local which_key_mappings = {
 	["v|<leader>ya"] = rhs_opt:new_which_key('"ay<Esc>', "a"),
 	["v|<leader>yb"] = rhs_opt:new_which_key('"by<Esc>', "b"),
 	["v|<leader>yy"] = rhs_opt:new_which_key('"+y<Esc>', "system clipboard"),
+	["n|<leader>t"] = rhs_opt:new_which_key(utils.fn.test, "test"),
 	["n|<leader>j"] = rhs_opt:new_prefix("quick"),
 	["n|<leader>jq"] = rhs_opt:new_which_key("<cmd>bd<CR>", "close tab"),
 	["n|<leader>jQ"] = rhs_opt:new_which_key("<cmd>qa!<CR>", "exit nvim"),
@@ -146,8 +147,8 @@ local which_key_mappings = {
 	["n|<leader>og"] = rhs_opt:new_which_key("<cmd>Telescope grep_string<CR>", "grep string"),
 	["n|<leader>o;"] = rhs_opt:new_which_key("<cmd>Telescope commands<CR>", "grep string"),
 	["n|<leader>r"] = rhs_opt:new_prefix("replace"),
-	["n|<leader>rr"] = rhs_opt:new_which_key(":s/<C-r>a/<C-r>b/g", "replace"),
-	["v|<leader>rr"] = rhs_opt:new_which_key(":s/<C-r>a/<C-r>b/g", "replace"),
+	["n|<leader>rr"] = rhs_opt:new_which_key(utils.fn.replace_global, "replace"),
+	["v|<leader>rr"] = rhs_opt:new_which_key(utils.fn.replace, "replace"),
 	["n|<leader>rf"] = rhs_opt:new_which_key(":CtrlSF <C-r>a<CR>", "CtrlSF"),
 	["n|<leader>rp"] = rhs_opt:new_which_key(
 		"<cmd>lua require('spectre').open_visual({select_word=true})<CR>",
@@ -162,6 +163,7 @@ local which_key_mappings = {
 	["n|<leader>gm"] = rhs_opt:new_which_key(":Neogit<CR>", "magit"),
 	["n|<leader>gt"] = rhs_opt:new_which_key(":GitBlameToggle<CR>", "blameToggle"),
 	["n|<leader>go"] = rhs_opt:new_which_key(":GitBlameOpenCommitURL<CR>", "open comment"),
+	["n|<leader>nf"] = rhs_opt:new_which_key(utils.fn.new_file, "new file"),
 }
 
 local load_mappings = function(map_type, mappings)
