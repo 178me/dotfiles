@@ -129,6 +129,9 @@ alias ax="aria2c -x16"
 alias ae="aria2c -x16 -enable-rpc "
 alias myautotools="cd /home/yzl178me/test/python/python项目和工具/linux自动化操作录制"
 alias lzc="lzc-cli"
+alias lzcD="lzc-cli project devshell --log debug -r"
+alias lzcB="lzc-cli project build -f"
+alias lzcP="lzc-cli appstore publish"
 alias lg="lazygit"
 alias rlll="python /home/yzl178me/Myfile/r-lzc.py"
 alias llu="python /home/yzl178me/Myfile/update_all.py"
@@ -137,4 +140,4 @@ alias pper="pipenv run"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export PATH=/home/yzl178me/.local/bin:$PATH
-xset r rate 200 60
+xset r rate 200 70
