@@ -31,6 +31,8 @@ bindsym F10 exec sh ~/.i2c_hid.sh;$toast "触摸板模块重新加载"
 
 # bindsym $mod+Escape exec "i3-instant-layout --list | rofi -dmenu -i | i3-instant-layout -"
 
+# 临时程序启动器
+bindsym $mod+d exec rofi -show drun
 # 打开终端
 bindsym $mod+Shift+Return exec alacritty
 # Bindsym $mod+Return exec echo mr | i3-instant-layout -
@@ -294,13 +296,13 @@ popup_during_fullscreen smart
 # for_window [class="^.*"] border pixel 3
 # 将第三个工作区设置为标签模式
 for_window [class="Alacritty"] layout tabbed
-for_window [class="Alacritty" title="lzc.*devshell"] move container to workspace 8;workspace 8
+for_window [class="Alacritty" title="lzc.*devshell"] move container to workspace $ws8;workspace $ws8
 for_window [class="Chromium"] layout tabbed
 for_window [class="Chromium" title="DevTools"] move container to workspace $ws4;workspace $ws4
 
 for_window [class="uTools"] border pixel 1
 for_window [class="copytranslator"] move scratchpad
-for_window [class="lzc-client-desktop"] move scratchpad
+# for_window [class="lzc-client-desktop"] move scratchpad
 
 #workspace $ws3 stacking
 # 打开窗口时不聚焦
