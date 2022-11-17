@@ -20,6 +20,7 @@ profile_list = {
 
 def local_to_origin():
     """ 本地到远程 """
+    input("将本机配置复制到仓库")
     for k, v in profile_list.items():
         # 处理家目录符号
         if os.path.exists(v):
@@ -30,6 +31,7 @@ def local_to_origin():
 def origin_to_local():
     """ 更新本地文件 """
     # 获取当前目录下的配置
+    input("将仓库配置复制到本机")
     now_config_list = os.listdir()
     for k, v in profile_list.items():
         if os.path.basename(v) in now_config_list:
