@@ -81,31 +81,32 @@ M.fn.new_file = function()
 end
 
 M.fn.replace_global = function()
-  local a = vim.fn.getreg("a")
-  local b = vim.fn.getreg("b")
-  a = string.gsub(a,"/","\\/")
-  b = string.gsub(b,"/","\\/")
+	local a = vim.fn.getreg("a")
+	local b = vim.fn.getreg("b")
+	a = string.gsub(a, "/", "\\/")
+	b = string.gsub(b, "/", "\\/")
 	local command = ":%s/\\V" .. a .. "/" .. b .. "/g"
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
 end
 
 M.fn.replace = function()
-  local a = vim.fn.getreg("a")
-  local b = vim.fn.getreg("b")
-  a = string.gsub(a,"/","\\/")
-  b = string.gsub(b,"/","\\/")
+	local a = vim.fn.getreg("a")
+	local b = vim.fn.getreg("b")
+	a = string.gsub(a, "/", "\\/")
+	b = string.gsub(b, "/", "\\/")
 	local command = ":s/\\V" .. a .. "/" .. b .. "/g"
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
 end
 
 M.fn.test = function()
- --  local a = vim.fn.getreg("a")
+	--  local a = vim.fn.getreg("a")
 	-- local command = "CtrlSF " .. a
- --  vim.api.nvim_command(command)
+	--  vim.api.nvim_command(command)
 end
 
 -- 运行代码
 M.fn.runCode = function()
+	vim.api.nvim_command("w")
 	local filetype = vim.bo.filetype
 	if filetype == "python" then
 		vim.api.nvim_command("0TermExec size=70 direction=vertical go_back=1 cmd='cd %:p:h && python %:t'")
@@ -114,11 +115,12 @@ end
 
 -- 运行项目
 M.fn.runProject = function()
+	vim.api.nvim_command("w")
 	local filetype = vim.bo.filetype
 	if filetype == "python" then
 		local root_path = M.fn.rootPattern("/Pipfile")
 		vim.api.nvim_command(
-			"0TermExec size=70 direction=vertical go_back=0 cmd='cd " .. root_path .. " && pipenv run dev'"
+			"0TermExec size=70 direction=vertical go_back=1 cmd='cd " .. root_path .. " && pipenv run dev'"
 		)
 	end
 end
