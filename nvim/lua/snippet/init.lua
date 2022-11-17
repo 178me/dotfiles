@@ -8,6 +8,7 @@ local langList = {
 	"markdown",
 	"typescript",
 	"typescriptreact",
+  "python"
 }
 
 -- load friendly-snippets
