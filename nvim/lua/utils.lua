@@ -81,27 +81,34 @@ M.fn.new_file = function()
 end
 
 M.fn.replace_global = function()
-  local a = vim.fn.getreg("a")
-  local b = vim.fn.getreg("b")
-  a = string.gsub(a,"/","\\/")
-  b = string.gsub(b,"/","\\/")
+	local a = vim.fn.getreg("a")
+	local b = vim.fn.getreg("b")
+	a = string.gsub(a, "/", "\\/")
+	b = string.gsub(b, "/", "\\/")
 	local command = ":%s/\\V" .. a .. "/" .. b .. "/g"
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
 end
 
 M.fn.replace = function()
-  local a = vim.fn.getreg("a")
-  local b = vim.fn.getreg("b")
-  a = string.gsub(a,"/","\\/")
-  b = string.gsub(b,"/","\\/")
+	local a = vim.fn.getreg("a")
+	local b = vim.fn.getreg("b")
+	a = string.gsub(a, "/", "\\/")
+	b = string.gsub(b, "/", "\\/")
 	local command = ":s/\\V" .. a .. "/" .. b .. "/g"
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "t", true)
+end
+
+M.fn.look_ref = function()
+  local index = string.find(vim.fn.expand("%:h"), "src")
+  local path = string.sub(vim.fn.expand("%:h"),index)
+	local command = "CtrlSF " .. string.gsub(path, "src", "@") .. "/" .. vim.fn.expand("%:t:r")
+  print(command)
+	vim.api.nvim_command(command)
 end
 
 M.fn.test = function()
- --  local a = vim.fn.getreg("a")
-	-- local command = "CtrlSF " .. a
- --  vim.api.nvim_command(command)
+	-- local command = "CtrlSF " .. string.gsub(vim.fn.expand("%:h"), "src", "@") .. "/" .. vim.fn.expand("%:t")
+	-- vim.api.nvim_command(command)
 end
 
 -- 运行代码

@@ -89,10 +89,16 @@ local nvim_mappings = {
 	["n|gp"] = rhs_opt:new("<cmd>Lspsaga preview_definition<cr>"),
 	["n x|p"] = rhs_opt:new("<Plug>(YankyPutAfter)"),
 	["n x|P"] = rhs_opt:new("<Plug>(YankyPutBefore)"),
+	-- ["n|H"] = rhs_opt:new("<C-u>"),
+	-- ["n|L"] = rhs_opt:new("<C-d>"),
 	["n|<C-2>"] = rhs_opt:new("<cmd>BufferLineGoToBuffer 2<cr>"),
+	-- ["n|gm"] = rhs_opt:new("<home>%<space><space><C-o><space><space>"),
 }
 
 local which_key_mappings = {
+	["n|<leader>f"] = rhs_opt:new_prefix("file"),
+	["n|<leader>n"] = rhs_opt:new_prefix("new"),
+	["n|<leader>u"] = rhs_opt:new_prefix("upload"),
 	["n|<leader><leader>"] = rhs_opt:new_which_key(
 		'<CMD>lua require("Comment.api").toggle.linewise.current()<CR>',
 		"comment code"
@@ -150,6 +156,7 @@ local which_key_mappings = {
 	["n|<leader>rr"] = rhs_opt:new_which_key(utils.fn.replace_global, "replace"),
 	["v|<leader>rr"] = rhs_opt:new_which_key(utils.fn.replace, "replace"),
 	["n|<leader>rf"] = rhs_opt:new_which_key(":CtrlSF <C-r>a<CR>", "CtrlSF"),
+	["v|<leader>rf"] = rhs_opt:new_which_key('"ay:CtrlSF <C-r>a<CR>', "CtrlSF"),
 	["n|<leader>rp"] = rhs_opt:new_which_key(
 		"<cmd>lua require('spectre').open_visual({select_word=true})<CR>",
 		"spectre"
@@ -160,10 +167,12 @@ local which_key_mappings = {
 	["n|<leader>pm"] = rhs_opt:new_which_key(":ZenMode<CR>", "ZenMode"),
 	["n|<leader>g"] = rhs_opt:new_prefix("git"),
 	["n|<leader>gl"] = rhs_opt:new_which_key(":LazyGit<CR>", "lazygit"),
+	["n|<leader>gf"] = rhs_opt:new_which_key(":LazyGitFilterCurrentFile<CR>", "lazygit filter file"),
 	["n|<leader>gm"] = rhs_opt:new_which_key(":Neogit<CR>", "magit"),
 	["n|<leader>gt"] = rhs_opt:new_which_key(":GitBlameToggle<CR>", "blameToggle"),
 	["n|<leader>go"] = rhs_opt:new_which_key(":GitBlameOpenCommitURL<CR>", "open comment"),
 	["n|<leader>nf"] = rhs_opt:new_which_key(utils.fn.new_file, "new file"),
+	["n|<leader>fr"] = rhs_opt:new_which_key(utils.fn.look_ref, "look ref"),
 }
 
 local load_mappings = function(map_type, mappings)
@@ -184,5 +193,5 @@ local load_mappings = function(map_type, mappings)
 	end
 end
 
-load_mappings("nvim", nvim_mappings)
 load_mappings("which_key", which_key_mappings)
+load_mappings("nvim", nvim_mappings)

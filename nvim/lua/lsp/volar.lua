@@ -1,6 +1,10 @@
 local M = {
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-	root_dir = require("utils").fn.rootPattern,
+	init_options = {
+		typescript = {
+			tsdk = "/usr/lib/node_modules/typescript/lib/",
+		},
+	},
 }
 
 return M
