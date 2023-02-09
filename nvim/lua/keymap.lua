@@ -89,10 +89,7 @@ local nvim_mappings = {
 	["n|gp"] = rhs_opt:new("<cmd>Lspsaga preview_definition<cr>"),
 	["n x|p"] = rhs_opt:new("<Plug>(YankyPutAfter)"),
 	["n x|P"] = rhs_opt:new("<Plug>(YankyPutBefore)"),
-	-- ["n|H"] = rhs_opt:new("<C-u>"),
-	-- ["n|L"] = rhs_opt:new("<C-d>"),
 	["n|<C-2>"] = rhs_opt:new("<cmd>BufferLineGoToBuffer 2<cr>"),
-	-- ["n|gm"] = rhs_opt:new("<home>%<space><space><C-o><space><space>"),
 }
 
 local which_key_mappings = {
@@ -115,8 +112,8 @@ local which_key_mappings = {
 	["n|<leader>jQ"] = rhs_opt:new_which_key("<cmd>qa!<CR>", "exit nvim"),
 	["n|<leader>jw"] = rhs_opt:new_which_key("<cmd>w!<CR>", "save"),
 	["n|<leader>jW"] = rhs_opt:new_which_key("<cmd>SudaWrite<CR>", "force save"),
-	["n|<leader>jr"] = rhs_opt:new_which_key("<cmd>RnvimrToggle<CR><Esc>", "Ranger"),
-	["n|<leader>jR"] = rhs_opt:new_which_key(":luafile $MYVIMRC<CR>", "refush config"),
+	["n|<leader>jr"] = rhs_opt:new_which_key("<cmd>RnvimrToggle<CR><Esc><Esc>", "Ranger"),
+	["n|<leader>jR"] = rhs_opt:new_which_key(":so $MYVIMRC<CR>", "refush config"),
 	["n|<leader>jt"] = rhs_opt:new_which_key("<cmd>BufferLinePick<CR>", "jump tab"),
 	["n|<leader>jb"] = rhs_opt:new_which_key('<cmd>lua require("nvim-toggler").toggle()<CR>', "toggler"),
 	["n|<leader>jc"] = rhs_opt:new_which_key(utils.fn.runCode, "run code"),

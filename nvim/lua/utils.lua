@@ -1,5 +1,23 @@
 local M = { fn = {}, var = {} }
 
+local function randomStr(len)
+	local rankStr = ""
+	local randNum = 0
+	--math.randomseed(ngx.time())  --seed的两个时间种子相差不大，生成的随机数会很可能相同（100,102 但是random 生成的第一个随机数却是一样的）
+	math.randomseed(tostring(ngx.time()):reverse():sub(1, 5)) --解决方法:把time返回的数值字串倒过来（低位变高位）,再取高位5位
+	for i = 1, len do
+		if math.random(1, 3) == 1 then
+			randNum = string.char(math.random(0, 25) + 65) --生成大写字母 random(0,25)生成0=< <=25的整数
+		elseif math.random(1, 3) == 2 then
+			randNum = string.char(math.random(0, 25) + 97) --生成小写字母
+		else
+			randNum = math.random(0, 9) --生成0=< and <=9的随机数字
+		end
+		rankStr = rankStr .. randNum
+	end
+	return rankStr
+end
+
 -- find project root
 local getPrevLevelPath = function(currentPath)
 	local tmp = string.reverse(currentPath)
@@ -99,10 +117,10 @@ M.fn.replace = function()
 end
 
 M.fn.look_ref = function()
-  local index = string.find(vim.fn.expand("%:h"), "src")
-  local path = string.sub(vim.fn.expand("%:h"),index)
+	local index = string.find(vim.fn.expand("%:h"), "src")
+	local path = string.sub(vim.fn.expand("%:h"), index)
 	local command = "CtrlSF " .. string.gsub(path, "src", "@") .. "/" .. vim.fn.expand("%:t:r")
-  print(command)
+	print(command)
 	vim.api.nvim_command(command)
 end
 

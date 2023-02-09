@@ -22,10 +22,13 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
 local M = {
-	s("info", {
+	s("ppr", {
 		t({ "log.info(" }),
 		i(1),
 		t({ ")" }),
+	}),
+	s("ttt", {
+		t({ 'assert False,"测试"' }),
 	}),
 }
 
