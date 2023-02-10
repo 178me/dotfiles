@@ -22,40 +22,20 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
 local M = {
-	s("setup", {
-		t({ [[<script setup lang="ts">]], "\t" }),
+	s("=-", {
+		t({ [[() => {]], "\t" }),
 		i(1),
-		t({ "", "</script>" }),
-	}),
-	s("template", {
-		t({ "<template>", "\t" }),
-		i(1),
-		t({ "", "</template>" }),
-	}),
-	s("scss", {
-		t({ [[<style lang="scss" scoped>]], "\t" .. [[@import url("]] }),
-		i(1),
-		t({ [[")]], "</style>" }),
-	}),
-	s("style-scoped", {
-		t({ "<style scoped>" }),
-		i(1),
-		t({ "", "</style>" }),
-	}),
-	s("style-module", {
-		t({ "<style module>" }),
-		i(1),
-		t({ "", "</style>" }),
+		t({ "", "}" }),
 	}),
 	s("ppr", {
 		t({ [[console.info("178me-debug:",]] }),
 		i(1),
 		t({ [[)]] }),
 	}),
-	s("=-", {
-		t({ [[() => {]], "\t" }),
+	s("/./", {
+		t({ [[{/* ]] }),
 		i(1),
-		t({ "", "}" }),
+		t({ [[ */}]] }),
 	}),
 }
 

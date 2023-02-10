@@ -106,6 +106,14 @@ M.fn.look_ref = function()
 	vim.api.nvim_command(command)
 end
 
+M.fn.look_str = function()
+	local a = vim.fn.getreg("a")
+	a = string.gsub(a, " ", "\\ ")
+	local command = "CtrlSF " .. a
+  print(command)
+	vim.api.nvim_command(command)
+end
+
 M.fn.test = function()
 	-- local command = "CtrlSF " .. string.gsub(vim.fn.expand("%:h"), "src", "@") .. "/" .. vim.fn.expand("%:t")
 	-- vim.api.nvim_command(command)

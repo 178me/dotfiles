@@ -119,7 +119,7 @@ alias gm='git checkout master'
 alias mymc='cd ~/MC/client;sh ~/MC/start.sh'
 alias pc='export https_proxy="127.0.0.1:12333";export http_proxy="127.0.0.1:12333"'
 alias dpc='unset https_proxy http_proxy;export -p'
-alias p='proxychains'
+alias p='proxy-ns'
 alias de='cd ~/.emacs.d;emacs --batch -q -l /home/yzl178me/.emacs.d/dump.el'
 alias deg='emacs --dump-file ~/.emacs.d/emacs.pdmp'
 alias pylupdate5='/home/yzl178me/.local/bin/pylupdate5'
@@ -139,5 +139,9 @@ alias ppei="pipenv install"
 alias pper="pipenv run"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
+export ANDROID_HOME=/home/yzl178me/Android/Sdk
+export ANDROID_SDK_ROOT=/home/yzl178me/Android/Sdk
 export PATH=/home/yzl178me/.local/bin:$PATH
+export PATH=/home/yzl178me/go/bin:$PATH
+export PATH=/home/yzl178me/Android/Sdk/cmdline-tools/bin:$PATH
 xset r rate 200 70
