@@ -15,6 +15,7 @@ local lspList = {
 	"clangd",
 	"taplo",
 	"verible",
+	"unocss",
 	"tailwindcss",
 	"pyright",
 	-- "jedi_language_server",
@@ -34,7 +35,10 @@ local capabilities = utils.fn.require("cmp_nvim_lsp").default_capabilities(vim.l
 
 -- load all lsp config
 for _, value in pairs(lspList) do
-	local config = utils.fn.require("lsp/" .. value)
+	local config = utils.fn.require("lsp/" .. value, false)
+	if type(config) == "string" then
+		config = {}
+	end
 
 	-- set on_attach
 	if config.on_attach == nil then

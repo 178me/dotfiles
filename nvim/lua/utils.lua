@@ -39,9 +39,9 @@ M.fn.loadConfig = function(configs)
 end
 
 -- `require` with error handling
-M.fn.require = function(package_name)
+M.fn.require = function(package_name,print_error)
 	local status, package = pcall(require, package_name)
-	if not status then
+	if print_error and not status then
 		print("Error: package " .. package_name .. " not found")
 	end
 	return package
@@ -99,10 +99,10 @@ M.fn.replace = function()
 end
 
 M.fn.look_ref = function()
-  local index = string.find(vim.fn.expand("%:h"), "src")
-  local path = string.sub(vim.fn.expand("%:h"),index)
+	local index = string.find(vim.fn.expand("%:h"), "src")
+	local path = string.sub(vim.fn.expand("%:h"), index)
 	local command = "CtrlSF " .. string.gsub(path, "src", "@") .. "/" .. vim.fn.expand("%:t:r")
-  print(command)
+	print(command)
 	vim.api.nvim_command(command)
 end
 
@@ -110,7 +110,7 @@ M.fn.look_str = function()
 	local a = vim.fn.getreg("a")
 	a = string.gsub(a, " ", "\\ ")
 	local command = "CtrlSF " .. a
-  print(command)
+	print(command)
 	vim.api.nvim_command(command)
 end
 
@@ -159,7 +159,7 @@ end
 
 M.fn.split = function(str, reps)
 	local resultStrList = {}
-	string.gsub(str, "[^" .. reps .. "]+", function(w)
+	local _ = string.gsub(str, "[^" .. reps .. "]+", function(w)
 		table.insert(resultStrList, w)
 	end)
 	return resultStrList

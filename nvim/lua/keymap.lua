@@ -85,8 +85,6 @@ local nvim_mappings = {
 	["n|gp"] = rhs_opt:new("<cmd>Lspsaga preview_definition<cr>"),
 	["n x|p"] = rhs_opt:new("<Plug>(YankyPutAfter)"),
 	["n x|P"] = rhs_opt:new("<Plug>(YankyPutBefore)"),
-	-- ["n|H"] = rhs_opt:new("<C-u>"),
-	-- ["n|L"] = rhs_opt:new("<C-d>"),
 	["n|<C-2>"] = rhs_opt:new("<cmd>BufferLineGoToBuffer 2<cr>"),
 	["n|<Esc>"] = rhs_opt:new("<cmd>nohlsearch<cr>"),
 }
@@ -128,6 +126,7 @@ local which_key_mappings = {
 	["n|<leader>la"] = rhs_opt:new_which_key("<cmd>Lspsaga code_action<CR>", "code action"),
 	["x|<leader>la"] = rhs_opt:new_which_key("<cmd>Lspsaga range_code_action<CR>", "code action"),
 	["n|<leader>ls"] = rhs_opt:new_which_key("<cmd>Lspsaga signature<CR>", "signature help"),
+	["n|<leader>li"] = rhs_opt:new_which_key("<cmd>LspInfo<CR>", "LspInfo"),
 	["n|<leader>lud"] = rhs_opt:new_which_key("<cmd>lua vim.diagnostic.disable()<CR>", "disable diagnostics"),
 	["n|<leader>lue"] = rhs_opt:new_which_key("<cmd>lua vim.diagnostic.enable()<CR>", "enable diagnostics"),
 	["n|<leader>ld"] = rhs_opt:new_which_key("<cmd>Lspsaga show_line_diagnostics<CR>", "show diagnostics"),

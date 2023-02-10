@@ -2,7 +2,7 @@ local M = {
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
 	init_options = {
 		typescript = {
-			tsdk = "/usr/lib/node_modules/typescript/lib/",
+			tsdk = "/home/yzl178me/.asdf/installs/nodejs/19.0.1/.npm/lib/node_modules/typescript/lib",
 		},
 	},
 }

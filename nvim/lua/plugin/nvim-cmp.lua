@@ -79,7 +79,7 @@ cmp.setup({
 			if cmp.visible() then
 				cmp.select_prev_item()
 			elseif require("neogen").jumpable() then
-        require('neogen').jump_prev()
+				require("neogen").jump_prev()
 			elseif luasnip.jumpable(-1) then
 				luasnip.jump(-1)
 			else
