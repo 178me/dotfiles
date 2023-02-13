@@ -1,8 +1,8 @@
 local utils = require("utils")
 
 local lspList = {
-	-- "cssls",
-	-- "volar",
+	"cssls",
+	"volar",
 	"sumneko_lua",
 	"gopls",
 	"bashls",
