@@ -190,11 +190,6 @@ _G.packer_plugins = {
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/neogen",
     url = "https://github.com/danymat/neogen"
   },
-  neogit = {
-    loaded = true,
-    path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/neogit",
-    url = "https://github.com/TimUntersberger/neogit"
-  },
   ["neoscroll.nvim"] = {
     loaded = true,
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
@@ -234,11 +229,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
-  },
-  ["nvim-spectre"] = {
-    loaded = true,
-    path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/nvim-spectre",
-    url = "https://github.com/windwp/nvim-spectre"
   },
   ["nvim-surround"] = {
     loaded = true,
@@ -304,11 +294,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/suda.vim",
     url = "https://github.com/lambdalisue/suda.vim"
-  },
-  ["symbols-outline.nvim"] = {
-    loaded = true,
-    path = "/home/yzl178me/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
-    url = "https://github.com/simrat39/symbols-outline.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,

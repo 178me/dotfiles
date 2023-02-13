@@ -3,7 +3,7 @@ local utils = require("utils")
 local lspList = {
 	"cssls",
 	"volar",
-	"sumneko_lua",
+	"lua_ls",
 	"gopls",
 	"bashls",
 	"cssmodules_ls",
@@ -17,6 +17,7 @@ local lspList = {
 	"verible",
 	"tailwindcss",
 	"pyright",
+	"vimls",
 	-- "jedi_language_server",
 	-- "pylsp",
 	-- "sourcery"

@@ -22,10 +22,10 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
 local M = {
-	s("ureq", {
-		t({ [[utils.fn.require("]] }),
+	s("ppr", {
+		t({ [[print(vim.inspect(]] }),
 		i(1),
-		t({ [[")]] }),
+		t({ [[))]] }),
 	}),
 	s("utils", {
 		t({ [[local utils = require("utils")]] }),

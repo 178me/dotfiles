@@ -1,4 +1,5 @@
 local utils = require("utils")
+local tools = require("my-tools")
 local whichKeyMap = require("which-key").register
 
 vim.g.mapleader = " "
@@ -58,6 +59,27 @@ function rhs_opt:set_option(option_key, option_value)
 	return self
 end
 
+local function load_mappings(map_type, mappings)
+	for key, value in pairs(mappings) do
+		local mode, lhs = string.match(key, "([^|]*)|?(.*)")
+		if map_type == "nvim" then
+			-- utils.fn.pprint("lhs",mode,lhs)
+			-- utils.fn.pprint(string)
+			mode = utils.fn.split(mode, " ")
+			-- utils.fn.pprint("mode",mode)
+			vim.keymap.set(mode, lhs, value.rhs, value.options)
+		elseif map_type == "which_key" then
+			mode = utils.fn.split(mode, " ")
+			-- for key, value in pairs(mode) do
+			--  end
+			value.options.mode = mode
+			whichKeyMap({
+				[lhs] = { value.rhs, value.desc, name = value.name },
+			}, value.options)
+		end
+	end
+end
+
 -- 主要映射单键
 local nvim_mappings = {
 	["n|;"] = rhs_opt:new(":"),
@@ -98,35 +120,35 @@ local which_key_mappings = {
 		"comment code"
 	),
 	["v|<leader><leader>"] = rhs_opt:new_which_key("<Plug>(comment_toggle_linewise_visual)", "comment code"),
-	["n|<leader><cr>"] = rhs_opt:new_which_key("<cmd>nohlsearch<cr>", "nohlsearch"),
+	["n|<leader>cs"] = rhs_opt:new_which_key(tools.mod_pair, "modify pairs char"),
 	["v|<leader>y"] = rhs_opt:new_prefix("yank to"),
 	["v|<leader>ya"] = rhs_opt:new_which_key('"ay<Esc>', "a"),
 	["v|<leader>yb"] = rhs_opt:new_which_key('"by<Esc>', "b"),
 	["v|<leader>yy"] = rhs_opt:new_which_key('"+y<Esc>', "system clipboard"),
-	["n|<leader>t"] = rhs_opt:new_which_key(utils.fn.test, "test"),
+	["n v|<leader>t"] = rhs_opt:new_which_key(utils.fn.test, "test"),
 	["n|<leader>j"] = rhs_opt:new_prefix("quick"),
 	["n|<leader>jm"] = rhs_opt:new_which_key(":tabnew | put=execute('messages')<CR>", "debug msg"),
+
 	["n|<leader>jq"] = rhs_opt:new_which_key("<cmd>bd!<CR>", "close tab"),
 	["n|<leader>jQ"] = rhs_opt:new_which_key("<cmd>qa!<CR>", "exit nvim"),
 	["n|<leader>jw"] = rhs_opt:new_which_key("<cmd>w!<CR>", "save"),
 	["n|<leader>jW"] = rhs_opt:new_which_key("<cmd>SudaWrite<CR>", "force save"),
-	["n|<leader>jr"] = rhs_opt:new_which_key("<cmd>RnvimrToggle<CR><Esc>", "Ranger"),
+	["n|<leader>jr"] = rhs_opt:new_which_key("<cmd>RnvimrToggle<CR><Esc><Esc>", "Ranger"),
 	["n|<leader>jR"] = rhs_opt:new_which_key(":so $MYVIMRC<CR>:e %<CR>", "refush config"),
 	["n|<leader>jt"] = rhs_opt:new_which_key("<cmd>BufferLinePick<CR>", "jump tab"),
 	["n|<leader>jb"] = rhs_opt:new_which_key('<cmd>lua require("nvim-toggler").toggle()<CR>', "toggler"),
+	["n|<leader>jf"] = rhs_opt:new_which_key("<cmd>Neoformat<CR>:w<CR>", "format code"),
 	["n|<leader>jc"] = rhs_opt:new_which_key(utils.fn.runCode, "run code"),
 	["n|<leader>jp"] = rhs_opt:new_which_key(utils.fn.runProject, "run project"),
-	-- ["n|<leader>jf"] = rhs_opt:new_which_key('<cmd>lua vim.lsp.buf.formatting()<CR>:w<CR>', "format code"),
-	["n|<leader>jf"] = rhs_opt:new_which_key("<cmd>Neoformat<CR>:w<CR>", "format code"),
 	["n|<leader>kr"] = rhs_opt:new_which_key("<cmd>BufferLineCloseRight<CR>;", "close right all tab"),
 	["n|<leader>uf"] = rhs_opt:new_which_key(utils.fn.runScript, "upload file"),
 	["n|<leader>l"] = rhs_opt:new_prefix("Lsp"),
+	["n|<leader>li"] = rhs_opt:new_which_key("<cmd>LspInfo<CR>", "LspInfo"),
 	["n|<leader>lr"] = rhs_opt:new_which_key("<cmd>Lspsaga rename<CR>", "rename"),
 	["n|<leader>lf"] = rhs_opt:new_which_key("<cmd>Lspsaga lsp_finder<CR>", "finder"),
 	["n|<leader>la"] = rhs_opt:new_which_key("<cmd>Lspsaga code_action<CR>", "code action"),
 	["x|<leader>la"] = rhs_opt:new_which_key("<cmd>Lspsaga range_code_action<CR>", "code action"),
 	["n|<leader>ls"] = rhs_opt:new_which_key("<cmd>Lspsaga signature<CR>", "signature help"),
-	["n|<leader>li"] = rhs_opt:new_which_key("<cmd>LspInfo<CR>", "LspInfo"),
 	["n|<leader>lud"] = rhs_opt:new_which_key("<cmd>lua vim.diagnostic.disable()<CR>", "disable diagnostics"),
 	["n|<leader>lue"] = rhs_opt:new_which_key("<cmd>lua vim.diagnostic.enable()<CR>", "enable diagnostics"),
 	["n|<leader>ld"] = rhs_opt:new_which_key("<cmd>Lspsaga show_line_diagnostics<CR>", "show diagnostics"),
@@ -152,7 +174,7 @@ local which_key_mappings = {
 	["n|<leader>r"] = rhs_opt:new_prefix("replace"),
 	["n|<leader>rr"] = rhs_opt:new_which_key(utils.fn.replace_global, "replace"),
 	["v|<leader>rr"] = rhs_opt:new_which_key(utils.fn.replace, "replace"),
-	["n|<leader>rf"] = rhs_opt:new_which_key(utils.fn.look_str, "CtrlSF"),
+	["n|<leader>rf"] = rhs_opt:new_which_key(":CtrlSF <C-r>a<CR>", "CtrlSF"),
 	["v|<leader>rf"] = rhs_opt:new_which_key('"ay:CtrlSF <C-r>a<CR>', "CtrlSF"),
 	["n|<leader>rp"] = rhs_opt:new_which_key(
 		"<cmd>lua require('spectre').open_visual({select_word=true})<CR>",
@@ -170,25 +192,9 @@ local which_key_mappings = {
 	["n|<leader>go"] = rhs_opt:new_which_key(":GitBlameOpenCommitURL<CR>", "open comment"),
 	["n|<leader>nf"] = rhs_opt:new_which_key(utils.fn.new_file, "new file"),
 	["n|<leader>fr"] = rhs_opt:new_which_key(utils.fn.look_ref, "look ref"),
+	["n|<leader>s"] = rhs_opt:new_prefix("search"),
+	["n v|<leader>ss"] = rhs_opt:new_which_key(tools.network_search, "look ref"),
 }
-
-local load_mappings = function(map_type, mappings)
-	for key, value in pairs(mappings) do
-		local mode, lhs = string.match(key, "([^|]*)|?(.*)")
-		if map_type == "nvim" then
-			-- utils.fn.pprint("lhs",mode,lhs)
-			-- utils.fn.pprint(string)
-			mode = utils.fn.split(mode, " ")
-			-- utils.fn.pprint("mode",mode)
-			vim.keymap.set(mode, lhs, value.rhs, value.options)
-		elseif map_type == "which_key" then
-			value.options.mode = mode
-			whichKeyMap({
-				[lhs] = { value.rhs, value.desc, name = value.name },
-			}, value.options)
-		end
-	end
-end
 
 load_mappings("which_key", which_key_mappings)
 load_mappings("nvim", nvim_mappings)
