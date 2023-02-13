@@ -14,7 +14,6 @@ local function reload()
 	end
 end
 reload()
-
 -- nvim变量配置
 require("basic")
 -- 插件加载

@@ -169,9 +169,8 @@ require("packer").startup({
 			-- project manager (basically configured)
 			{ "ahmedkhalf/project.nvim", config = utils.fn.loadConfig({ "plugin/project" }) },
 		})
+
 		--------------------------- lsp --------------------------
-		-- tagbar 显示函数和变量 (base)
-		use({ "simrat39/symbols-outline.nvim", config = utils.fn.loadConfig({ "plugin/symbols-outline" }) })
 		-- lsp lsp配置
 		use({
 			{
@@ -200,17 +199,11 @@ require("packer").startup({
 			-- tag = "*"
 		})
 		------------------------------------------------ git管理----------------------------------------------------
-		use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" })
 		use({ "kdheepak/lazygit.nvim", requires = "nvim-lua/plenary.nvim" })
 		-- 查看Git文件更改历史信息
 		use({ "f-person/git-blame.nvim", config = utils.fn.loadConfig({ "plugin/git-blame" }) })
 		------------------------------------------debug----------------------------------------------------------------------
-		-- replace
-		use({
-			"windwp/nvim-spectre",
-			requires = "nvim-lua/plenary.nvim",
-			config = utils.fn.loadConfig({ "plugin/nvim-spectre" }),
-		})
+		-- 预览MarkDown
 		use({ "ellisonleao/glow.nvim" })
 	end,
 })

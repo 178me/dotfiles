@@ -1,5 +1,16 @@
 local M = { fn = {}, var = {} }
 
+M.fn.test = function()
+	package.loaded["utils"] = nil
+	package.loaded["window.components"] = nil
+	print(vim.inspect(vim.fn.mode()))
+	-- print(vim.inspect(get_visual()))
+	-- require("window.components").input(function(text)
+	-- 	print(a, text)
+	-- 	-- vim.fn.jobstart({ "xdg-open", string.format("https://google.com/search?q=%s", text) }, { detach = true })
+	-- end)
+end
+
 -- find project root
 local getPrevLevelPath = function(currentPath)
 	local tmp = string.reverse(currentPath)
@@ -114,13 +125,9 @@ M.fn.look_str = function()
 	vim.api.nvim_command(command)
 end
 
-M.fn.test = function()
-	-- local command = "CtrlSF " .. string.gsub(vim.fn.expand("%:h"), "src", "@") .. "/" .. vim.fn.expand("%:t")
-	-- vim.api.nvim_command(command)
-end
-
 -- 运行代码
 M.fn.runCode = function()
+	vim.api.nvim_command("w")
 	local filetype = vim.bo.filetype
 	if filetype == "python" then
 		vim.api.nvim_command("0TermExec size=70 direction=vertical go_back=1 cmd='cd %:p:h && python %:t'")
@@ -129,11 +136,12 @@ end
 
 -- 运行项目
 M.fn.runProject = function()
+	vim.api.nvim_command("w")
 	local filetype = vim.bo.filetype
 	if filetype == "python" then
 		local root_path = M.fn.rootPattern("/Pipfile")
 		vim.api.nvim_command(
-			"0TermExec size=70 direction=vertical go_back=0 cmd='cd " .. root_path .. " && pipenv run dev'"
+			"0TermExec size=70 direction=vertical go_back=1 cmd='cd " .. root_path .. " && pipenv run dev'"
 		)
 	end
 end
@@ -163,6 +171,13 @@ M.fn.split = function(str, reps)
 		table.insert(resultStrList, w)
 	end)
 	return resultStrList
+end
+
+M.get_visual_text = function()
+	local _, ls, cs = unpack(vim.fn.getpos("v"))
+	local _, le, ce = unpack(vim.fn.getpos("."))
+	local l1, c1, l2, c2 = math.min(ls, le), math.min(cs, ce), math.max(ls, le), math.max(cs, ce)
+	return table.concat(vim.api.nvim_buf_get_text(0, l1 - 1, c1 - 1, l2 - 1, c2, {}))
 end
 
 return M
