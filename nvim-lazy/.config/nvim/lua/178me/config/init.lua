@@ -34,7 +34,7 @@ local function setup()
   })
   require("178me.config.options")
   -- 加载vim脚本映射
-  local vim_script_file = os.getenv("HOME") .. "/.config/nvim.lazy/lua/178me/config/keymap.vim"
+  local vim_script_file = os.getenv("HOME") .. "/.config/nvim/lua/178me/config/keymap.vim"
   local f = io.open(vim_script_file, "r")
   if f ~= nil then
     local script_content = f:read("*all")
