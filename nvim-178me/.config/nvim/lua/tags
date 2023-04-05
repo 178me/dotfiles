@@ -1,0 +1,55 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/yzl178me/.config/nvim/lua/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210905.0/
+M.fn.loadConfig	utils.lua	/^M.fn.loadConfig = function(configs)$/;"	f
+M.fn.mergeTable	utils.lua	/^M.fn.mergeTable = function(table1, table2, override)$/;"	f
+M.fn.require	utils.lua	/^M.fn.require = function(package_name)$/;"	f
+M.fn.rootPattern	utils.lua	/^M.fn.rootPattern = function(pattern)$/;"	f
+M:complete	source/go.lua	/^function M:complete(_, callback)$/;"	f
+M:complete	source/lua.lua	/^function M:complete(_, callback)$/;"	f
+M:complete	source/vue.lua	/^function M:complete(_, callback)$/;"	f
+["<S-Tab>"]	plugin/nvim-cmp.lua	/^		["<S-Tab>"] = cmp.mapping(function(fallback)$/;"	f
+["<Tab>"]	plugin/nvim-cmp.lua	/^		["<Tab>"] = cmp.mapping(function(fallback)$/;"	f
+["af"]	plugin/nvim-treesitter.lua	/^				["af"] = "@function.outer",$/;"	f
+["eslint/noLibrary"]	lsp/eslint.lua	/^		["eslint\/noLibrary"] = function()$/;"	f
+["if"]	plugin/nvim-treesitter.lua	/^				["if"] = "@function.inner",$/;"	f
+["method-name"]	plugin/nvim-gps.lua	/^		["method-name"] = " ", -- Methods (functions inside class-like objects)$/;"	f
+callback	basic.lua	/^	callback = function()$/;"	f
+callback	plugin/nvim-colorizer.lua	/^	callback = function()$/;"	f
+cd_dot_cb	plugin/nvim-tree.lua	/^local cd_dot_cb = function(node)$/;"	f
+config.on_attach	lsp/init.lua	/^		config.on_attach = function(client, bufnr)$/;"	f
+css_fn	plugin/nvim-colorizer.lua	/^	css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn$/;"	f
+custom_filter	plugin/bufferline.lua	/^		custom_filter = function(buf_number, _)$/;"	f
+dap.adapters.go	dap/dlv.lua	/^dap.adapters.go = function(callback, _)$/;"	f
+dap.listeners.after.event_initialized["dapui_config"]	plugin/nvim-dap.lua	/^dap.listeners.after.event_initialized["dapui_config"] = function()$/;"	f
+dap.listeners.before.event_exited["dapui_config"]	plugin/nvim-dap.lua	/^dap.listeners.before.event_exited["dapui_config"] = function()$/;"	f
+dap.listeners.before.event_terminated["dapui_config"]	plugin/nvim-dap.lua	/^dap.listeners.before.event_terminated["dapui_config"] = function()$/;"	f
+diagnostics_indicator	plugin/bufferline.lua	/^		diagnostics_indicator = function(_, _, diagnostics_dict, _)$/;"	f
+expand	plugin/nvim-cmp.lua	/^		expand = function(args)$/;"	f
+expand	source/init.lua	/^			expand = function(args)$/;"	f
+f	snippet/go.lua	/^local f = ls.function_node$/;"	f
+f	snippet/lua.lua	/^local f = ls.function_node$/;"	f
+f	snippet/markdown.lua	/^local f = ls.function_node$/;"	f
+f	snippet/vue.lua	/^local f = ls.function_node$/;"	f
+formatting_callback	plugin/null-ls.lua	/^local formatting_callback = function(client, bufnr)$/;"	f
+ft_func	plugin/luasnip.lua	/^	ft_func = function()$/;"	f
+getPrevLevelPath	utils.lua	/^local getPrevLevelPath = function(currentPath)$/;"	f
+has_words_before	plugin/nvim-cmp.lua	/^local has_words_before = function()$/;"	f
+hsl_fn	plugin/nvim-colorizer.lua	/^	hsl_fn = true, -- CSS hsl() and hsla() functions$/;"	f
+map	plugin/gitsigns.lua	/^		local function map(mode, l, r, opts)$/;"	f
+modify_capabilities	lsp/clangd.lua	/^	modify_capabilities = function(capabilities)$/;"	f
+modify_capabilities	lsp/cssls.lua	/^	modify_capabilities = function(capabilities)$/;"	f
+modify_capabilities	lsp/html.lua	/^	modify_capabilities = function(capabilities)$/;"	f
+modify_capabilities	lsp/jsonls.lua	/^	modify_capabilities = function(capabilities)$/;"	f
+on_attach	lsp/init.lua	/^local on_attach = function(client, _)$/;"	f
+on_attach	plugin/gitsigns.lua	/^	on_attach = function(bufnr)$/;"	f
+pid_or_err	dap/dlv.lua	/^    handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)$/;"	f
+rgb_fn	plugin/nvim-colorizer.lua	/^	rgb_fn = true, -- CSS rgb() and rgba() functions$/;"	f

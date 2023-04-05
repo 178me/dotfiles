@@ -1,0 +1,7 @@
+[user]
+	email = 1403341393@qq.com
+	name = yzl178me
+[https]
+	proxy = 127.0.0.1:12333
+[http]
+	proxy = 127.0.0.1:12333
