@@ -96,45 +96,36 @@ export EDITOR='nvim'
 #
 # Example aliases
 # alias
-alias sys='systemctl'
 alias c='clear'
 alias v='nvim'
 alias Rr='shutdown -r now'
 alias r='ranger'
 alias off='shutdown now'
-alias vrc='nvim ~/.vimrc'
-alias vnrc='nvim ~/.config/nvim/init.lua'
 alias vi3='nvim ~/.config/i3/config'
-alias vzsh='nvim ~/.zshrc'
-alias vpo='nvim ~/.config/polybar/config'
-alias cdmd='cd ~/Blog/source/_posts'
 alias aa='sudo pacman -S'
 alias as='pacman -Ss'
 alias au='sudo pacman -Syyu'
 alias ar='sudo pacman -R'
 alias ys='yay -Ss'
 alias zj='neofetch'
-alias gs='git status'
-alias gm='git checkout master'
-alias mymc='cd ~/MC/client;sh ~/MC/start.sh'
 alias pc='export https_proxy="127.0.0.1:12333";export http_proxy="127.0.0.1:12333"'
 alias dpc='unset https_proxy http_proxy;export -p'
-alias p='proxychains'
-alias de='cd ~/.emacs.d;emacs --batch -q -l /home/yzl178me/.emacs.d/dump.el'
-alias deg='emacs --dump-file ~/.emacs.d/emacs.pdmp'
 alias pylupdate5='/home/yzl178me/.local/bin/pylupdate5'
 alias pyrcc5='/home/yzl178me/.local/bin/pyrcc5'
 alias pyuic5='/home/yzl178me/.local/bin/pyuic5'
 alias ax="aria2c -x16"
-alias ae="aria2c -x16 -enable-rpc "
-alias myautotools="cd /home/yzl178me/test/python/python项目和工具/linux自动化操作录制"
+alias ae="aria2c -x16 -enable-rpc"
 alias lzc="lzc-cli"
+alias lzcD="lzc-cli project devshell --log debug -r"
+alias lzcB="lzc-cli project build -f"
+alias lzcP="lzc-cli appstore publish"
 alias lg="lazygit"
-alias rlll="python /home/yzl178me/Myfile/r-lzc.py"
 alias llu="python /home/yzl178me/Myfile/update_all.py"
-alias ppei="pipenv install"
-alias pper="pipenv run"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
+export ANDROID_HOME=/home/yzl178me/Android/Sdk
+export ANDROID_SDK_ROOT=/home/yzl178me/Android/Sdk
 export PATH=/home/yzl178me/.local/bin:$PATH
-xset r rate 200 60
+export PATH=/home/yzl178me/go/bin:$PATH
+export PATH=/home/yzl178me/Android/Sdk/cmdline-tools/bin:$PATH
+xset r rate 200 65
