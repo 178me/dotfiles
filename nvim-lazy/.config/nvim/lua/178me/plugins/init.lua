@@ -84,40 +84,10 @@ local plugins = {
     end,
   },
   {
-    "nvim-neorg/neorg",
-    lazy = false,
-    build = ":Neorg sync-parsers",
-    opts = {
-      load = {
-        ["core.defaults"] = {}, -- Loads default behaviour
-        ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-        ["core.norg.completion"] = {
-          config = {
-            engine = "nvim-cmp",
-          },
-        }, -- Adds pretty icons to your documents
-        ["core.norg.dirman"] = { -- Manages Neorg workspaces
-          config = {
-            workspaces = {
-              notes = "~/notes",
-            },
-          },
-        },
-      },
-    },
-    dependencies = { { "nvim-lua/plenary.nvim" } },
-  },
-  {
     "shellRaining/hlchunk.nvim",
     event = "BufReadPost",
     config = function()
       require("hlchunk").setup({
-        indent = {
-          enable = false,
-          style = {
-            "#8B00FF",
-          },
-        },
         blank = { enable = false },
       })
     end,
