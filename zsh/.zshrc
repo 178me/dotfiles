@@ -119,8 +119,13 @@ alias lzc="lzc-cli"
 alias lzcD="lzc-cli project devshell --log debug -r"
 alias lzcB="lzc-cli project build -f"
 alias lzcP="lzc-cli appstore publish"
+alias lzcS="cd /home/yzl178me/Github/home-cloud/OS ; ./box.sh ssh 178me"
 alias lg="lazygit"
 alias llu="python /home/yzl178me/Myfile/update_all.py"
+alias vme="python /home/yzl178me/temp/move_nvim.py 178me ;nvim"
+alias vla="python /home/yzl178me/temp/move_nvim.py lazy ;nvim"
+alias vdy="python /home/yzl178me/temp/move_nvim.py diy ;nvim"
+alias adbbb="python /home/yzl178me/Myfile/dotfiles/script/adb_connect.py"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export ANDROID_HOME=/home/yzl178me/Android/Sdk
