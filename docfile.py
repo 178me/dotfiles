@@ -18,8 +18,8 @@ profile_list = {
 }
 
 stow_list = [
-    "vim", "zsh", "i3", "ranger", "alacritty", "git", "nvim-178me", "python",
-    "ssh", "x11", "picom"
+    "vim", "zsh", "i3", "ranger", "alacritty", "git", "python", "ssh", "x11",
+    "picom"
 ]
 stow_sys_list = {"pacman": "-t /etc"}
 
@@ -46,8 +46,9 @@ def origin_to_local():
 
 
 def show_stow_list():
-    now_config_list = os.listdir()
-    for k in now_config_list:
+    for k in stow_list:
+        print(f'"{k}"', end=",")
+    for k in stow_sys_list:
         print(f'"{k}"', end=",")
 
 
