@@ -21,7 +21,7 @@ stow_list = [
     "vim", "zsh", "i3", "ranger", "alacritty", "git", "python", "ssh", "x11",
     "picom"
 ]
-stow_sys_list = {"pacman": "-t /etc"}
+stow_sys_list = {"pacman": "-t /etc", "udev": "-t /etc"}
 
 
 def local_to_origin():

@@ -1,0 +1,13 @@
+evdev:input:b0003v*
+ KEYBOARD_KEY_700e3=leftalt
+ KEYBOARD_KEY_700e2=leftmeta
+ KEYBOARD_KEY_700e0=esc
+ KEYBOARD_KEY_70029=esc
+ KEYBOARD_KEY_70039=leftctrl
+
+evdev:input:b0011v*
+ KEYBOARD_KEY_38=leftmeta
+ KEYBOARD_KEY_db=leftalt
+ KEYBOARD_KEY_3a=leftctrl
+ KEYBOARD_KEY_1d=esc
+ KEYBOARD_KEY_01=esc
