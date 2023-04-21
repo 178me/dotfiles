@@ -136,7 +136,7 @@ return {
       "nvim-neorg/neorg-telescope",
       lazy = false,
       keys = {
-        { "<leader>on", "<cmd>Telescope neorg<cr>", desc = "Command History" },
+        { "<leader>on", "<cmd>Telescope neorg<cr>", desc = "Neorg" },
       },
     },
   },

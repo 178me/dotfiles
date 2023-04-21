@@ -32,7 +32,7 @@ bindsym F10 exec sh ~/.i2c_hid.sh;$toast "触摸板模块重新加载"
 # bindsym $mod+Escape exec "i3-instant-layout --list | rofi -dmenu -i | i3-instant-layout -"
 
 # 临时程序启动器
-# bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec rofi -show drun
 # 打开终端
 bindsym $mod+Shift+Return exec alacritty
 # Bindsym $mod+Return exec echo mr | i3-instant-layout -

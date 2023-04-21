@@ -1,8 +1,6 @@
 nmap ; :
 nmap < <<
 nmap > >>
-vmap < <<
-vmap > >>
 nmap J <nop>
 nmap <silent> <Esc> :nohlsearch<cr>
 
