@@ -1,7 +1,6 @@
 local Util = require("lazyvim.util")
 
 return {
-
   -- fuzzy finder
   {
     "nvim-telescope/telescope.nvim",
@@ -100,7 +99,7 @@ return {
         ["<leader>x"] = { name = "+diagnostics/quickfix" },
         ["<leader>j"] = { name = "quick" },
         ["<leader>k"] = { name = "kill" },
-        ["<leader>n"] = { name = "new" },
+        ["<leader>n"] = { name = "Neorg" },
         ["<leader>o"] = { name = "open" },
         ["<leader>p"] = { name = "plugin" },
         ["<leader>r"] = { name = "replace" },
