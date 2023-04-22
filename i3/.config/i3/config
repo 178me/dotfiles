@@ -182,7 +182,7 @@ exec_always pkill clash;clash
 #exec_always --no-startup-id syndaemon -t -k -i 2 -d
 
 # 键鼠同步工具
-exec_always --no-startup-id pkill synergy;synergy
+# exec_always --no-startup-id pkill synergy;synergy
 # 网络管理工具
 exec_always --no-startup-id nm-applet
 # 程序启动器
