@@ -61,6 +61,15 @@ def stow_config():
     for k, v in stow_sys_list.items():
         os.system(f"sudo stow -v --adopt {v} {k}")
 
+def delete_config():
+    """ 更新本地文件 """
+    # 获取当前目录下的配置
+    input("删除stow所有应用")
+    for k in stow_list:
+        os.system(f"stow -v -D {k}")
+    for k, v in stow_sys_list.items():
+        os.system(f"sudo stow -v -D {v} {k}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -73,3 +82,5 @@ if __name__ == "__main__":
         show_stow_list()
     elif sys.argv[1] == "stow":
         stow_config()
+    elif sys.argv[1] == "delete":
+        delete_config()
