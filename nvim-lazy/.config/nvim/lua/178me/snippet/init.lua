@@ -5,6 +5,7 @@ local langList = {
   "go",
   "lua",
   "vue",
+  "python",
 }
 local vue_lang = {
   "vue",
