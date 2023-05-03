@@ -42,10 +42,11 @@ return {
       ["core.itero"] = {},
       ["core.promo"] = {},
       ["core.integrations.treesitter"] = {},
-      ["core.integrations.telescope"] = {},
+      -- ["core.integrations.telescope"] = {},
       -- 在缓冲区编写代码块
       -- ["core.looking-glass"] = {},
       -- 自动缩进处理
+      ["core.norg.esupports.hop"] = {},
       ["core.norg.esupports.indent"] = {},
       -- 元数据
       ["core.norg.esupports.metagen"] = {},
@@ -111,6 +112,7 @@ return {
                 { "<leader>n<space>", "core.norg.qol.todo_items.todo.task_cycle", desc = "todo" },
                 { "J", "core.integrations.treesitter.next.heading" },
                 { "K", "core.integrations.treesitter.previous.heading" },
+                { "gd", "core.norg.esupports.hop.hop-link" },
                 { "gj", "core.integrations.treesitter.next.link" },
                 { "gk", "core.integrations.treesitter.previous.link" },
                 { ">", "core.promo.promote", "nested" },
@@ -132,12 +134,5 @@ return {
   },
   dependencies = {
     { "nvim-lua/plenary.nvim" },
-    {
-      "nvim-neorg/neorg-telescope",
-      lazy = false,
-      keys = {
-        { "<leader>on", "<cmd>Telescope neorg<cr>", desc = "Neorg" },
-      },
-    },
   },
 }
