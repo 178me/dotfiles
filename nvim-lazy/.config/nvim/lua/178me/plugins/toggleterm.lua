@@ -1,6 +1,7 @@
 return {
   -- 浮动终端
   "akinsho/toggleterm.nvim",
+  lazy = false,
   keys = {
     { "<C-t>", "<cmd>Toggleterm<cr>", desc = "float terminal" },
   },
