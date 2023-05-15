@@ -15,6 +15,7 @@ M.leader_map = {
   ["n|<leader>lud"] = { "<cmd>lua vim.diagnostic.disable{}<CR>", { desc = "disable diagnostics" } },
   ["n|<leader>lue"] = { "<cmd>lua vim.diagnostic.enable{}<CR>", { desc = "enable diagnostics" } },
   ["n|<leader>lD"] = { tools.delete_unused_imports, { desc = "delete all unused imports" } },
+  ["n|<leader>kf"] = { tools.const_to_function, { desc = "const -> function" } },
   ["n|<leader>rr"] = { utils.fn.replace_global, { desc = "replace" } },
   ["v|<leader>rr"] = { utils.fn.replace, { desc = "replace" } },
   ["n|<leader>nf"] = { utils.fn.new_file, { desc = "new file" } },
