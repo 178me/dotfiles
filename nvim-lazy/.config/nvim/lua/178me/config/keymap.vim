@@ -24,7 +24,7 @@ vmap <C-a> ^
 imap <silent> <C-a> <C-o>^
 cmap <C-a> <home>
 nmap <C-e> <end>
-vmap <C-e> <end>
+vmap <C-e> <end><left>
 imap <silent> <C-e> <end>
 cmap <C-e> <end>
 
