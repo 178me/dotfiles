@@ -130,6 +130,7 @@ alias lzci="python ~/dotfiles/script/install_lzc_client.py"
 alias lzcp="python ~/dotfiles/script/lzc-plugin.py"
 alias gittp="git push origin \$(git describe --tags --abbrev=0)"
 alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
+alias xcopy='/usr/bin/xclip -sel clip <<<'
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export ANDROID_HOME=/home/yzl178me/Android/Sdk
