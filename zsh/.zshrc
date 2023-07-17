@@ -126,6 +126,7 @@ alias llu="python /home/yzl178me/Myfile/update_all.py"
 alias vme="python ~/dotfiles/script/switch_nvim.py 178me ;nvim"
 alias vla="python ~/dotfiles/script/switch_nvim.py lazy ;nvim"
 alias adbbb="python ~/dotfiles/script/adb_connect.py"
+alias lzci="python ~/dotfiles/script/install_lzc_client.py"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export ANDROID_HOME=/home/yzl178me/Android/Sdk
