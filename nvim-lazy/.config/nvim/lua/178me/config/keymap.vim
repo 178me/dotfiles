@@ -1,6 +1,7 @@
 nmap ; :
 nmap < <<
 nmap > >>
+nmap <silent> L :join 1<CR>
 nmap J <nop>
 nmap <silent> <Esc> :nohlsearch<cr>
 

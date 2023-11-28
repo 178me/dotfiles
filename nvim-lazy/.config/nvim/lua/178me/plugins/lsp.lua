@@ -8,6 +8,7 @@ return {
     { "gp", "<cmd>Lspsaga preview_definition<cr>", desc = "preview definition" },
     { "<leader>lr", "<cmd>Lspsaga rename<CR>", desc = "rename" },
     { "<leader>lf", "<cmd>Lspsaga lsp_finder<CR>", desc = "lsp finder" },
+    { "<leader>lF", "<cmd>Telescope lsp_references<CR>", desc = "lsp finder with Telescope" },
     { "<leader>la", "<cmd>Lspsaga code_action<CR>", desc = "code action" },
     { "<leader>ls", "<cmd>Lspsaga signature<CR>", desc = "lsp sign" },
     { "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "show diagnostic" },

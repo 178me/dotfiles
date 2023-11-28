@@ -35,7 +35,13 @@ local plugins = {
     event = "BufReadPost",
   },
   -- 输入模式自动切换输入法
-  { "alohaia/fcitx.nvim", event = "BufReadPost" },
+  {
+    "alohaia/fcitx.nvim",
+    event = "BufReadPost",
+    config = function()
+      require("fcitx")({})
+    end,
+  },
   -- 全局字符串搜索替换
   {
     "dyng/ctrlsf.vim",
