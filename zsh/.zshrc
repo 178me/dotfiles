@@ -117,7 +117,7 @@ alias pyuic5='/home/yzl178me/.local/bin/pyuic5'
 alias ax="aria2c -x16"
 alias ae="aria2c -x16 -enable-rpc"
 alias lzc="lzc-cli"
-alias lzcD="lzc-cli project devshell --log debug -r"
+alias lzcD="lzc-cli project devshell --log debug"
 alias lzcB="lzc-cli project build -f"
 alias lzcP="lzc-cli appstore publish"
 alias lzcS="ssh root@188me.heiyu.space"
@@ -127,6 +127,9 @@ alias vme="python ~/dotfiles/script/switch_nvim.py 178me ;nvim"
 alias vla="python ~/dotfiles/script/switch_nvim.py lazy ;nvim"
 alias adbbb="python ~/dotfiles/script/adb_connect.py"
 alias lzci="python ~/dotfiles/script/install_lzc_client.py"
+alias lzcp="python ~/dotfiles/script/lzc-plugin.py"
+alias gittp="git push origin \$(git describe --tags --abbrev=0)"
+alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export ANDROID_HOME=/home/yzl178me/Android/Sdk
@@ -134,4 +137,5 @@ export ANDROID_SDK_ROOT=/home/yzl178me/Android/Sdk
 export PATH=/home/yzl178me/.local/bin:$PATH
 export PATH=/home/yzl178me/go/bin:$PATH
 export PATH=/home/yzl178me/Android/Sdk/cmdline-tools/bin:$PATH
+export TestFlight_Authorization='Bearer bcbaece8b4294ef1a322df6e0460c267'
 xset r rate 200 65
