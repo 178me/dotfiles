@@ -3,11 +3,13 @@ import os
 import re
 import requests
 
+host = "http://dl.corp.linakesi.cn"
 url = "https://dl.lazycat.cloud/client/android/apk/"
 
 
 def get_latest_apk_url():
     text = requests.get(url).text
+    print(text)
     # 定义正则表达式模式
     pattern = r"v\d+\.\d+\.\d+.\d+"
 
@@ -29,11 +31,11 @@ def get_latest_apk_url():
 
 
 def get_testing_apk_url():
-    return "https://dl.lazycat.cloud/client/android/lzc-client-android.testing.apk"
+    return f"{host}/client/android/lzc-client-android.testing.apk"
 
 
 def get_stable_apk_url():
-    return "https://dl.lazycat.cloud/client/android/lzc-client-android.apk"
+    return f"{host}/client/android/lzc-client-android.apk"
 
 
 filename = "lzc-client-android-dev.apk"
@@ -48,6 +50,7 @@ if len(sys.argv) >= 2:
 else:
     apk_url = get_latest_apk_url()
 
+os.system(f"adb wait-for-device")
 os.system(f"wget {apk_url} -O {filename}")
 #
 os.system(f"adb install {filename}")
