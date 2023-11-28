@@ -96,7 +96,7 @@ bindsym $mod+p exec smplayer
 bindsym $mod+g exec java -jar ~/MC/HMCL.jar
 
 # 屏保
-bindsym Control+mod4+l exec i3lock -i ~/Pictures/waller/418515.png
+bindsym Control+mod4+l exec i3lock -i ~/Pictures/bz.png
 
 # 锁屏休眠
 bindsym Control+mod1+s exec i3lock -i ~/Pictures/waller/418515.png && systemctl suspend
