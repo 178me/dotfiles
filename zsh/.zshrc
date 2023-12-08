@@ -131,6 +131,7 @@ alias lzcp="python ~/dotfiles/script/lzc-plugin.py"
 alias gittp="git push origin \$(git describe --tags --abbrev=0)"
 alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
 alias xcopy='/usr/bin/xclip -sel clip <<<'
+alias ccli='PATH="$PYENV_ROOT/versions/3.8.17/bin:$PATH" python /home/yzl178me/Desktop/python-cloud/tools/main.py'
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export ANDROID_HOME=/home/yzl178me/Android/Sdk
@@ -139,4 +140,7 @@ export PATH=/home/yzl178me/.local/bin:$PATH
 export PATH=/home/yzl178me/go/bin:$PATH
 export PATH=/home/yzl178me/Android/Sdk/cmdline-tools/bin:$PATH
 export TestFlight_Authorization='Bearer bcbaece8b4294ef1a322df6e0460c267'
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 xset r rate 200 65

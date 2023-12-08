@@ -56,4 +56,3 @@
   "vimdoc-cn": { "branch": "master", "commit": "0bb5afe5249c561e034308686f6f022ac0df3de1" },
   "which-key.nvim": { "branch": "main", "commit": "d871f2b664afd5aed3dc1d1573bef2fb24ce0484" },
   "wildfire.vim": { "branch": "master", "commit": "b371e2b1d938ae0e164146136051de164ecb9aa5" }
-}

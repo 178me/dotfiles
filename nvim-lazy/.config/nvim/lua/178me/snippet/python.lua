@@ -23,7 +23,7 @@ local conds = require("luasnip.extras.expand_conditions")
 
 local M = {
 	s("ppr", {
-		t({ "log.info(" }),
+		t({ "logger.debug(" }),
 		i(1),
 		t({ ")" }),
 	}),
