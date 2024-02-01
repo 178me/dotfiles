@@ -70,10 +70,17 @@ def update_version(increment=2):
 
 
 def build(output: str = ""):
-    cmd = f"lzc-cli project build -f {config.lzc_build_yaml} "
-    if output:
-        cmd += f"-o {output}"
-    exec(cmd, True)
+    try:
+        if "lzc-photo" in os.getcwd():
+            exec("rm -rf ui/node_modules", True)
+            exec("cd ui && ni", True)
+        cmd = f"lzc-cli project build -f {config.lzc_build_yaml} "
+        if output:
+            cmd += f"-o {output}"
+        exec(cmd, True)
+    except:
+        exec(f"git restore {config.manifest_yaml}")
+        raise Exception("build error")
 
 
 def edit_changelog():
@@ -105,7 +112,12 @@ def check_token():
     return resp.status_code < 400
 
 
-def upload_to_testflight(groupId=2):
+def upload_to_testflight(groupId):
+    cmd = f"lzc-cli appstore pre-publish {LPK_OUTPUT} -F {config.changelog}"
+    if groupId:
+        cmd += f" -G {groupId}"
+    exec(cmd, True)
+    return
     auth = os.environ["TestFlight_Authorization"]
     assert auth, "请将testflight认证设置到环境变量TestFlight_Authorization"
     url = f"https://testflight.lazycat.cloud/api/group/{groupId}/upload"
@@ -130,6 +142,10 @@ def upload_to_testflight(groupId=2):
 
 def publish_current_version_to_store():
     print("发布到商店")
+    with open(config.changelog, "r") as f:
+        if "测试范围" in f.read():
+            print("changelog 不标准!")
+            return
     if not os.path.exists(LPK_OUTPUT):
         update_version()
         build(LPK_OUTPUT)
@@ -137,7 +153,7 @@ def publish_current_version_to_store():
     exec(f"git add {config.manifest_yaml}")
     exec(f"git add {config.changelog}")
     exec(f"git commit -m 'chore: bump version {version}'")
-    exec(f"git tag appstore-v{version}")
+    exec(f"git tag appstore-v{version} -f")
     exec(f"lzc-cli appstore publish {LPK_OUTPUT} -F {config.changelog}", True)
     pyperclip.copy(f"已发布到懒猫商店: {version}")
 
@@ -154,7 +170,7 @@ def publish_to_testflight():
     exec(f"git add {config.changelog}")
     exec(f"git commit -m 'chore: bump version {version}'")
     exec(f"git tag testflight-v{version} -f")
-    upload_to_testflight()
+    upload_to_testflight(2)
     pyperclip.copy(f"已发布到内测工具: {version}")
 
 

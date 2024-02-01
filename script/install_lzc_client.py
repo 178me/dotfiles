@@ -47,6 +47,8 @@ if len(sys.argv) >= 2:
         apk_url = get_testing_apk_url()
     elif sys.argv[1] == "stable":
         apk_url = get_stable_apk_url()
+    elif sys.argv[1] == "custom":
+        apk_url = "http://dl.corp.linakesi.cn/client/android/apk/lzc-client-android-1.0.80.apk"
 else:
     apk_url = get_latest_apk_url()
 
