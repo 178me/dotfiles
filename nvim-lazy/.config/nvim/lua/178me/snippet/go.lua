@@ -22,12 +22,11 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
 local M = {
-	s("errp", {
-		t({ "if err != nil {", "\t" .. [[fmt.Printf("err: %v\n", err)]], "}" }),
-	}),
-	s("errr", {
-		t({ "if err != nil {", "\t" .. [[return err]], "}" }),
-	}),
+  s("ppr", {
+    t({ 'fmt.Printf(">>>>>_____###################_____>>>>>\\n debug: %+v \\n", ' }),
+    i(1),
+    t({ ")" }),
+  }),
 }
 
 return M
