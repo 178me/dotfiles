@@ -167,7 +167,7 @@ exec_always --no-startup-id i3-battery-popup -L 30 -m "电量低，及时充电"
 
 #代理
 # exec_always qv2ray
-exec_always pkill clash;clash
+# exec_always pkill clash;clash
 
 # 修改键位
 # exec xmodmap ~/.Xmodmap
