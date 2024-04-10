@@ -139,31 +139,19 @@ return {
 
   -- comments
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+
+  -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
   {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
+    "numToStr/Comment.nvim",
     opts = {
-      hooks = {
-        pre = function()
-          require("ts_context_commentstring.internal").update_commentstring({})
-        end,
+      toggler = {
+        line = "<space><space>",
       },
-      mappings = {
-        comment = "<space><space>",
-        comment_line = "<space><space>",
+      opleader = {
+        line = "<space><space>",
       },
-      javascript = {
-        __default = "// %s",
-        jsx_element = "{/* %s */}",
-        jsx_fragment = "{/* %s */}",
-        jsx_attribute = "// %s",
-        comment = "// %s",
-      },
-      typescript = { __default = "// %s", __multiline = "/* %s */" },
     },
-    config = function(_, opts)
-      require("mini.comment").setup(opts)
-    end,
+    lazy = false,
   },
 
   -- better text-objects

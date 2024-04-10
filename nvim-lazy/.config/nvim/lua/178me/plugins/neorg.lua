@@ -21,7 +21,6 @@ return {
   {
     "nvim-neorg/neorg",
     lazy = false,
-    build = ":Neorg sync-parsers",
     keys = {
       { "<leader>nl", "<cmd>Neorg<CR>", desc = "list", silent = true },
       { "<leader>nk", "<cmd>Neorg keybind all<CR>", desc = "core", silent = true },
@@ -135,6 +134,11 @@ return {
     },
     dependencies = {
       { "nvim-lua/plenary.nvim" },
+      {
+        "vhyrro/luarocks.nvim",
+        priority = 1000,
+        config = true,
+      },
     },
   },
 }
