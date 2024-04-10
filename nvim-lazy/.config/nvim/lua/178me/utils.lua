@@ -150,7 +150,22 @@ M.fn.runCode = function()
   vim.api.nvim_command("w")
   local filetype = vim.bo.filetype
   if filetype == "python" then
-    vim.api.nvim_command("0TermExec size=70 direction=vertical go_back=1 cmd='cd %:p:h && python %:t'")
+    -- vim.api.nvim_command("0TermExec size=70 direction=horizontal go_back=1 cmd='cd %:p:h && python %:t'")
+    vim.api.nvim_command("0TermExec size=15 direction=horizontal go_back=1 cmd='cd %:p:h && python %:t'")
+  end
+end
+
+-- 运行测试
+M.fn.runTest = function()
+  local filetype = vim.bo.filetype
+  if filetype == "python" then
+    local root_path = M.fn.rootPattern("/Pipfile")
+    vim.api.nvim_command(
+      "0TermExec size=15 direction=horizontal go_back=1 cmd='cd " .. root_path .. " && pytest -s -m testing" .. "'"
+    )
+  end
+  if filetype == "go" then
+    vim.api.nvim_command("0TermExec size=15 direction=horizontal go_back=1 cmd='cd %:p:h && go test'")
   end
 end
 

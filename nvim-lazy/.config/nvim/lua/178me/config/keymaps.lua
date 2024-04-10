@@ -8,6 +8,7 @@ M.leader_map = {
   ["v|<leader>yb"] = { '"by<Esc>', { desc = "b" } },
   ["v|<leader>yy"] = { '"+y<Esc>', { desc = "system clipboard" } },
   ["n v|<leader>t"] = { utils.fn.test, { desc = "test" } },
+  ["n|<leader>tt"] = { utils.fn.runTest, { desc = "run test" } },
   ["n|<leader>jR"] = { ":so $MYVIMRC<CR>:e %<CR>", { desc = "refush config" } },
   ["n|<leader>jc"] = { utils.fn.runCode, { desc = "run code" } },
   ["n|<leader>jp"] = { utils.fn.runProject, { desc = "run project" } },
