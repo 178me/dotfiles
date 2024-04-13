@@ -105,12 +105,12 @@ alias vi3='nvim ~/.config/i3/config'
 alias vzsh='nvim ~/.zshrc'
 alias aa='sudo pacman -S'
 alias as='pacman -Ss'
-alias au='sudo pacman -Syyu'
+alias au='sudo pacman -S archlinux-keyring && sudo pacman -Syyu'
 alias ar='sudo pacman -R'
 alias ys='yay -Ss'
 alias zj='neofetch'
-alias pc='export https_proxy="127.0.0.1:12333";export http_proxy="127.0.0.1:12333"'
-alias dpc='unset https_proxy http_proxy;export -p'
+alias pc='export ALL_PROXY=socks5h://127.0.0.1:1081'
+alias dpc='unset ALL_PROXY;export -p'
 alias pylupdate5='/home/yzl178me/.local/bin/pylupdate5'
 alias pyrcc5='/home/yzl178me/.local/bin/pyrcc5'
 alias pyuic5='/home/yzl178me/.local/bin/pyuic5'
@@ -132,6 +132,8 @@ alias gittp="git push origin \$(git describe --tags --abbrev=0)"
 alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
 alias xcopy='/usr/bin/xclip -sel clip <<<'
 alias ccli='PATH="$PYENV_ROOT/versions/3.8.17/bin:$PATH" python /home/yzl178me/Desktop/python-cloud/tools/main.py'
+alias aaa='python /home/yzl178me/Desktop/python-cloud/project/jianzhu_train/face/main.py'
+alias resolv='sudo cp -f /home/yzl178me/dotfiles/script/resolv.conf  /etc/resolv.conf'
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export ANDROID_HOME=/home/yzl178me/Android/Sdk

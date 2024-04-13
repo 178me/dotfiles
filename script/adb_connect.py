@@ -2,7 +2,7 @@ import os
 import sys
 from time import sleep
 # 设置默认的设备IP地址和端口号
-DEFAULT_DEVICE_IP = 'Redmi-K50.lan'
+DEFAULT_DEVICE_IP = '192.168.0.101'
 DEFAULT_DEVICE_PORT = '5555'
 
 # 如果有传递命令行参数，使用命令行参数，否则使用默认值

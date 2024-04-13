@@ -275,7 +275,7 @@ assign [title="Qt Creator"] $ws4
 assign [title="Feem"] $ws5
 assign [title="Dukto"] $ws5
 assign [class="TelegramDesktop"] $ws5
-assign [title="微信"] $ws5
+assign [title="微信"] $ws2
 assign [class="electronic-wechat"] $ws5
 assign [class="netease-cloud-music"] $ws6
 assign [class="KuGou"] $ws6
@@ -336,6 +336,8 @@ for_window [title="图片查看"] floating enable
 for_window [title="RustDesk"] floating enable
 for_window [title="用户文件夹"] floating enable
 for_window [title="Dukto"] floating enable  resize set 1074 579
+for_window [title="Preview"] floating enable
+for_window [class="wechat"] floating enable
 #for_window [class="xfce4-appfinder"] floating enable
 
 # 自动切换到具有紧急窗口的工作区
