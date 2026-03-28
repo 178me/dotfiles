@@ -106,8 +106,8 @@ config.keys = {
 
 	-- 配置重载（运行同步脚本）
 	{ key = "r", mods = "CTRL|SHIFT", action = act.SpawnCommandInNewWindow({
-		args = { "bash", "-c", "sh ~/dotfiles/wezterm/sync_config.sh" },
-	}) },                                                                           -- Ctrl+Shift+R 运行同步脚本
+		args = { "bash", "-lc", "chezmoi apply" },
+	}) },                                                                           -- Ctrl+Shift+R 应用 chezmoi 配置
 }
 
 -- 为标签1-8设置快捷键：Ctrl + 数字键切换到对应标签

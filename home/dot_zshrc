@@ -147,14 +147,19 @@ alias lzcP="lzc-cli appstore publish"
 alias lzcS="ssh root@188me.heiyu.space"
 alias lg="lazygit"
 alias llu="python /home/yzl178me/Myfile/update_all.py"
-alias vme="python ~/dotfiles/script/switch_nvim.py 178me ;nvim"
-alias vla="python ~/dotfiles/script/switch_nvim.py lazy ;nvim"
-alias cfgnvim="python ~/dotfiles/script/nvim-switch.py"
-alias adbbb="python ~/dotfiles/script/adb_connect.py"
-alias lzci="python ~/dotfiles/script/install_lzc_client.py"
-alias ccm="python ~/dotfiles/script/copy_time.py"
-# alias lzcp="python ~/dotfiles/script/lzc-plugin.py"
-alias lzcp="python ~/dotfiles/script/lzc-cli2/lzc-quick.py"
+if command -v chezmoi >/dev/null 2>&1; then
+  export DOTFILES_DIR="$(chezmoi source-path)"
+else
+  export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+fi
+alias vme='python "${DOTFILES_DIR}/script/switch_nvim.py" 178me ;nvim'
+alias vla='python "${DOTFILES_DIR}/script/switch_nvim.py" lazy ;nvim'
+alias cfgnvim='python "${DOTFILES_DIR}/script/nvim-switch.py"'
+alias adbbb='python "${DOTFILES_DIR}/script/adb_connect.py"'
+alias lzci='python "${DOTFILES_DIR}/script/install_lzc_client.py"'
+alias ccm='python "${DOTFILES_DIR}/script/copy_time.py"'
+# alias lzcp='python "${DOTFILES_DIR}/script/lzc-plugin.py"'
+alias lzcp='python "${DOTFILES_DIR}/script/lzc-cli2/lzc-quick.py"'
 alias gittp="git push origin \$(git describe --tags --abbrev=0)"
 alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
 alias githash="git rev-parse --short=8 HEAD"

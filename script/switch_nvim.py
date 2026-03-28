@@ -1,17 +1,17 @@
 import sys
 import os
+from pathlib import Path
 
 home_dir = os.path.expanduser("~")
+repo_dir = Path(__file__).resolve().parent.parent
 nvim_config = ""
 nvim_root = ""
 if sys.argv[1] == "178me":
-    nvim_config = os.path.join(home_dir, "dotfiles", "nvim-178me", ".config",
-                               "nvim")
-    nvim_root = os.path.join(home_dir, "dotfiles", "nvim-root", "nvim-178me")
+    nvim_config = str(repo_dir / "home" / "dot_config" / "nvim-178me")
+    nvim_root = str(repo_dir / "nvim-root" / "nvim-178me")
 elif sys.argv[1] == "lazy":
-    nvim_config = os.path.join(home_dir, "dotfiles", "nvim-lazy", ".config",
-                               "nvim")
-    nvim_root = os.path.join(home_dir, "dotfiles", "nvim-root", "nvim-lazy")
+    nvim_config = str(repo_dir / "home" / "dot_config" / "nvim-lazy")
+    nvim_root = str(repo_dir / "nvim-root" / "nvim-lazy")
 # elif sys.argv[1] == "diy":
 #     nvim_config = "/home/yzl178me/temp/nvim_config/nvim.diy"
 #     nvim_root = "/home/yzl178me/temp/diy/nvim"

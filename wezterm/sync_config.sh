@@ -1,33 +1,31 @@
 #!/bin/bash
 
-# WezTerm 配置同步脚本
-# 使用方法：./sync_config.sh
+set -euo pipefail
 
-echo "🔄 正在同步 WezTerm 配置..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+SOURCE_FILE="$REPO_ROOT/home/dot_config/wezterm/wezterm.lua"
+TARGET_FILE="$HOME/.config/wezterm/wezterm.lua"
 
-# 检查编辑文件是否存在
-if [ ! -f "wezterm_edit.lua" ]; then
-    echo "❌ 错误：找不到 wezterm_edit.lua 文件"
-    echo "请确保您在 ~/.config/wezterm/ 目录下运行此脚本"
+echo "Syncing WezTerm config..."
+
+if [ ! -f "$SOURCE_FILE" ]; then
+    echo "Error: source file not found: $SOURCE_FILE"
     exit 1
 fi
 
-# 备份原配置文件
-if [ -f "wezterm.lua" ]; then
-    cp wezterm.lua wezterm.lua.backup
-    echo "✅ 已备份原配置文件为 wezterm.lua.backup"
+mkdir -p "$(dirname "$TARGET_FILE")"
+
+if [ -f "$TARGET_FILE" ]; then
+    cp "$TARGET_FILE" "${TARGET_FILE}.backup"
+    echo "Backup created: ${TARGET_FILE}.backup"
 fi
 
-# 复制编辑文件到配置文件
-cp wezterm_edit.lua ~/.config/wezterm/wezterm.lua
-echo "✅ 配置已同步到 wezterm.lua"
+cp "$SOURCE_FILE" "$TARGET_FILE"
+echo "Config synced: $TARGET_FILE"
 
-# 检查 WezTerm 是否正在运行
 if pgrep -x "wezterm" > /dev/null; then
-    echo "🔄 WezTerm 正在运行，配置将自动重载..."
-    echo "💡 如果配置没有立即生效，请重启 WezTerm"
+    echo "WezTerm is running. Restart if config is not reloaded."
 else
-    echo "ℹ️  WezTerm 未运行，启动时将使用新配置"
+    echo "WezTerm is not running. New config will apply on next start."
 fi
-
-echo "🎉 配置同步完成！" 
