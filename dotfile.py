@@ -14,7 +14,7 @@ profile_list = {
     "pip": f"{HOME}/.pip/pip.conf",
     "shell": f"{HOME}/.zshrc",
     "git": f"{HOME}/.gitconfig",
-    "ssh": f"{HOME}/.ssh/config",
+#    "ssh": f"{HOME}/.ssh/config",
 }
 
 stow_list = [

@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+
+import time
 import os
-os.system('sudo udevadm hwdb --update')
+time.sleep(3)
+os.system('sudo systemd-hwdb update')
 os.system('sudo udevadm trigger')

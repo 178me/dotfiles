@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
-
-import subprocess
-import pyperclip
-import json
 import re
 import os
 import sys
+import json
+import requests
+import pyperclip
+import subprocess
 from dataclasses import dataclass
 
 
@@ -53,6 +52,19 @@ CONFIG_PATH = "./lzc-project.json"
 LPK_OUTPUT = "release.lpk"
 VERSION_PATTERN = r"version:\s*([0-9]+\.[0-9]+\.[0-9]+)"
 
+group = {
+    2: "懒猫官方测试组",
+    9000: "系统调试权限组",
+    9001: "linakesi 公司内测组",
+    9002: "linakesi 公司testing 组",
+    9003: "内核测试组",
+    9009: "小E调试组",
+    9010: "Lzc AI 内测组",
+    9011: "相册新数据库",
+    9012: "向量数据库",
+    9017: "相册测试组1"
+}
+
 
 def read_config():
     with open(CONFIG_PATH, "r") as f:
@@ -79,10 +91,15 @@ def check_health():
     os.chdir(root)
 
 
-def exec(cmd: str, is_raise=False):
+def exec(cmd: str, is_raise=False, text=False):
     print(cmd)
     try:
-        subprocess.run(cmd, shell=True, check=True)
+        if text:
+            result = subprocess.run(cmd, shell=True, check=True,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        else:
+            result = subprocess.run(cmd, shell=True, check=True)
+        return result.stdout
     except:
         if is_raise:
             sys.exit(1)  # 停止程序的执行
@@ -140,7 +157,8 @@ def publish_current_version_to_store():
     exec(f"git add {config.changelog}")
     exec(f"git commit -m 'chore: appstore bump version {version}'")
     exec(f"git tag appstore-v{version} -f")
-    exec(f"lzc-cli appstore publish {LPK_OUTPUT} -F {config.changelog}", True)
+    exec(
+        f"lzc-cli appstore publish {LPK_OUTPUT} --clangs zh:{config.changelog}", True)
     pyperclip.copy(f"已发布到懒猫商店: {version}")
 
 
@@ -160,4 +178,50 @@ def publish_to_testflight(groupId):
     if groupId:
         cmd += f" -G {groupId}"
     exec(cmd, True)
-    pyperclip.copy(f"已发布到内测工具: {version}")
+    msg = "已发布到内测工具"
+    groupName = group.get(groupId, "")
+    if groupName:
+        msg += f"[{groupName}]"
+    msg += f": {version}"
+    pyperclip.copy(msg)
+
+
+def download_log(log_id):
+    try:
+        # 密码: N5JKpyiw97zhrY0U
+        url = f"https://hlogs.lazycat.cloud/api/v1/download-log/{log_id}"
+        h = {
+            "Authorization": "Basic bG5rczpONUpLcHlpdzk3emhyWTBV",
+            "Cookie": "userToken=32ad3e6d0f2e47aba2d683942b5088b0"
+        }
+        print("下载日志: ", url)
+        # 发送 GET 请求
+        response = requests.get(url, headers=h)
+        response.raise_for_status()  # 检查请求是否成功
+        # 将内容写入文件
+        path = os.path.join(os.getcwd(), f"{log_id}.zip")
+        with open(path, 'wb') as file:
+            file.write(response.content)
+        print(f"下载成功")
+        os.system(f"zsh -i -c 'x {path}'")
+        print(f"解压成功")
+        os.remove(path)
+        print(f"移除zip")
+    except requests.exceptions.RequestException as e:
+        print(f"下载失败: {e}")
+
+
+def build_install(yml_file="", box_name=None):
+    originName = None
+    if box_name:
+        boxList = exec("lzc-cli box list", text=True, is_raise=True)
+        if isinstance(boxList, str):
+            if box_name in boxList:
+                originName = exec("lzc-cli box default", text=True)
+                exec(f"lzc-cli box switch {box_name}")
+    print(yml_file)
+    exec(f"lzc-cli project build -o release.lpk -f {yml_file}", is_raise=True)
+    exec(f"lzc-cli app install release.lpk")
+    exec(f"rm release.lpk")
+    if originName:
+        exec(f"lzc-cli box switch {originName}")

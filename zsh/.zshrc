@@ -73,7 +73,7 @@ ZSH_THEME="awesomepanda"
 # 加载 complete 目前解决asdf 插件的一个bug
 autoload bashcompinit && bashcompinit
 # autoload -U +X bashcompinit && bashcompinit
-plugins=(git extract zsh-syntax-highlighting zsh-autosuggestions git-open sudo asdf autojump)
+plugins=(extract zsh-syntax-highlighting zsh-autosuggestions sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,28 +96,52 @@ export EDITOR='nvim'
 #
 # Example aliases
 # alias
+#asdf
+. "$HOME/.asdf/asdf.sh"
+function r() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd <"$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
+function lzcexif() {
+  /home/yzl178me/repo/demo/go-demo/exif_test/exif_tool -path $1
+  echo "---------------------------------------------------------"
+  node /home/yzl178me/repo/lzc/lzc-photo/exif-node/dist/exif-node.js $1
+}
+function exifdate() {
+  exiftool "$1" | grep -i -E "date|offset|zone"
+}
+
+function lzcsync-pp() {
+  cp -rf ~/repo/lzc/0p/backend ~/repo/lzc/lzc-photo
+  cp -f ~/repo/lzc/0p/frontend/src/shared/apiNew/types.ts ~/repo/lzc/lzc-photo/frontend/src/shared/apiNew/types.ts
+  cp -f ~/repo/lzc/0p/frontend/src/shared/apiNew/routes.ts ~/repo/lzc/lzc-photo/frontend/src/shared/apiNew/routes.ts
+}
+
 alias c='clear'
 alias v='nvim'
 alias Rr='shutdown -r now'
-alias r='ranger'
 alias off='shutdown now'
 alias vi3='nvim ~/.config/i3/config'
 alias vzsh='nvim ~/.zshrc'
+alias vsway='nvim ~/.config/sway/config'
 alias aa='sudo pacman -S'
 alias as='pacman -Ss'
 alias au='sudo pacman -Syyu'
 alias ar='sudo pacman -R'
 alias ys='yay -Ss'
 alias zj='neofetch'
-alias pc='export https_proxy="127.0.0.1:12333";export http_proxy="127.0.0.1:12333"'
-alias dpc='unset https_proxy http_proxy;export -p'
+alias pc='export ALL_PROXY="socks5h://127.0.0.1:1081"'
+alias dpc='unset ALL_PROXY;export -p'
 alias pylupdate5='/home/yzl178me/.local/bin/pylupdate5'
 alias pyrcc5='/home/yzl178me/.local/bin/pyrcc5'
 alias pyuic5='/home/yzl178me/.local/bin/pyuic5'
 alias ax="aria2c -x16"
 alias ae="aria2c -x16 -enable-rpc"
-alias lzc="lzc-cli"
-alias lzcD="lzc-cli project devshell --log debug"
+alias lzc="NODE_TLS_REJECT_UNAUTHORIZED=0 lzc-cli"
+alias lzcD="lzc-cli project devshell"
 alias lzcB="lzc-cli project build -f"
 alias lzcP="lzc-cli appstore publish"
 alias lzcS="ssh root@188me.heiyu.space"
@@ -125,13 +149,28 @@ alias lg="lazygit"
 alias llu="python /home/yzl178me/Myfile/update_all.py"
 alias vme="python ~/dotfiles/script/switch_nvim.py 178me ;nvim"
 alias vla="python ~/dotfiles/script/switch_nvim.py lazy ;nvim"
+alias cfgnvim="python ~/dotfiles/script/nvim-switch.py"
 alias adbbb="python ~/dotfiles/script/adb_connect.py"
 alias lzci="python ~/dotfiles/script/install_lzc_client.py"
-alias lzcp="python ~/dotfiles/script/lzc-plugin.py"
+alias ccm="python ~/dotfiles/script/copy_time.py"
+# alias lzcp="python ~/dotfiles/script/lzc-plugin.py"
+alias lzcp="python ~/dotfiles/script/lzc-cli2/lzc-quick.py"
 alias gittp="git push origin \$(git describe --tags --abbrev=0)"
 alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
+alias githash="git rev-parse --short=8 HEAD"
 alias xcopy='/usr/bin/xclip -sel clip <<<'
-alias ccli='PATH="$PYENV_ROOT/versions/3.8.17/bin:$PATH" python /home/yzl178me/Desktop/python-cloud/tools/main.py'
+alias ccli='~/.pyenv/versions/3.8.10/bin/python /home/yzl178me/repo/178me/py-project-frame/tools/main.py'
+alias sshjk="sshpass -p Utfz5gmUmCXV ssh -t root@112.124.36.15 'cd /data0/workspace/lesson-admin && exec $SHELL'"
+alias ns="proxy-ns"
+alias npmsetjs="npm config set registry https://registry.npmjs.org/"
+alias npmsetnojs="npm config set registry https://registry.npmmirror.com/"
+alias lcip="ip a | grep '192'"
+alias w1="xfreerdp /v:192.168.1.101:3389 /u:fei /p:1 /size:80% /scale:100 /cert:ignore /sec:nla:off /sec:rdp:off /sec:tls:off /sec:ext:off /gdi:hw -compression -encryption -themes -wallpaper"
+alias w2="xfreerdp /v:192.168.1.225:9389 /u:klc2u2 /p:klc2u2 /size:80% /scale:100 /cert:ignore /sec:nla:off /sec:rdp:off /sec:tls:off /sec:ext:off /gdi:hw -compression -encryption -themes -wallpaper"
+alias hmcl2="sh ~/Desktop/.appimage/HMCL-3.6.12.sh"
+# alias gp1="sudo ip route add dev enp2s0 default via 192.168.1.128"
+# alias gp1d="sudo ip route del default via 192.168.1.128 dev enp2s0"
+
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export ANDROID_HOME=/home/yzl178me/Android/Sdk
@@ -144,3 +183,21 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 xset r rate 200 65
+
+# export GTK_IM_MODULE=fcitx
+# export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export SDL_IM_MODULE=fcitx
+export LANG=zh_CN.UTF-8
+export LC_CTYPE="zh_CN.UTF-8"
+export LC_NUMERIC="zh_CN.UTF-8"
+export LC_TIME="zh_CN.UTF-8"
+export LC_COLLATE="zh_CN.UTF-8"
+export LC_MONETARY="zh_CN.UTF-8"
+export LC_MESSAGES="zh_CN.UTF-8"
+export LC_PAPER="zh_CN.UTF-8"
+export LC_NAME="zh_CN.UTF-8"
+export LC_ADDRESS="zh_CN.UTF-8"
+export LC_TELEPHONE="zh_CN.UTF-8"
+export LC_MEASUREMENT="zh_CN.UTF-8"
+export LC_IDENTIFICATION="zh_CN.UTF-8"

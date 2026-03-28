@@ -1,7 +1,6 @@
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
 
+export LC_ALL=
 export LC_ALL=zh_CN.UTF-8
 
 
@@ -18,4 +17,3 @@ export LC_ADDRESS="zh_CN.UTF-8"
 export LC_TELEPHONE="zh_CN.UTF-8"
 export LC_MEASUREMENT="zh_CN.UTF-8"
 export LC_IDENTIFICATION="zh_CN.UTF-8"
-export LC_ALL=
