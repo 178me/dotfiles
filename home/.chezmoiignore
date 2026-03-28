@@ -1,0 +1,4 @@
+# Ignore Python bytecode/cache artifacts in source state.
+**/__pycache__
+**/__pycache__/**
+**/*.pyc
