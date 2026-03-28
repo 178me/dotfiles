@@ -1,67 +1,69 @@
 # dotfiles (chezmoi)
 
-这个仓库已从 `GNU stow` 迁移到 `chezmoi`。
+个人配置仓库，使用 `chezmoi` 统一管理用户级配置（`home/`）和系统级配置（`system/`）。
 
 ## 目录说明
 
-- `home/`: chezmoi source state（`~` 下的配置都在这里）
-- `system/`: 系统级配置样例（`/etc`），默认不会由 chezmoi 应用
-- `script/`: 辅助脚本（不由 chezmoi 直接管理）
+- `home/`: 用户配置 source state（最终应用到 `~`）
+- `system/etc/`: 系统配置 source state（最终应用到 `/etc`）
+- `script/`: 常用辅助脚本（包含一键同步脚本）
+- `wezterm/`: 额外脚本与资源
 
-仓库根目录通过 `.chezmoiroot` 指向 `home/`，这样根目录的文档和脚本不会被 `chezmoi apply` 同步到家目录。
+仓库根目录通过 `.chezmoiroot` 指向 `home/`，因此根目录中的脚本和文档不会被同步到家目录。
 
-## 快速开始
+## 依赖
+
+- `chezmoi`
+- `git`
+- 同步 `system` 配置时需要 `sudo`
+
+## 一键同步
 
 ```bash
-# 首次在本机使用这个仓库
-chezmoi init --source="$HOME/dotfiles"
+# 仅同步 home（默认）
+bash script/chezmoi-sync.sh
 
-# 预览变更
-chezmoi diff
+# 仅预览变更（不写入）
+bash script/chezmoi-sync.sh --dry-run
 
-# 应用到当前用户目录
-chezmoi apply
+# 同步 home + system(/etc)
+bash script/chezmoi-sync.sh --with-system
 ```
 
-## 常用工作流
+## 常用命令
 
 ```bash
-# 编辑受管文件（推荐）
-chezmoi edit ~/.zshrc
+# 预览 home 变更
+chezmoi -S "$HOME/dotfiles" diff
 
-# 查看 source state 目录
-chezmoi cd
+# 应用 home 配置
+chezmoi -S "$HOME/dotfiles" apply
 
-# 查看本次会改动什么
-chezmoi diff
+# 编辑受管文件
+chezmoi -S "$HOME/dotfiles" edit ~/.zshrc
 
-# 应用配置
-chezmoi apply
+# 查看受管状态
+chezmoi -S "$HOME/dotfiles" status
 ```
 
-## 迁移后主要映射
+## 系统配置
 
-- `home/dot_zshrc` -> `~/.zshrc`
-- `home/dot_gitconfig` -> `~/.gitconfig`
-- `home/dot_xprofile` -> `~/.xprofile`
-- `home/dot_pip/pip.conf` -> `~/.pip/pip.conf`
-- `home/dot_ssh/private_config` -> `~/.ssh/config` (private 权限)
-- `home/dot_config/*` -> `~/.config/*`
+当前 system 受管文件：
 
-## 系统级配置
+- `system/etc/pacman.conf` -> `/etc/pacman.conf`
+- `system/etc/udev/hwdb.d/99-personal-kbd.hwdb` -> `/etc/udev/hwdb.d/99-personal-kbd.hwdb`
 
-`system/` 采用 `etc/...` 布局，可用于 root 级 chezmoi，或按需手工同步到 `/etc`：
+可单独应用：
 
 ```bash
-sudo install -Dm644 system/etc/pacman.conf /etc/pacman.conf
-sudo install -Dm644 system/etc/udev/hwdb.d/99-personal-kbd.hwdb /etc/udev/hwdb.d/99-personal-kbd.hwdb
+sudo chezmoi -S "$HOME/dotfiles/system" -D / apply
 ```
 
 ## Neovim 配置切换
 
-仓库保留了两个 profile：
+仓库保留两个 profile：
 
 - `home/dot_config/nvim-178me`
 - `home/dot_config/nvim-lazy`
 
-`script/switch_nvim.py` 已更新为新路径结构，可继续用于切换软链接。
+切换脚本：`script/switch_nvim.py`
