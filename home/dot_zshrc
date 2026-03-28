@@ -148,7 +148,15 @@ alias lzcS="ssh root@188me.heiyu.space"
 alias lg="lazygit"
 alias llu="python /home/yzl178me/Myfile/update_all.py"
 if command -v chezmoi >/dev/null 2>&1; then
-  export DOTFILES_DIR="$(chezmoi source-path)"
+  _chezmoi_source_path="$(chezmoi source-path 2>/dev/null || true)"
+  if [ -n "$_chezmoi_source_path" ] && [ -f "$_chezmoi_source_path/.chezmoiroot" ]; then
+    export DOTFILES_DIR="$_chezmoi_source_path"
+  elif [ -n "$_chezmoi_source_path" ] && [ -f "$(dirname "$_chezmoi_source_path")/.chezmoiroot" ]; then
+    export DOTFILES_DIR="$(dirname "$_chezmoi_source_path")"
+  else
+    export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+  fi
+  unset _chezmoi_source_path
 else
   export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 fi
@@ -160,6 +168,8 @@ alias lzci='python "${DOTFILES_DIR}/script/install_lzc_client.py"'
 alias ccm='python "${DOTFILES_DIR}/script/copy_time.py"'
 # alias lzcp='python "${DOTFILES_DIR}/script/lzc-plugin.py"'
 alias lzcp='python "${DOTFILES_DIR}/script/lzc-cli2/lzc-quick.py"'
+alias cmx-apply='bash "${DOTFILES_DIR}/script/chezmoi-sync.sh"'
+alias cmx-save='bash "${DOTFILES_DIR}/script/chezmoi-save.sh"'
 alias gittp="git push origin \$(git describe --tags --abbrev=0)"
 alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
 alias githash="git rev-parse --short=8 HEAD"

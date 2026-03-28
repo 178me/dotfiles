@@ -30,6 +30,33 @@ bash script/chezmoi-sync.sh --dry-run
 bash script/chezmoi-sync.sh --with-system
 ```
 
+## 无感工作流（推荐）
+
+`home/dot_zshrc` 已内置两个别名：
+
+- `cmx-apply`: 一键应用配置（等价于 `bash script/chezmoi-sync.sh`）
+- `cmx-save`: 把你在 `~` 下改过的受管文件回写到仓库，自动 `commit` 并 `push`
+
+首次拉取后执行一次：
+
+```bash
+chezmoi -S "$HOME/dotfiles" apply
+source ~/.zshrc
+```
+
+`cmx-save` 常用参数：
+
+```bash
+# 仅预览，不写入
+cmx-save --dry-run
+
+# 只提交到本地，不推送
+cmx-save --no-push
+
+# 自定义提交信息
+cmx-save -m "chore: update zsh aliases"
+```
+
 ## 常用命令
 
 ```bash
