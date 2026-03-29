@@ -34,7 +34,7 @@ endef
 
 .PHONY: init \
 	sync sync-dry-run sync-system sync-system-dry-run \
-	save save-dry-run save-local save-msg \
+	save \
 	codex-select \
 	nvim-178me nvim-lazy nvim-list nvim-switch \
 	help menu
@@ -59,20 +59,6 @@ sync-system-dry-run:
 save:
 	@$(call run_shell,$(CHEZMOI_SAVE_SCRIPT),)
 
-save-dry-run:
-	@$(call run_shell,$(CHEZMOI_SAVE_SCRIPT),--dry-run)
-
-save-local:
-	@$(call run_shell,$(CHEZMOI_SAVE_SCRIPT),--no-push)
-
-# 用法: make save-msg MSG="chore: update zsh aliases"
-save-msg:
-	@if [ -z "$(MSG)" ]; then \
-		echo "错误: 缺少 MSG 参数。示例: make save-msg MSG=\"chore: update zsh aliases\""; \
-		exit 1; \
-	fi
-	@$(call run_shell,$(CHEZMOI_SAVE_SCRIPT),--message "$(MSG)")
-
 # 2. Codex / Neovim
 codex-select:
 	@$(call run_shell,$(CODEX_PROFILE_SCRIPT),--select)
@@ -94,7 +80,7 @@ nvim-switch:
 .PHONY: $(filter-out \
 	init \
 	sync sync-dry-run sync-system sync-system-dry-run \
-	save save-dry-run save-local save-msg \
+	save \
 	codex-select \
 	nvim-178me nvim-lazy nvim-list nvim-switch \
 	help menu,$(MAKECMDGOALS))
@@ -109,10 +95,7 @@ sync                 - 同步 home 配置（chezmoi apply）
 sync-dry-run         - 仅预览 home 变更（chezmoi diff）
 sync-system          - 同步 home + system(/etc)
 sync-system-dry-run  - 仅预览 home + system 变更
-save                 - 回写 home 变更并 commit + push
-save-dry-run         - 仅预览回写结果与 git status
-save-local           - 回写并仅本地 commit（不 push）
-save-msg             - 回写并使用 MSG 作为 commit 信息
+save                 - 回写 home 变更（不 commit/push）
 
 === Codex / Neovim ===
 codex-select         - 交互选择 profile 并应用
