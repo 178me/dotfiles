@@ -1,2 +1,6 @@
 prefix_rule(pattern=["lzc-cli", "project", "devshell"], decision="allow")
 prefix_rule(pattern=["go", "test"], decision="allow")
+prefix_rule(pattern=["cp", "/home/yzl178me/dotfiles/home/dot_config/yazi/keymap.toml", "/home/yzl178me/.config/yazi/keymap.toml"], decision="allow")
+prefix_rule(pattern=["git", "-C", "/home/yzl178me/dotfiles", "add", "README.md", "makefile", "script/codex-profile.sh", "home/dot_codex/private_auth.json", "home/dot_codex/private_config.toml", "wezterm/sync_config.sh"], decision="allow")
+prefix_rule(pattern=["git", "-C", "/home/yzl178me/dotfiles", "commit", "-m", "refactor(dotfiles): simplify codex profile switching and sync flow"], decision="allow")
+prefix_rule(pattern=["git", "commit", "-m"], decision="allow")
