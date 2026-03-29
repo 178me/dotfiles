@@ -83,6 +83,7 @@ keymap = [
 	{ on = [ "r" ],         run = "rename --cursor=start --empty=stem", desc = "Rename a file or directory" },
 	{ on = [ "a" ],         run = "rename --cursor=before_ext", desc = "Rename a file or directory" },
 	{ on = [ "I" ],         run = "rename --cursor=start", desc = "Rename a file or directory" },
+	{ on = [ "C" ],         run = "shell '~/.config/yazi/scripts/pack_zip.sh %s' --block", desc = "Compress selected files to a zip archive" },
 	{ on = [ ";" ],         run = "shell --interactive",                      desc = "Run a shell command" },
 	{ on = [ ":" ],         run = "shell --block --interactive",              desc = "Run a shell command (block the UI until the command finishes)" },
 	{ on = [ "<Backspace>" ],         run = "hidden toggle",              desc = "Toggle the visibility of hidden files" },
