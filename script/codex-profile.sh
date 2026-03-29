@@ -49,27 +49,6 @@ link_required() {
   ln -sfn "$src" "$dst"
 }
 
-switch_optional_link() {
-  local target="$1"
-  local source="$2"
-
-  if [ ! -e "$source" ] && [ ! -L "$source" ]; then
-    return 0
-  fi
-
-  if [ -L "$target" ]; then
-    ln -sfn "$source" "$target"
-    return 0
-  fi
-
-  if [ ! -e "$target" ]; then
-    ln -s "$source" "$target"
-    return 0
-  fi
-
-  echo "提示: $target 已存在且不是软链，跳过切换" >&2
-}
-
 ensure_runtime_files() {
   local profile_dir="$1"
 
@@ -99,8 +78,6 @@ bootstrap_profile_from_repo() {
   link_if_missing "$dst/config.toml" "$src/private_config.toml"
   link_if_missing "$dst/auth.json" "$src/auth.json"
   link_if_missing "$dst/auth.json" "$src/private_auth.json"
-  link_if_missing "$dst/rules" "$src/rules"
-  link_if_missing "$dst/skills" "$src/skills"
 }
 
 discover_profiles() {
@@ -222,10 +199,6 @@ apply_profile() {
   # 切换后，让 ~/.codex/config.toml 与 auth.json 软链到目标 profile
   link_required "$profile_dir/config.toml" "$ROOT/config.toml"
   link_required "$profile_dir/auth.json" "$ROOT/auth.json"
-
-  # 若 profile 提供独立 skills/rules，则尝试切换软链。
-  switch_optional_link "$ROOT/skills" "$profile_dir/skills"
-  switch_optional_link "$ROOT/rules" "$profile_dir/rules"
 
   if ! set_current_profile "$profile"; then
     echo "警告: 无法持久化当前 profile 到 $ACTIVE_PROFILE_FILE" >&2

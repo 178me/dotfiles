@@ -93,12 +93,13 @@ chezmoi -S "$HOME/dotfiles" apply
 
 - `home/dot_codex/profiles/<name>/private_config.toml` -> `~/.codex/profiles/<name>/config.toml`
 - `home/dot_codex/profiles/<name>/private_auth.json` -> `~/.codex/profiles/<name>/auth.json`
-- 可选：`home/dot_codex/profiles/<name>/rules/*`
-- 可选：`home/dot_codex/profiles/<name>/skills/*`
+- `home/dot_codex/rules/*` -> `~/.codex/rules/*`（全局）
+- `home/dot_codex/skills/*` -> `~/.codex/skills/*`（全局）
 
 当前内置 profile 示例：
 
 - `openai`: `home/dot_codex/profiles/openai/*`
+- `lzc`: `home/dot_codex/profiles/lzc/*`
 
 切换方式（通过 `codex-select` 建立软链）：
 
