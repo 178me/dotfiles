@@ -2,7 +2,6 @@
 
 # 本地目录变量
 SCRIPTS_DIR := ./script
-WEZTERM_DIR := ./wezterm
 PYTHON := python3
 BASH := bash
 
@@ -12,7 +11,6 @@ CHEZMOI_SAVE_SCRIPT := $(SCRIPTS_DIR)/chezmoi-save.sh
 CODEX_PROFILE_SCRIPT := $(SCRIPTS_DIR)/codex-profile.sh
 SWITCH_NVIM_SCRIPT := $(SCRIPTS_DIR)/switch_nvim.py
 NVIM_SWITCH_SCRIPT := $(SCRIPTS_DIR)/nvim-switch.py
-WEZTERM_SYNC_SCRIPT := $(WEZTERM_DIR)/sync_config.sh
 
 # 运行辅助函数
 # $(call run_shell,script,args)
@@ -39,7 +37,6 @@ endef
 	save save-dry-run save-local save-msg \
 	codex-select \
 	nvim-178me nvim-lazy nvim-list nvim-switch \
-	wezterm-sync \
 	help menu
 
 # 0. 初始化
@@ -93,10 +90,6 @@ nvim-list:
 nvim-switch:
 	@$(call run_python,$(NVIM_SWITCH_SCRIPT),switch $(filter-out $@,$(MAKECMDGOALS)))
 
-# 3. 终端配置
-wezterm-sync:
-	@$(call run_shell,$(WEZTERM_SYNC_SCRIPT),)
-
 # 额外参数声明为伪目标，避免 make 将参数识别为文件目标
 .PHONY: $(filter-out \
 	init \
@@ -104,7 +97,6 @@ wezterm-sync:
 	save save-dry-run save-local save-msg \
 	codex-select \
 	nvim-178me nvim-lazy nvim-list nvim-switch \
-	wezterm-sync \
 	help menu,$(MAKECMDGOALS))
 
 # 命令列表定义
@@ -128,9 +120,6 @@ nvim-178me           - 切换到仓库内 nvim-178me 配置
 nvim-lazy            - 切换到仓库内 nvim-lazy 配置
 nvim-list            - 列出 ~/.config/nvim-profiles 下的 profile
 nvim-switch          - 切换到指定 nvim profile（示例: make nvim-switch work）
-
-=== 终端配置 ===
-wezterm-sync         - 同步 WezTerm 配置到 ~/.config/wezterm
 
 === 帮助 ===
 help                 - 显示所有命令

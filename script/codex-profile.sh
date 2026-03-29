@@ -5,7 +5,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_CODEX_SOURCE="$(cd "$SCRIPT_DIR/../home/dot_codex" 2>/dev/null && pwd || true)"
 ROOT="${CODEX_ROOT:-$HOME/.codex}"
 ACTIVE_PROFILE_FILE="${CODEX_PROFILE_FILE:-$ROOT/tmp/active-profile}"
-DEFAULT_PROFILE_DIR="$ROOT/profiles/default"
 
 usage() {
   cat <<'USAGE'
@@ -32,20 +31,7 @@ link_if_missing() {
   ln -s "$source" "$target"
 }
 
-copy_if_missing() {
-  local dst="$1"
-  local src="$2"
-
-  if [ -e "$dst" ] || [ -L "$dst" ]; then
-    return 0
-  fi
-  if [ ! -f "$src" ]; then
-    return 0
-  fi
-  cp -fL "$src" "$dst"
-}
-
-copy_required() {
+link_required() {
   local src="$1"
   local dst="$2"
 
@@ -54,9 +40,13 @@ copy_required() {
     exit 1
   fi
 
+  if [ -d "$dst" ]; then
+    echo "错误: 目标路径是目录，无法创建软链: $dst" >&2
+    exit 1
+  fi
+
   mkdir -p "$(dirname "$dst")"
-  cp -fL "$src" "$dst"
-  chmod 600 "$dst" 2>/dev/null || true
+  ln -sfn "$src" "$dst"
 }
 
 switch_optional_link() {
@@ -90,25 +80,6 @@ ensure_runtime_files() {
   link_if_missing "$profile_dir/auth.json" "$profile_dir/private_auth.json"
 }
 
-bootstrap_default_profile() {
-  mkdir -p "$ROOT/profiles" "$DEFAULT_PROFILE_DIR"
-
-  # 首次迁移：优先把当前 ~/.codex 的配置固化成 default profile
-  copy_if_missing "$DEFAULT_PROFILE_DIR/config.toml" "$ROOT/config.toml"
-  copy_if_missing "$DEFAULT_PROFILE_DIR/auth.json" "$ROOT/auth.json"
-
-  if [ -n "$REPO_CODEX_SOURCE" ]; then
-    link_if_missing "$DEFAULT_PROFILE_DIR/config.toml" "$REPO_CODEX_SOURCE/config.toml"
-    link_if_missing "$DEFAULT_PROFILE_DIR/config.toml" "$REPO_CODEX_SOURCE/private_config.toml"
-    link_if_missing "$DEFAULT_PROFILE_DIR/auth.json" "$REPO_CODEX_SOURCE/auth.json"
-    link_if_missing "$DEFAULT_PROFILE_DIR/auth.json" "$REPO_CODEX_SOURCE/private_auth.json"
-    link_if_missing "$DEFAULT_PROFILE_DIR/skills" "$REPO_CODEX_SOURCE/skills"
-    link_if_missing "$DEFAULT_PROFILE_DIR/rules" "$REPO_CODEX_SOURCE/rules"
-  fi
-
-  ensure_runtime_files "$DEFAULT_PROFILE_DIR"
-}
-
 bootstrap_profile_from_repo() {
   local profile="$1"
 
@@ -138,9 +109,6 @@ discover_profiles() {
   local dir
   local name
 
-  profiles+=("default")
-  seen["default"]=1
-
   if [ -d "$ROOT/profiles" ]; then
     for dir in "$ROOT"/profiles/*; do
       [ -d "$dir" ] || continue
@@ -168,10 +136,6 @@ discover_profiles() {
 
 profile_dir_hint() {
   local profile="$1"
-  if [ "$profile" = "default" ]; then
-    echo "$DEFAULT_PROFILE_DIR"
-    return
-  fi
   if [ -d "$ROOT/profiles/$profile" ]; then
     echo "$ROOT/profiles/$profile"
     return
@@ -187,15 +151,8 @@ resolve_profile_dir() {
   local profile="$1"
   local profile_dir=""
 
-  if [ "$profile" = "default" ]; then
-    bootstrap_default_profile
-    profile_dir="$DEFAULT_PROFILE_DIR"
-  else
-    # 在首次切换到非 default 前，先固化当前 default 配置。
-    bootstrap_default_profile
-    bootstrap_profile_from_repo "$profile"
-    profile_dir="$ROOT/profiles/$profile"
-  fi
+  bootstrap_profile_from_repo "$profile"
+  profile_dir="$ROOT/profiles/$profile"
 
   if [ ! -d "$profile_dir" ]; then
     echo "Profile directory not found: $profile_dir" >&2
@@ -220,6 +177,7 @@ resolve_profile_dir() {
 
 get_current_profile() {
   local p=""
+  local fallback=""
   local exists=1
   local candidate=""
 
@@ -227,12 +185,11 @@ get_current_profile() {
     p="$(sed -n '1p' "$ACTIVE_PROFILE_FILE" 2>/dev/null || true)"
   fi
 
-  if [ -z "$p" ]; then
-    p="default"
-  fi
-
   while IFS= read -r candidate; do
-    if [ "$candidate" = "$p" ]; then
+    if [ -n "$candidate" ] && [ -z "$fallback" ]; then
+      fallback="$candidate"
+    fi
+    if [ -n "$p" ] && [ "$candidate" = "$p" ]; then
       exists=0
       break
     fi
@@ -241,7 +198,7 @@ get_current_profile() {
   if [ "$exists" -eq 0 ]; then
     echo "$p"
   else
-    echo "default"
+    echo "$fallback"
   fi
 }
 
@@ -262,9 +219,9 @@ apply_profile() {
 
   mkdir -p "$ROOT"
 
-  # 切换后，直接让 ~/.codex/config.toml 与 auth.json 变为目标 profile 对应内容
-  copy_required "$profile_dir/config.toml" "$ROOT/config.toml"
-  copy_required "$profile_dir/auth.json" "$ROOT/auth.json"
+  # 切换后，让 ~/.codex/config.toml 与 auth.json 软链到目标 profile
+  link_required "$profile_dir/config.toml" "$ROOT/config.toml"
+  link_required "$profile_dir/auth.json" "$ROOT/auth.json"
 
   # 若 profile 提供独立 skills/rules，则尝试切换软链。
   switch_optional_link "$ROOT/skills" "$profile_dir/skills"
@@ -276,7 +233,8 @@ apply_profile() {
 
   echo "已应用 profile: $profile"
   echo "profile 源: $profile_dir"
-  echo "生效文件: $ROOT/config.toml, $ROOT/auth.json"
+  echo "生效软链: $ROOT/config.toml -> $profile_dir/config.toml"
+  echo "生效软链: $ROOT/auth.json -> $profile_dir/auth.json"
 }
 
 list_profiles() {
@@ -294,27 +252,42 @@ list_profiles() {
 }
 
 select_profile() {
+  local profiles=""
   local current
   local selected=""
   current="$(get_current_profile)"
+  profiles="$(discover_profiles)"
 
-  echo "当前 profile: $current" >&2
+  if [ -z "$profiles" ]; then
+    echo "错误: 未发现可用 profile。请先执行 make sync。" >&2
+    exit 1
+  fi
+
+  if [ -n "$current" ]; then
+    echo "当前 profile: $current" >&2
+  else
+    echo "当前 profile: <none>" >&2
+  fi
   echo "可用 profile:" >&2
   list_profiles >&2
 
   if command -v fzf >/dev/null 2>&1; then
     selected="$(
-      discover_profiles | \
+      printf "%s\n" "$profiles" | \
         fzf --prompt="选择 profile: " \
-            --header="当前 profile: $current" \
+            --header="当前 profile: ${current:-<none>}" \
             --height=40% \
             --layout=reverse \
             --border
     )"
   else
     echo "未安装 fzf，改为手动输入。" >&2
-    read -r -p "输入 profile 名称（默认: $current）: " selected
-    selected="${selected:-$current}"
+    if [ -n "$current" ]; then
+      read -r -p "输入 profile 名称（默认: $current）: " selected
+      selected="${selected:-$current}"
+    else
+      read -r -p "输入 profile 名称: " selected
+    fi
   fi
 
   if [ -z "$selected" ]; then

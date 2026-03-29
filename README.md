@@ -7,7 +7,6 @@
 - `home/`: 用户配置 source state（最终应用到 `~`）
 - `system/etc/`: 系统配置 source state（最终应用到 `/etc`）
 - `script/`: 常用辅助脚本（包含一键同步脚本）
-- `wezterm/`: 额外脚本与资源
 
 仓库根目录通过 `.chezmoiroot` 指向 `home/`，因此根目录中的脚本和文档不会被同步到家目录。
 
@@ -73,39 +72,45 @@ chezmoi -S "$HOME/dotfiles" edit ~/.zshrc
 chezmoi -S "$HOME/dotfiles" status
 ```
 
+## 终端配置
+
+已纳管配置：
+
+- `home/dot_config/wezterm/wezterm.lua` -> `~/.config/wezterm/wezterm.lua`
+- `home/dot_config/zellij/config.kdl` -> `~/.config/zellij/config.kdl`
+
+纯 `chezmoi` 同步方式：
+
+```bash
+make sync
+# 或
+chezmoi -S "$HOME/dotfiles" apply
+```
+
 ## Codex 配置
 
 当前已纳管的 Codex 配置：
 
-- `home/dot_codex/private_config.toml` -> `~/.codex/config.toml`
-- `home/dot_codex/private_auth.json` -> `~/.codex/auth.json`
-- `home/dot_codex/rules/default.rules` -> `~/.codex/rules/default.rules`
-- `home/dot_codex/skills/*` -> `~/.codex/skills/*`（仅自定义 skills，不含 `.system`）
-
-多套配置（按 profile 隔离）：
-
 - `home/dot_codex/profiles/<name>/private_config.toml` -> `~/.codex/profiles/<name>/config.toml`
 - `home/dot_codex/profiles/<name>/private_auth.json` -> `~/.codex/profiles/<name>/auth.json`
-- 可选：`home/dot_codex/profiles/<name>/skills/*`（未提供时复用 default skills）
+- 可选：`home/dot_codex/profiles/<name>/rules/*`
+- 可选：`home/dot_codex/profiles/<name>/skills/*`
 
-已内置 profile 示例：
+当前内置 profile 示例：
 
 - `openai`: `home/dot_codex/profiles/openai/*`
 
-启动方式（自动设置 `CODEX_HOME`）：
+切换方式（通过 `codex-select` 建立软链）：
 
 ```bash
-# 列出可用 profile
-bash script/codex-profile.sh --list
-
-# 使用 default（~/.codex）
-bash script/codex-profile.sh default
-
-# 使用 openai（~/.codex/profiles/openai）
-bash script/codex-profile.sh openai
+make codex-select
+# 或
+bash script/codex-profile.sh --select
 ```
 
-说明：`history.jsonl`、`sessions/`、`logs_*.sqlite`、`state_*.sqlite` 等运行时文件不纳管。
+效果：`~/.codex/config.toml` 与 `~/.codex/auth.json` 会软链到选中的 profile 文件。
+
+说明：`history.jsonl`、`sessions/`、`logs_*.sqlite`、`state_*.sqlite` 等运行时文件不纳管；根目录的 `config.toml`/`auth.json` 也不直接纳管。
 注意：`auth.json` 含密钥，建议仅在私有仓库中管理，或改为 `chezmoi` 加密文件。
 
 ## 系统配置
