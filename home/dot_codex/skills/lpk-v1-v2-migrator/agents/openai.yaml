@@ -1,0 +1,4 @@
+interface:
+  display_name: "LPK V1→V2 Migrator"
+  short_description: "Deterministic v1→v2 config migration with DEV/RELEASE split"
+  default_prompt: "Use $lpk-v1-v2-migrator to migrate this project from v1 manifest layout to v2 (`package.yml` + `lzc-manifest.yml` + `lzc-build*.yml`) with minimal diff and explicit DEV/RELEASE rules."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Style Normalizer"
+  short_description: "Normalize raw work notes into a consistent concise recap style."
+  default_prompt: "将原始开发描述统一整理为简洁复盘风输出，强调结果与价值。"

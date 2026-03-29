@@ -1,0 +1,30 @@
+application:
+#@build if env.DEV_MODE=1
+  image: registry.lazycat.cloud/lzc/lzc-photo-devshell:DEV_TAG
+  subdomain: p
+  routes:
+    - /=file:///lzcapp/pkg/content/web
+    - /api/=exec://5678,/lzcapp/pkg/content/lzc-photo
+  injects:
+    - id: backend-dev-proxy
+      on: request
+      auth_required: false
+      when:
+        - "/api/*"
+      do:
+        - src: |
+            const backendPort = 5678;
+            ctx.proxy.to("http://127.0.0.1:" + String(backendPort), {
+              use_target_host: true,
+              path: ctx.request.path.split("/api").join(""),
+            });
+#@build else
+  image: registry.lazycat.cloud/lzc/lzc-photo:RELEASE_TAG
+  subdomain: photo
+  health_check:
+    test_url: http://localhost:5678/healthz
+    start_period: 43200s
+  routes:
+    - /=file:///lzcapp/pkg/content/web
+    - /api/=exec://5678,/lzcapp/pkg/content/app.sh
+#@build end

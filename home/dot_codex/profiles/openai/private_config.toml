@@ -1,0 +1,46 @@
+model_provider = "OpenAI"
+model = "gpt-5.3-codex"
+model_reasoning_effort = "xhigh"
+disable_response_storage = true
+sandbox_mode = "workspace-write"
+windows_wsl_setup_acknowledged = true
+suppress_unstable_features_warning=true
+
+
+[features]
+plan_tool = true
+apply_patch_freeform = true
+view_image_tool = true
+unified_exec = false
+streamable_shell = false
+rmcp_client = true
+
+[model_providers.OpenAI]
+name = "OpenAI"
+base_url = "https://api.asxs.top/v1"
+wire_api = "responses"
+requires_openai_auth = true
+
+[sandbox_workspace_write]
+network_access = true
+
+[windows]
+sandbox = "elevated"
+
+[tui]
+status_line = ["current-dir", "total-input-tokens", "total-output-tokens", "session-id"]
+
+[projects."/home/yzl178me/repo/178me/py-repo"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/.config/yazi"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/dotfiles"]
+trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"

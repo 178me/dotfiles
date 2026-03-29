@@ -1,0 +1,2 @@
+prefix_rule(pattern=["lzc-cli", "project", "devshell"], decision="allow")
+prefix_rule(pattern=["go", "test"], decision="allow")

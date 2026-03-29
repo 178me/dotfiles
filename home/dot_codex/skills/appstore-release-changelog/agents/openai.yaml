@@ -1,0 +1,4 @@
+interface:
+  display_name: "Appstore Release Changelog"
+  short_description: "Generate release changelogs from git commit history"
+  default_prompt: "Summarize commits since the latest chore: publish appstore v* commit, draft a user changelog and matching English version, and only write files after explicit confirmation."

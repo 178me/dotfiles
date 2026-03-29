@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit From Staged"
+  short_description: "Create commit messages and commits from staged git changes"
+  default_prompt: "Review staged changes, draft a precise commit message, and commit only staged files."
