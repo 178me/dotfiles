@@ -1,46 +1,29 @@
-model_provider = "OpenAI"
-model = "gpt-5.3-codex"
+model_provider = "aicodemirror"
+model = "gpt-5.4"
 model_reasoning_effort = "xhigh"
 disable_response_storage = true
-sandbox_mode = "workspace-write"
-windows_wsl_setup_acknowledged = true
-suppress_unstable_features_warning=true
+preferred_auth_method = "apikey"
 
-
-[features]
-plan_tool = true
-apply_patch_freeform = true
-view_image_tool = true
-unified_exec = false
-streamable_shell = false
-rmcp_client = true
-
-[model_providers.OpenAI]
-name = "OpenAI"
-base_url = "https://api.asxs.top/v1"
+[model_providers.aicodemirror]
+name = "aicodemirror"
+base_url = "https://api.aicodemirror.com/api/codex/backend-api/codex"
 wire_api = "responses"
-requires_openai_auth = true
-
-[sandbox_workspace_write]
-network_access = true
-
-[windows]
-sandbox = "elevated"
-
-[tui]
-status_line = ["current-dir", "total-input-tokens", "total-output-tokens", "session-id"]
-
-[projects."/home/yzl178me/repo/178me/py-repo"]
-trust_level = "trusted"
-
-[projects."/home/yzl178me/.config/yazi"]
-trust_level = "trusted"
 
 [projects."/home/yzl178me"]
 trust_level = "trusted"
 
-[projects."/home/yzl178me/dotfiles"]
+[projects."/home/yzl178me/repo/demo/ddj"]
 trust_level = "trusted"
 
-[notice.model_migrations]
-"gpt-5.3-codex" = "gpt-5.4"
+[projects."/home/yzl178me/repo/178me/note-gen"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/0lzc-photo"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[tui]
+status_line = ["current-dir", "total-input-tokens", "total-output-tokens", "session-id"]
+alternate_screen = "never"

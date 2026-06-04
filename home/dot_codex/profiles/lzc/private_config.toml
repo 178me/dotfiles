@@ -1,16 +1,19 @@
 model_provider = "lazycat"
-model = "gpt-5.3-codex"
+model = "gpt-5.5"
 model_reasoning_effort = "high"
 disable_response_storage = true
 preferred_auth_method = "apikey"
+service_tier = "fast"
+personality = "pragmatic"
 
 [model_providers.lazycat]
 name = "lazycat"
-# base_url = "https://gateway.lazycat.ai/v1"
-base_url = "http://47.107.67.86:9984/v1"
+base_url = "https://gateway.lazycat.ai/v1"
+# base_url = "http://47.107.67.86:9984/v1"
 wire_api = "responses"
 
 [features]
+hooks = true
 collaboration_modes = true
 
 [projects."/home/yzl178me/repo/lzc/0lzc-photo"]
@@ -20,6 +23,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/yzl178me"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo"]
 trust_level = "trusted"
 
 [projects."/home/yzl178me/repo/demo/js/wx"]
@@ -34,8 +40,126 @@ trust_level = "trusted"
 [projects."/home/yzl178me/dotfiles"]
 trust_level = "trusted"
 
+[projects."/home/yzl178me/.config/zellij"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/android"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/lzc-ai"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/lzc-movie"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/0lzc-movie"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/lzc-ticksnap"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/.config/lazydocker"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/Github/jellyfin"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/.config/nvim-profiles/178me-lazy/config"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/lzc-contacts"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/lzc-log/31036"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/lzc-log/31141/lzcapp/lzc-docker"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/lzc-icloud-pd"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/Github/guessit"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/178me/go-admin"]
+trust_level = "trusted"
+
 [tui]
 status_line = ["current-dir", "total-input-tokens", "total-output-tokens", "session-id"]
+alternate_screen = "never"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[notice]
+fast_default_opt_out = true
 
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-05-26T03:47:05Z"
+source_type = "local"
+source = "/home/yzl178me/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[marketplaces.openai-bundled]
+last_updated = "2026-06-04T07:16:31Z"
+source_type = "local"
+source = "/home/yzl178me/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[plugins."browser@openai-bundled-beta"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[desktop]
+ambient-suggestions-enabled = false
+appearanceTheme = "dark"
+appearanceDarkCodeThemeId = "dracula"
+reviewDelivery = "inline"
+localeOverride = "zh-CN"
+conversationDetailMode = "STEPS_COMMANDS"
+reduced-motion-preference = "off"
+
+[desktop.appearanceLightChromeTheme]
+accent = "#339cff"
+contrast = 45
+ink = "#1a1c1f"
+opaqueWindows = true
+surface = "#ffffff"
+
+[desktop.appearanceLightChromeTheme.fonts]
+
+[desktop.appearanceLightChromeTheme.semanticColors]
+diffAdded = "#00a240"
+diffRemoved = "#ba2623"
+skill = "#924ff7"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#ff79c6"
+contrast = 30
+ink = "#f8f8f2"
+opaqueWindows = true
+surface = "#282a36"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+code = '"SFMono-Medium"'
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#50fa7b"
+diffRemoved = "#ff5555"
+skill = "#ff79c6"

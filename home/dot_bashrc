@@ -16,3 +16,5 @@ PS1='[\u@\h \W]\$ '
 # Source the Lazyman .nvimsbind for nvims key binding
 # shellcheck source=.config/nvim-Lazyman/.nvimsbind
 [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi

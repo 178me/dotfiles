@@ -2,10 +2,12 @@ import re
 import os
 import sys
 import json
+import time
 import requests
 import pyperclip
 import subprocess
 from dataclasses import dataclass
+from tqdm import tqdm
 
 
 @dataclass
@@ -51,6 +53,8 @@ class Config:
 CONFIG_PATH = "./lzc-project.json"
 LPK_OUTPUT = "release.lpk"
 VERSION_PATTERN = r"version:\s*([0-9]+\.[0-9]+\.[0-9]+)"
+HLOGS_BASIC_AUTH = "Basic bG5rczpONUpLcHlpdzk3emhyWTBV"
+HLOGS_USER_TOKEN = "ea8f0600119c416ca9a25afaed7e7eaf"
 
 group = {
     2: "懒猫官方测试组",
@@ -191,18 +195,40 @@ def download_log(log_id):
         # 密码: N5JKpyiw97zhrY0U
         url = f"https://hlogs.lazycat.cloud/api/v1/download-log/{log_id}"
         h = {
-            "Authorization": "Basic bG5rczpONUpLcHlpdzk3emhyWTBV",
-            "Cookie": "userToken=32ad3e6d0f2e47aba2d683942b5088b0"
+            "Authorization": HLOGS_BASIC_AUTH,
+            "Cookie": f"userToken={HLOGS_USER_TOKEN}",
         }
         print("下载日志: ", url)
-        # 发送 GET 请求
-        response = requests.get(url, headers=h)
-        response.raise_for_status()  # 检查请求是否成功
-        # 将内容写入文件
         path = os.path.join(os.getcwd(), f"{log_id}.zip")
-        with open(path, 'wb') as file:
-            file.write(response.content)
-        print(f"下载成功")
+        print("开始请求日志文件...")
+        request_started_at = time.monotonic()
+        response = requests.get(url, headers=h, stream=True, timeout=(10, 300))
+        response.raise_for_status()
+        headers_elapsed = time.monotonic() - request_started_at
+        print(f"收到响应头, 用时 {headers_elapsed:.1f}s")
+
+        total_size = int(response.headers.get("Content-Length", 0)) or None
+        chunk_size = 1024 * 512
+
+        with open(path, 'wb') as file, tqdm(
+            total=total_size,
+            unit='B',
+            unit_scale=True,
+            unit_divisor=1024,
+            desc='下载中',
+        ) as progress:
+            first_chunk_received = False
+            for chunk in response.iter_content(chunk_size=chunk_size):
+                if not chunk:
+                    continue
+                if not first_chunk_received:
+                    first_chunk_elapsed = time.monotonic() - request_started_at
+                    print(f"开始接收响应体, 首包用时 {first_chunk_elapsed:.1f}s")
+                    first_chunk_received = True
+                file.write(chunk)
+                progress.update(len(chunk))
+
+        print("下载成功")
         os.system(f"zsh -i -c 'x {path}'")
         print(f"解压成功")
         os.remove(path)
