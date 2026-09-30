@@ -7,6 +7,7 @@
 - `home/`: 用户配置 source state（最终应用到 `~`）
 - `system/etc/`: 系统配置 source state（最终应用到 `/etc`）
 - `script/`: 常用辅助脚本（包含一键同步脚本）
+- `packages/`: 工具环境盘点、共享安装清单与恢复说明
 
 仓库根目录通过 `.chezmoiroot` 指向 `home/`，因此根目录中的脚本和文档不会被同步到家目录。
 
@@ -15,6 +16,19 @@
 - `chezmoi`
 - `git`
 - 同步 `system` 配置时需要 `sudo`
+
+## 工具环境备份与恢复
+
+```bash
+# 刷新本机工具盘点
+python3 script/toolchain/snapshot.py --output packages/snapshots/local.json
+
+# 预览 Arch 工具安装计划（默认不执行）
+bash script/bootstrap-arch.sh --language-tools
+```
+
+实际安装使用 `--apply`，桌面工具和全部语言版本可按需追加。
+完整范围和手动恢复事项见 [packages/README.md](packages/README.md)。
 
 ## 一键同步
 

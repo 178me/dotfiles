@@ -1,0 +1,11 @@
+# Required only when rebuilding pyenv Python runtimes.
+bzip2
+libffi
+libxcrypt
+ncurses
+openssl
+readline
+sqlite
+tk
+xz
+zlib

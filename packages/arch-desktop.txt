@@ -1,0 +1,16 @@
+# Optional tools used by shared desktop configs; no display manager or kernel.
+alacritty
+fcitx5
+fcitx5-chinese-addons
+fcitx5-configtool
+fcitx5-gtk
+fcitx5-qt
+i3-wm
+picom
+python-i3ipc
+sway
+ttf-jetbrains-mono-nerd
+waybar
+wezterm
+xclip
+xorg-xset
