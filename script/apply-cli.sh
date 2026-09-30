@@ -46,6 +46,7 @@ if [ "${#EXISTING[@]}" -gt 0 ]; then
 fi
 printf 'Backup directory: %s\n' "$BACKUP_DIR"
 mkdir -p "$HOME/.codex" "$HOME/.config" "$HOME/.ssh"
+umask 022
 chezmoi -S "$REPO_DIR" apply "${TARGETS[@]}"
 
 NVIM_TARGET="$HOME/.config/nvim-lazy"
