@@ -35,6 +35,7 @@ bash script/bootstrap-arch.sh --apply
 - `--skip-system-packages`：系统包已由用户安装时，继续用户目录中的工具恢复。
 - `--user-packages`：没有 sudo 时，将 `arch-user-cli.txt` 和缺失依赖安装在用户目录。
   读取目标机现有 pacman 数据库，经 HTTPS 下载并校验仓库 SHA-256 后解包；不运行包脚本。
+  镜像下架的版本从 Arch 官方历史归档获取，仍使用同一仓库哈希校验。
   命令入口为 `~/.local/bin`，包和依赖库在 `~/.local/opt/dotfiles-cli`；
   此模式不刷新系统库、不支持桌面/全部历史 Python 环境，也不安装 Docker 服务。
   系统升级后应重新运行并验证用户目录工具；已有非本脚本管理的命令不会被覆盖。

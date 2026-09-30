@@ -9,7 +9,6 @@ import pathlib
 import re
 import shlex
 import subprocess
-import sys
 import urllib.parse
 
 from restore import package_list, REPO
@@ -40,9 +39,18 @@ def fetch(package):
     target = CACHE / pathlib.PurePosixPath(urllib.parse.urlsplit(package["url"]).path).name
     if not target.exists():
         partial = target.with_name(target.name + ".partial")
-        subprocess.run(["curl", "--fail", "--location", "--silent", "--show-error",
-                        "--retry", "3", "--proto", "=https", "--proto-redir", "=https",
-                        "--output", str(partial), package["url"]], check=True)
+        archive_url = (f"https://archive.archlinux.org/packages/{package['name'][0]}/"
+                       f"{package['name']}/{urllib.parse.quote(target.name)}")
+        for url in (package["url"], archive_url):
+            result = subprocess.run([
+                "curl", "--fail", "--location", "--silent", "--show-error", "--retry", "3",
+                "--connect-timeout", "15", "--max-time", "600", "--proto", "=https",
+                "--proto-redir", "=https", "--output", str(partial), url,
+            ])
+            if result.returncode == 0:
+                break
+        else:
+            raise RuntimeError(f"Cannot download repository or official archive package: {package['name']}")
         with partial.open("rb") as stream:
             if hashlib.file_digest(stream, "sha256").hexdigest() != package["sha256"]:
                 raise RuntimeError(f"Package hash mismatch: {package['name']}")
