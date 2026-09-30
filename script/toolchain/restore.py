@@ -28,6 +28,7 @@ class Installer:
             "PYENV_ROOT": str(TASK_HOME / ".pyenv"),
             "PNPM_HOME": str(TASK_HOME / ".local/share/pnpm"),
             "GOBIN": str(TASK_HOME / "go/bin"),
+            "PATH": f"{TASK_HOME}/.local/bin:{os.environ['PATH']}",
         }
 
     def run(self, command, **kwargs):
@@ -88,7 +89,9 @@ def restore(args, snapshot):
     for name, target in targets.items():
         installer.validate_checkout(repos[name], target)
     # Arch requires a full upgrade when refreshing repository metadata.
-    if args.skip_system_packages:
+    if args.user_packages:
+        installer.run(["/usr/bin/python3", REPO / "script/toolchain/user_packages.py", "--apply"])
+    elif args.skip_system_packages:
         print("SKIP system packages (must already be installed)")
     else:
         installer.run(["sudo", "pacman", "-Syu", "--needed", *sorted(set(packages))])
@@ -108,7 +111,7 @@ def restore(args, snapshot):
     if args.all_runtimes:
         for runtime in snapshot["python"]["runtimes"]:
             if runtime["name"] != "system":
-                installer.run(["/usr/bin/pyenv", "install", "-s", runtime["name"]])
+                installer.run(["pyenv", "install", "-s", runtime["name"]])
     if args.language_tools:
         active_path = installer.env["PATH"]
         for runtime in runtimes:
@@ -151,11 +154,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true", help="Install tools (default: preview only)")
     parser.add_argument("--skip-system-packages", action="store_true", help="Resume user tools after pacman was run separately")
+    parser.add_argument("--user-packages", action="store_true", help="Install CLI packages under HOME without sudo")
     parser.add_argument("--desktop", action="store_true", help="Include optional desktop tools")
     parser.add_argument("--all-runtimes", action="store_true", help="Include all saved Node and pyenv versions")
     parser.add_argument("--language-tools", action="store_true", help="Restore registry npm/pnpm and versioned Go tools")
     parser.add_argument("--snapshot", type=pathlib.Path, default=REPO / "packages/snapshots/local.json")
     args = parser.parse_args()
+    if args.user_packages and (args.skip_system_packages or args.desktop or args.all_runtimes):
+        parser.error("--user-packages cannot be combined with system/desktop/all-runtime options")
     if args.apply and os.geteuid() == 0:
         parser.error("Run as the target user; only pacman uses sudo")
     if args.apply and not pathlib.Path("/etc/arch-release").is_file():

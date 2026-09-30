@@ -1,0 +1,21 @@
+# User-directory fallback; system services and desktop integration are excluded.
+chezmoi
+zsh
+neovim
+fzf
+fd
+bat
+lazygit
+lazydocker
+zellij
+tmux
+ranger
+rsync
+unzip
+zip
+pyenv
+python-click
+python-requests
+python-pyperclip
+python-tqdm
+jdk17-openjdk

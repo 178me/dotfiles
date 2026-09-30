@@ -3,6 +3,7 @@
 #
 
 # If not running interactively, don't do anything
+export PATH="$HOME/.local/bin:$HOME/go/bin:$PATH"
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'

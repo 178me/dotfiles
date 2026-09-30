@@ -1,0 +1,6 @@
+# Relocated Arch packages, when installed without administrator access.
+if [[ -d "$HOME/.local/opt/dotfiles-cli/usr/lib/zsh" ]]; then
+  module_path=("$HOME"/.local/opt/dotfiles-cli/usr/lib/zsh/*(N/) $module_path)
+  fpath=("$HOME"/.local/opt/dotfiles-cli/usr/share/zsh/functions/*(N/) $fpath)
+fi
+export PATH="$HOME/.local/bin:$PATH"

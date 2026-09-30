@@ -15,7 +15,7 @@ fi
 
 command -v chezmoi >/dev/null
 TARGET_NAMES=(
-  .zshrc .bashrc .bash_profile .profile .gitconfig .vimrc .pip .ssh/config
+  .zshenv .zshrc .bashrc .bash_profile .profile .gitconfig .vimrc .pip .ssh/config
   .config/lazydocker .config/lazygit .config/nvim-lazy .config/yazi
   .config/zellij .config/wezterm .config/alacritty .config/ranger .config/fish .config/pnpm
   .codex/AGENTS.md .codex/rules .codex/skills

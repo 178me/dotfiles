@@ -197,6 +197,9 @@ alias hmcl2="sh ~/Desktop/.appimage/HMCL-3.6.12.sh"
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+if [[ ! -d "$JAVA_HOME" && -d "$HOME/.local/opt/dotfiles-cli/usr/lib/jvm/java-17-openjdk" ]]; then
+  export JAVA_HOME="$HOME/.local/opt/dotfiles-cli/usr/lib/jvm/java-17-openjdk"
+fi
 export PATH="$JAVA_HOME/bin:$PATH"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
