@@ -99,6 +99,16 @@ def main():
             raise RuntimeError(f"Unsafe archive paths: {archive}")
         # No scriptlets, services, /etc writes, or package database changes.
         subprocess.run(["bsdtar", "-xf", str(archive), "-C", str(PREFIX), "usr/"], check=True)
+    # Arch Neovim links lpeg by absolute path; relocate that ELF dependency.
+    nvim = PREFIX / "usr/bin/nvim"
+    patchelf = PREFIX / "usr/bin/patchelf"
+    needed = subprocess.check_output([str(patchelf), "--print-needed", str(nvim)], text=True).splitlines()
+    for library in needed:
+        if library.startswith("/usr/"):
+            relocated = PREFIX / library.lstrip("/")
+            if not relocated.is_file():
+                raise FileNotFoundError(relocated)
+            subprocess.run([str(patchelf), "--replace-needed", library, str(relocated), str(nvim)], check=True)
     sources = list((PREFIX / "usr/bin").iterdir())
     sources += [pathlib.Path("/usr/bin/python"), pathlib.Path("/usr/bin/python3")]
     java_bin = PREFIX / "usr/lib/jvm/java-17-openjdk/bin"

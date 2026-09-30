@@ -1,5 +1,6 @@
 # User-directory fallback; system services and desktop integration are excluded.
 chezmoi
+patchelf
 zsh
 neovim
 fzf
