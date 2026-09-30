@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Real DB Test"
+  short_description: "Write Go backend tests against a real database"
+  default_prompt: "Use $go-real-db-test to write or update a real-database Go backend test for development validation or regression coverage."

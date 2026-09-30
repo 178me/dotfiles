@@ -1,0 +1,4 @@
+interface:
+  display_name: "未发布分支归一化"
+  short_description: "以已发布基线重整未上线分支的版本、迁移与兼容代码流程"
+  default_prompt: "使用 $unreleased-branch-normalizer，以最后已发布分支为基线整理当前未上线分支。"

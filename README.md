@@ -34,7 +34,7 @@ bash script/chezmoi-sync.sh --with-system
 `home/dot_zshrc` 已内置两个别名：
 
 - `cmx-apply`: 一键应用配置（等价于 `bash script/chezmoi-sync.sh`）
-- `cmx-save`: 把你在 `~` 下改过的受管文件回写到仓库，自动 `commit` 并 `push`
+- `cmx-save`: 把你在 `~` 下改过的受管文件回写到仓库并暂存，提交和推送需另行执行
 
 首次拉取后执行一次：
 
@@ -49,11 +49,13 @@ source ~/.zshrc
 # 仅预览，不写入
 cmx-save --dry-run
 
-# 只提交到本地，不推送
-cmx-save --no-push
+# 回写并暂存，不自动提交或推送
+cmx-save
 
-# 自定义提交信息
-cmx-save -m "chore: update zsh aliases"
+# 检查暂存内容后自行提交和推送
+git -C ~/dotfiles diff --cached
+git -C ~/dotfiles commit -m "chore: back up local configuration"
+git -C ~/dotfiles push
 ```
 
 ## 常用命令
@@ -95,6 +97,10 @@ chezmoi -S "$HOME/dotfiles" apply
 - `home/dot_codex/profiles/<name>/private_auth.json` -> `~/.codex/profiles/<name>/auth.json`
 - `home/dot_codex/rules/*` -> `~/.codex/rules/*`（全局）
 - `home/dot_codex/skills/*` -> `~/.codex/skills/*`（全局）
+- `home/dot_codex/AGENTS.md` -> `~/.codex/AGENTS.md`（全局指令）
+
+当前桌面端配置另备份在 `home/dot_codex/config-backups/desktop/private_config.toml`。
+这是配置快照，不包含当前登录凭据，也不会自动替换根目录的 `config.toml`。
 
 当前内置 profile 示例：
 

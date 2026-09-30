@@ -1,0 +1,151 @@
+model_reasoning_effort = "xhigh"
+model = "gpt-6.1-sol"
+service_tier = "default"
+
+[mcp_servers]
+
+[mcp_servers.node_repl]
+args = []
+command = "/usr/lib/chatgpt/resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/usr/lib/chatgpt/resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/usr/lib/chatgpt/resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/home/yzl178me/.codex:/usr/lib/chatgpt/resources/cua_node/lib/node_modules"
+CODEX_HOME = "/home/yzl178me/.codex"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.928.20755"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/home/yzl178me/.codex/plugins/cache/openai-bundled/browser/26.928.20755/scripts/browser-service.mjs"}'
+CODEX_CLI_PATH = "/usr/lib/chatgpt/resources/codex"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-21/he"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/0lzc-movie"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/lzc-independent-client-android"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/0lzc-photo"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-22/new-chat"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-23/bhw"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/lzc/lzc-ai"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-24/home-yzl178me-repo-lzc-lzc-ai"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-24/ru-he"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-24/proxies-http-http-wy924-wy924-115"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/repo/178me/py-project-frame"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-26/realtime-voice-chat"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-26/realtime-voice-chat-2"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-26/realtime-voice-chat-3"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-26/new-chat"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-28/bh-w"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-28/ww"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-30/ssh-p-2026-c-178me-heiyu"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me/Documents/Codex/2026-09-30/bh-wo"]
+trust_level = "trusted"
+
+[projects."/home/yzl178me"]
+trust_level = "trusted"
+
+[desktop]
+followUpQueueMode = "queue"
+appearanceTheme = "dark"
+appearanceDarkCodeThemeId = "dracula"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#ff79c6"
+accentSource = "custom"
+contrast = 0
+ink = "#f8f8f2"
+opaqueWindows = false
+surface = "#282a36"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#50fa7b"
+diffRemoved = "#ff5555"
+skill = "#ff79c6"
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/home/yzl178me/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."code-review@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[tui]
+screen_reader_detection_done = true
+
+[tui.model_availability_nux]
+gpt-6-astra = 1
+"gpt-6.1-sol" = 1
+
+[hooks.state]
+
+[hooks.state."/home/yzl178me/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:20856cb4e91a5fff868639a71c09bc625e52e2e55819bf2ee5c5b324874f3c92"
+
+[hooks.state."/home/yzl178me/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:00e83bfa7b149219c0ec293aa04e9e221ca3f65d6fefb7f6590f4d4de016ae94"
+
+[hooks.state."/home/yzl178me/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:7af70030a7a9ce16c6fdaf5b29360bef1accd79211fa2eae874dd2949943f12e"
+
+[hooks.state."/home/yzl178me/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:4521455b700f92665d63eacdee0f95421c3713427930a6727b24045c5793d6b5"
+
+[hooks.state."/home/yzl178me/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:e139896a0708b47925e96b1f2b7e38873aab5cd18b19f09be5abfc515f8b9fe8"
