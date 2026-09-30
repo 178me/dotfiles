@@ -7,8 +7,7 @@ local plugins = {
     keys = {
       { "<leader>jf", ":Neoformat<CR>:w<CR>", desc = "format code", silent = true },
     },
-  },
-  -- colorizer (basically configured) 高亮颜色组
+  }, -- colorizer (basically configured) 高亮颜色组
   {
     "norcalli/nvim-colorizer.lua",
     event = "BufReadPost",
@@ -96,6 +95,13 @@ local plugins = {
       require("hlchunk").setup({
         blank = { enable = false },
       })
+    end,
+  },
+  {
+    "luozhiya/fittencode.nvim",
+    event = "BufReadPre",
+    config = function()
+      require("fittencode").setup({ completion_mode = "source" })
     end,
   },
 }

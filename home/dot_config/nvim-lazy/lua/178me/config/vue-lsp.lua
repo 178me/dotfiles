@@ -1,0 +1,89 @@
+-- Vue LSP 配置
+-- 基于最新的 vue-language-server 和 vtsls 配置
+
+local M = {}
+return M
+--
+-- -- Vue LSP 配置
+-- M.vue_ls_config = {
+--   filetypes = { "vue" },
+--   init_options = {
+--     vue = {
+--       hybridMode = false,
+--     },
+--     typescript = {
+--       tsdk = nil, -- 使用项目本地的TypeScript
+--     },
+--     -- 启用Vue 3的新特性支持
+--     features = {
+--       referencesCodeLens = true,
+--       implementationCodeLens = true,
+--       definitionCodeLens = true,
+--       typeDefinitionCodeLens = true,
+--       callHierarchy = true,
+--       documentHighlight = true,
+--       documentLink = true,
+--       codeLens = true,
+--       completion = {
+--         defaultTagNameCase = "pascal",
+--         defaultAttrNameCase = "camel",
+--         getDocumentNameCasesRequest = true,
+--         getDocumentSelectionRequest = true,
+--       },
+--       documentSymbol = true,
+--       foldingRange = true,
+--       linkedEditingRange = true,
+--       semanticTokens = true,
+--       signatureHelp = true,
+--       hover = true,
+--       inlayHint = true,
+--     },
+--   },
+-- }
+--
+-- -- VTSLS 配置（用于TypeScript/JavaScript）
+-- M.vtsls_config = {
+--   settings = {
+--     typescript = {
+--       inlayHints = {
+--         includeInlayParameterNameHints = "all",
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayEnumMemberValueHints = true,
+--       },
+--       suggest = {
+--         autoImports = true,
+--       },
+--     },
+--     javascript = {
+--       inlayHints = {
+--         includeInlayParameterNameHints = "all",
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayEnumMemberValueHints = true,
+--       },
+--       suggest = {
+--         autoImports = true,
+--       },
+--     },
+--   },
+-- }
+--
+-- -- 设置Vue LSP
+-- function M.setup_vue_lsp()
+--   local lspconfig = require("lspconfig")
+--
+--   -- 配置vue_ls
+--   lspconfig.vue_ls.setup(M.vue_ls_config)
+--
+--   -- 配置vtsls
+--   lspconfig.vtsls.setup(M.vtsls_config)
+-- end
+--
+-- return M

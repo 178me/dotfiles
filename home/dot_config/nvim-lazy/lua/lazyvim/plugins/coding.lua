@@ -77,6 +77,7 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
+          ["<c-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }),
           ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -103,6 +104,7 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
+          sources = { name = "fittencode", group_index = 1 },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
@@ -139,23 +141,20 @@ return {
 
   -- comments
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+
+  -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
   {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
+    "numToStr/Comment.nvim",
     opts = {
-      hooks = {
-        pre = function()
-          require("ts_context_commentstring.internal").update_commentstring({})
-        end,
+      toggler = {
+        line = "<space><space>",
+        block = "gbc",
       },
-      mappings = {
-        comment = "<space><space>",
-        comment_line = "<space><space>",
+      opleader = {
+        line = "<space><space>",
       },
     },
-    config = function(_, opts)
-      require("mini.comment").setup(opts)
-    end,
+    lazy = false,
   },
 
   -- better text-objects

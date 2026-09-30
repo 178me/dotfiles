@@ -67,7 +67,7 @@ M.delete_unused_imports = function()
   })
 end
 
-M.const_to_function = function ()
+M.const_to_function = function()
   vim.cmd(":s/const/function/")
   vim.cmd(":s/ = //")
   vim.cmd(":s/=> //")

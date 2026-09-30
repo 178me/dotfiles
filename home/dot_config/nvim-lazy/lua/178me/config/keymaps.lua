@@ -8,6 +8,11 @@ M.leader_map = {
   ["v|<leader>yb"] = { '"by<Esc>', { desc = "b" } },
   ["v|<leader>yy"] = { '"+y<Esc>', { desc = "system clipboard" } },
   ["n v|<leader>t"] = { utils.fn.test, { desc = "test" } },
+  ["n|<leader>to"] = { utils.fn.runTempCode, { desc = "temp code" } },
+  ["n|<leader>tt"] = { utils.fn.runTest, { desc = "code test" } },
+  ["n|<leader>ti"] = { utils.fn.process_i18n_tags, { desc = "i18n" } },
+  ["v|<leader>jj"] = { utils.fn.wrap_selection_with_i18n, { desc = "i18n tag" } },
+  ["n|<leader>tj"] = { utils.fn.print_diagnostics, { desc = "test keymap" } },
   ["n|<leader>jR"] = { ":so $MYVIMRC<CR>:e %<CR>", { desc = "refush config" } },
   ["n|<leader>jc"] = { utils.fn.runCode, { desc = "run code" } },
   ["n|<leader>jp"] = { utils.fn.runProject, { desc = "run project" } },
@@ -22,6 +27,9 @@ M.leader_map = {
   ["n|<leader>fr"] = { utils.fn.look_ref, { desc = "look ref" } },
   ["n v|<leader>ss"] = { tools.network_search, { desc = "browser search" } },
   ["n|<leader>pL"] = { "<cmd>Lazy<CR>", { desc = "lazy manage" } },
+  ["i|<C-1>"] = { utils.fn.insert_filename_at_cursor, { desc = "插入字符" } },
+  ["n|<leader>fc"] = { ":g/[\\u4e00-\\u9fa5]/<CR>", { desc = "全文查找中文" } },
+  -- ["v|<leader>jj"] = { "di t('',<C-r>\")<C-o>?t(<CR><right><right><right><C-o>:nohl<CR>", { desc = "quick" } },
 }
 
 M.map_table = function(mapping)

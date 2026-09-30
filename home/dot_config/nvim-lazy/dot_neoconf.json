@@ -9,6 +9,12 @@
     "plugins": {
       "lua_ls": {
         "enabled": true
+      },
+      "vue_ls": {
+        "enabled": true
+      },
+      "vtsls": {
+        "enabled": true
       }
     }
   }

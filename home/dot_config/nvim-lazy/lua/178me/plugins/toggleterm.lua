@@ -22,7 +22,7 @@ return {
     close_on_exit = true, -- close the terminal window when the process exits
     float_opts = {
       border = "curved",
-      width = 100,
+      width = 150,
       height = 30,
       bufpos = { 100, 10 },
     },

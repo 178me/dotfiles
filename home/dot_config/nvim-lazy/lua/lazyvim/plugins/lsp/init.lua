@@ -1,3 +1,40 @@
+local vue_language_server_path = vim.fn.stdpath("data")
+  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
+local vue_plugin = {
+  name = "@vue/typescript-plugin",
+  location = vue_language_server_path,
+  languages = { "vue" },
+  configNamespace = "typescript",
+}
+local vtsls_config = {
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
+      },
+    },
+  },
+  filetypes = tsserver_filetypes,
+}
+
+local ts_ls_config = {
+  autostart = false,
+  init_options = {
+    plugins = {
+      vue_plugin,
+    },
+  },
+  filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+}
+local vue_ls_config = {}
+vim.lsp.config("vtsls", vtsls_config)
+vim.lsp.config("vue_ls", vue_ls_config)
+-- vim.lsp.config("ts_ls", ts_ls_config)
+-- vim.lsp.enable({ "vtsls", "vue_ls" }) -- If using `ts_ls` replace `vtsls` to `ts_ls`
+
 return {
   -- lspconfig
   {
@@ -40,14 +77,9 @@ return {
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
-        volar = {
-          filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-          init_options = {
-            typescript = {
-              tsdk = "/home/yzl178me/.asdf/installs/nodejs/19.0.1/.npm/lib/node_modules/typescript/lib",
-            },
-          },
-        },
+        -- ts_ls = { autostart = false },
+        vtsls = vtsls_config,
+        vue_ls = vue_ls_coonfig,
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {
@@ -67,10 +99,6 @@ return {
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         -- example to setup with typescript.nvim
-        -- tsserver = function(_, opts)
-        --   require("typescript").setup({ server = opts })
-        --   return true
-        -- end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
@@ -90,7 +118,13 @@ return {
       vim.diagnostic.config(opts.diagnostics)
 
       local servers = opts.servers
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      -- 安全地添加 cmp_nvim_lsp 功能（如果可用）
+      local has_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+      if has_cmp then
+        capabilities = cmp_lsp.default_capabilities(capabilities)
+      end
 
       local function setup(server)
         local server_opts = vim.tbl_deep_extend("force", {
@@ -111,11 +145,12 @@ return {
 
       -- temp fix for lspconfig rename
       -- https://github.com/neovim/nvim-lspconfig/pull/2439
-      local mappings = require("mason-lspconfig.mappings.server")
-      if not mappings.lspconfig_to_package.lua_ls then
-        mappings.lspconfig_to_package.lua_ls = "lua-language-server"
-        mappings.package_to_lspconfig["lua-language-server"] = "lua_ls"
-      end
+      -- 移除对已弃用的 mappings.server 的依赖
+      -- local mappings = require("mason-lspconfig.mappings.server")
+      -- if not mappings.lspconfig_to_package.lua_ls then
+      --   mappings.lspconfig_to_package.lua_ls = "lua-language-server"
+      --   mappings.package_to_lspconfig["lua-language-server"] = "lua_ls"
+      -- end
 
       local mlsp = require("mason-lspconfig")
       local available = mlsp.get_available_servers()
@@ -125,7 +160,7 @@ return {
         if server_opts then
           server_opts = server_opts == true and {} or server_opts
           -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-          if server_opts.mason == false or not vim.tbl_contains(available, server) then
+          if server_opts.mason == false or not vim.list_contains(available, server) then
             setup(server)
           else
             ensure_installed[#ensure_installed + 1] = server
@@ -134,7 +169,7 @@ return {
       end
 
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
-      require("mason-lspconfig").setup_handlers({ setup })
+      -- require("mason-lspconfig").setup_handlers({ setup = setup })
     end,
   },
 
@@ -153,9 +188,10 @@ return {
         "autopep8",
         "css-lsp",
         "gopls",
+        "goimports",
         "json-lsp",
         "pyright",
-        "vue-language-server",
+        "vue-language-server", -- 最新版本支持Vue 3.4+
         "vim-language-server",
         "unocss-language-server",
         "tailwindcss-language-server",

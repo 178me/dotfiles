@@ -15,8 +15,8 @@ return {
       { "<leader>or", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       { "<leader>oR", "<cmd>Telescope resume<cr>", desc = "Resume" },
       { "<leader>oC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
-      { "<leader>ow", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer word" },
-      { "<leader>oW", "<cmd>Telescope live_grep<CR>", desc = "Project Word" },
+      { "<leader>oW", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer word" },
+      { "<leader>ow", "<cmd>Telescope live_grep<CR>", desc = "Project Word" },
       -- search
       { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
       { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
@@ -27,7 +27,7 @@ return {
       {
         "<leader>sc",
         function()
-          local config_path = "/home/yzl178me/.config/nvim/lua"
+          local config_path = vim.fn.stdpath("config") .. "/lua"
           vim.api.nvim_set_current_dir(config_path)
           Util.telescope("find_files", { search_dirs = { config_path } })()
         end,
@@ -42,6 +42,9 @@ return {
           i = {
             ["<c-t>"] = function(...)
               return require("trouble.providers.telescope").open_with_trouble(...)
+            end,
+            ["<c-f>"] = function()
+              vim.api.nvim_input("<Right>")
             end,
             ["<a-t>"] = function(...)
               return require("trouble.providers.telescope").open_selected_with_trouble(...)
@@ -71,7 +74,6 @@ return {
         },
       },
     },
-    depend = {},
   },
 
   -- which-key
