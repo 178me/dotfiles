@@ -40,9 +40,9 @@ def testflight(group_id):
 
 
 @d.command()
-@click.argument('log_id', type=int)
-def log(log_id):
-    core.download_log(log_id)
+@click.argument('log_ref', type=str)
+def log(log_ref):
+    core.download_log(log_ref)
 
 
 @d.command()

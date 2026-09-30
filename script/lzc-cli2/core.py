@@ -7,6 +7,7 @@ import requests
 import pyperclip
 import subprocess
 from dataclasses import dataclass
+from urllib.parse import parse_qs, unquote, urljoin, urlparse
 from tqdm import tqdm
 
 
@@ -53,8 +54,13 @@ class Config:
 CONFIG_PATH = "./lzc-project.json"
 LPK_OUTPUT = "release.lpk"
 VERSION_PATTERN = r"version:\s*([0-9]+\.[0-9]+\.[0-9]+)"
-HLOGS_BASIC_AUTH = "Basic bG5rczpONUpLcHlpdzk3emhyWTBV"
-HLOGS_USER_TOKEN = "ea8f0600119c416ca9a25afaed7e7eaf"
+HLOGS_PAT = "lzc_pat_2499358d879a2cc04cbe3f18c46eef8e5423998fb74f38ff1843a968603c2bb1"
+HLOGS_REQUEST_HEADERS = {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Referer": "https://hlogs.lazycat.cloud/",
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+}
 
 group = {
     2: "懒猫官方测试组",
@@ -68,6 +74,65 @@ group = {
     9012: "向量数据库",
     9017: "相册测试组1"
 }
+
+
+def check_hlogs_signed_url(url):
+    parsed_url = urlparse(url)
+    if "cos.accelerate.myqcloud.com" not in parsed_url.netloc:
+        return
+
+    query = parse_qs(parsed_url.query, keep_blank_values=True)
+    required_params = [
+        "q-sign-algorithm",
+        "q-ak",
+        "q-sign-time",
+        "q-key-time",
+        "q-signature",
+    ]
+    missing_params = [name for name in required_params if name not in query]
+    if missing_params:
+        raise ValueError(
+            "签名下载链接参数不完整，请用引号包住整个 URL 后重试，缺少参数: "
+            + ", ".join(missing_params)
+        )
+
+    sign_time = query["q-sign-time"][0].split(";")
+    if len(sign_time) != 2:
+        return
+    try:
+        expire_at = int(sign_time[1])
+    except ValueError:
+        return
+    if time.time() > expire_at:
+        expire_at_text = time.strftime(
+            "%Y-%m-%d %H:%M:%S", time.localtime(expire_at))
+        raise ValueError(f"签名下载链接已过期，过期时间: {expire_at_text}")
+
+
+def get_hlogs_download_url(log_ref):
+    """通过日志服务获取一次性的对象存储下载地址。"""
+    api_url = f"https://hlogs.lazycat.cloud/api/v1/download-log/{log_ref}"
+    headers = {
+        **HLOGS_REQUEST_HEADERS,
+        "Authorization": f"Bearer {HLOGS_PAT}",
+    }
+    response = requests.get(
+        api_url,
+        headers=headers,
+        allow_redirects=False,
+        timeout=(10, 30),
+    )
+    try:
+        response.raise_for_status()
+        redirect_url = response.headers.get("Location")
+        if not redirect_url:
+            raise ValueError("日志服务未返回下载重定向地址，请确认会话仍有效")
+        download_url = urljoin(api_url, redirect_url)
+    finally:
+        response.close()
+
+    check_hlogs_signed_url(download_url)
+    return download_url
 
 
 def read_config():
@@ -190,19 +255,27 @@ def publish_to_testflight(groupId):
     pyperclip.copy(msg)
 
 
-def download_log(log_id):
+def download_log(log_ref):
     try:
-        # 密码: N5JKpyiw97zhrY0U
-        url = f"https://hlogs.lazycat.cloud/api/v1/download-log/{log_id}"
-        h = {
-            "Authorization": HLOGS_BASIC_AUTH,
-            "Cookie": f"userToken={HLOGS_USER_TOKEN}",
-        }
+        log_ref = str(log_ref)
+        if log_ref.startswith(("http://", "https://")):
+            url = log_ref
+            check_hlogs_signed_url(url)
+        else:
+            url = get_hlogs_download_url(log_ref)
         print("下载日志: ", url)
-        path = os.path.join(os.getcwd(), f"{log_id}.zip")
+        filename = os.path.basename(unquote(urlparse(url).path)) or f"{log_ref}.zip"
+        if not os.path.splitext(filename)[1]:
+            filename += ".zip"
+        path = os.path.join(os.getcwd(), filename)
         print("开始请求日志文件...")
         request_started_at = time.monotonic()
-        response = requests.get(url, headers=h, stream=True, timeout=(10, 300))
+        response = requests.get(
+            url,
+            headers=HLOGS_REQUEST_HEADERS,
+            stream=True,
+            timeout=(10, 300),
+        )
         response.raise_for_status()
         headers_elapsed = time.monotonic() - request_started_at
         print(f"收到响应头, 用时 {headers_elapsed:.1f}s")
@@ -233,6 +306,13 @@ def download_log(log_id):
         print(f"解压成功")
         os.remove(path)
         print(f"移除zip")
+    except ValueError as e:
+        print(f"下载失败: {e}")
+    except requests.exceptions.HTTPError as e:
+        response = e.response
+        print(f"下载失败: HTTP {response.status_code}")
+        if response.text:
+            print(response.text[:1000])
     except requests.exceptions.RequestException as e:
         print(f"下载失败: {e}")
 
