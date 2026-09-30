@@ -86,7 +86,10 @@ def restore(args, snapshot):
     for name, target in targets.items():
         installer.validate_checkout(repos[name], target)
     # Arch requires a full upgrade when refreshing repository metadata.
-    installer.run(["sudo", "pacman", "-Syu", "--needed", *sorted(set(packages))])
+    if args.skip_system_packages:
+        print("SKIP system packages (must already be installed)")
+    else:
+        installer.run(["sudo", "pacman", "-Syu", "--needed", *sorted(set(packages))])
     for name, target in targets.items():
         installer.checkout(repos[name], target)
     versions = [entry["version"] for entry in runtimes] if args.all_runtimes else [active_node]
@@ -145,6 +148,7 @@ def restore(args, snapshot):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true", help="Install tools (default: preview only)")
+    parser.add_argument("--skip-system-packages", action="store_true", help="Resume user tools after pacman was run separately")
     parser.add_argument("--desktop", action="store_true", help="Include optional desktop tools")
     parser.add_argument("--all-runtimes", action="store_true", help="Include all saved Node and pyenv versions")
     parser.add_argument("--language-tools", action="store_true", help="Restore registry npm/pnpm and versioned Go tools")

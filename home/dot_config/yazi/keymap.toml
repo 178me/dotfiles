@@ -163,7 +163,7 @@ keymap = [
 	{ on = [ "g", "w" ],       run = "cd ~/repo/lzc",          desc = "Go to work directory" },
 	{ on = [ "g", "W" ],       run = "cd ~/Documents/WeChat_Data/home",          desc = "Go to WeChat_Data" },
 	{ on = [ "g", "l" ],       run = "cd ~/Documents/lzc-log",          desc = "Go to log dir" },
-	{ on = [ "g", "i" ],       run = "cd /home/yzl178me/repo/lzc/lzc-photo/ui/src/icons",          desc = "go to lzc-photo icons" },
+	{ on = [ "g", "i" ],       run = "cd ~/repo/lzc/lzc-photo/ui/src/icons",          desc = "go to lzc-photo icons" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
   # Custom

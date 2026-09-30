@@ -2,7 +2,7 @@ HostkeyAlgorithms +ssh-rsa
 PubkeyAcceptedAlgorithms +ssh-rsa
 Host github.com
   User git
-  IdentityFile /home/yzl178me/.ssh/id_ed25519
+  IdentityFile ~/.ssh/id_ed25519
 
 Host ecs
 HostName 116.62.175.155

@@ -2,7 +2,7 @@ customCommands:
   images:
     - name: tag image
       attach: true
-      command: '/home/yzl178me/.config/lazydocker/scripts/tag-image.sh "{{ .Image.ID }}" "{{ .Image.Name }}" "{{ .Image.Tag }}"'
+      command: '$HOME/.config/lazydocker/scripts/tag-image.sh "{{ .Image.ID }}" "{{ .Image.Name }}" "{{ .Image.Tag }}"'
     - name: push image (choose tag)
       attach: true
-      command: '/home/yzl178me/.config/lazydocker/scripts/push-image.sh "{{ .Image.ID }}"'
+      command: '$HOME/.config/lazydocker/scripts/push-image.sh "{{ .Image.ID }}"'

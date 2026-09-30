@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/yzl178me/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -75,7 +75,9 @@ autoload bashcompinit && bashcompinit
 # autoload -U +X bashcompinit && bashcompinit
 plugins=(extract zsh-syntax-highlighting zsh-autosuggestions sudo)
 
-source $ZSH/oh-my-zsh.sh
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then
+  source "$ZSH/oh-my-zsh.sh"
+fi
 
 # Disable oh-my-zsh's directory-stack shortcut `d`.
 unfunction d 2>/dev/null
@@ -101,7 +103,9 @@ export EDITOR='nvim'
 # Example aliases
 # alias
 #asdf
-. "$HOME/.asdf/asdf.sh"
+if [ -f "$HOME/.asdf/asdf.sh" ]; then
+  . "$HOME/.asdf/asdf.sh"
+fi
 function r() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
@@ -110,9 +114,9 @@ function r() {
   rm -f -- "$tmp"
 }
 function lzcexif() {
-  /home/yzl178me/repo/demo/go-demo/exif_test/exif_tool -path $1
+  "$HOME/repo/demo/go-demo/exif_test/exif_tool" -path "$1"
   echo "---------------------------------------------------------"
-  node /home/yzl178me/repo/lzc/lzc-photo/exif-node/dist/exif-node.js $1
+  node "$HOME/repo/lzc/lzc-photo/exif-node/dist/exif-node.js" "$1"
 }
 function exifdate() {
   exiftool "$1" | grep -i -E "date|offset|zone"
@@ -139,9 +143,9 @@ alias ys='yay -Ss'
 alias zj='neofetch'
 alias pc='export ALL_PROXY="socks5h://127.0.0.1:1081"'
 alias dpc='unset ALL_PROXY;export -p'
-alias pylupdate5='/home/yzl178me/.local/bin/pylupdate5'
-alias pyrcc5='/home/yzl178me/.local/bin/pyrcc5'
-alias pyuic5='/home/yzl178me/.local/bin/pyuic5'
+alias pylupdate5='"$HOME/.local/bin/pylupdate5"'
+alias pyrcc5='"$HOME/.local/bin/pyrcc5"'
+alias pyuic5='"$HOME/.local/bin/pyuic5"'
 alias ax="aria2c -x16"
 alias ae="aria2c -x16 -enable-rpc"
 alias lzc="NODE_TLS_REJECT_UNAUTHORIZED=0 lzc-cli"
@@ -150,7 +154,7 @@ alias lzcB="lzc-cli project build -f"
 alias lzcP="lzc-cli appstore publish"
 alias lzcS="ssh root@188me.heiyu.space"
 alias lg="lazygit"
-alias llu="python /home/yzl178me/Myfile/update_all.py"
+alias llu='python "$HOME/Myfile/update_all.py"'
 if command -v chezmoi >/dev/null 2>&1; then
   _chezmoi_source_path="$(chezmoi source-path 2>/dev/null || true)"
   if [ -n "$_chezmoi_source_path" ] && [ -f "$_chezmoi_source_path/.chezmoiroot" ]; then
@@ -178,7 +182,7 @@ alias gittp="git push origin \$(git describe --tags --abbrev=0)"
 alias gittd="git tag -d \$(git describe --tags --abbrev=0)"
 alias githash="git rev-parse --short=8 HEAD"
 alias xcopy='/usr/bin/xclip -sel clip <<<'
-alias ccli='~/.pyenv/versions/3.8.10/bin/python /home/yzl178me/repo/178me/py-project-frame/tools/main.py'
+alias ccli='"$HOME/.pyenv/versions/3.8.10/bin/python" "$HOME/repo/178me/py-project-frame/tools/main.py"'
 alias sshjk="sshpass -p Utfz5gmUmCXV ssh -t root@112.124.36.15 'cd /data0/workspace/lesson-admin && exec $SHELL'"
 alias ns="proxy-ns"
 alias npmsetjs="npm config set registry https://registry.npmjs.org/"
@@ -194,16 +198,18 @@ alias hmcl2="sh ~/Desktop/.appimage/HMCL-3.6.12.sh"
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH="$JAVA_HOME/bin:$PATH"
-export ANDROID_HOME=/home/yzl178me/Android/Sdk
-export ANDROID_SDK_ROOT=/home/yzl178me/Android/Sdk
-export PATH=/home/yzl178me/.local/bin:$PATH
-export PATH=/home/yzl178me/go/bin:$PATH
-export PATH=/home/yzl178me/Android/Sdk/cmdline-tools/latest/bin:$PATH
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 export GONOSUMDB='gitee.com/linakesi/*'
 export TestFlight_Authorization='Bearer bcbaece8b4294ef1a322df6e0460c267'
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # export GTK_IM_MODULE=fcitx
 # export QT_IM_MODULE=fcitx
@@ -226,7 +232,7 @@ export LC_IDENTIFICATION="zh_CN.UTF-8"
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
 # pnpm
-export PNPM_HOME="/home/yzl178me/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;

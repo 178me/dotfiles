@@ -32,6 +32,7 @@ bash script/bootstrap-arch.sh --apply
 - `--all-runtimes`：安装已记录的 3 个 Node 版本与 4 个 pyenv Python 版本。
 - `--language-tools`：按记录版本安装选中 Node 环境的 npm 工具、pnpm 全局工具与 Go 工具。
 - `--snapshot PATH`：使用其他盘点文件。
+- `--skip-system-packages`：系统包已由用户安装时，继续用户目录中的工具恢复。
 
 `--apply` 使用交互式 `sudo pacman -Syu --needed`，刷新包数据库时同时进行完整系统升级，
 因此 Arch 包使用目标仓库当时的版本；原机版本留在快照中作为参考。
@@ -40,7 +41,18 @@ Oh My Zsh、插件和 asdf 使用盘点中的确切提交；已有安装若提�
 
 脚本应以目标设备的普通用户运行，仅系统包安装使用 sudo。
 工具准备完成后，再检查并应用 chezmoi 配置；脚本不执行配置应用或修改默认 Shell。
-当前配置中的 `/home/yzl178me`、图形环境命令及旧 Bash asdf 路径需要在跨用户迁移时处理。
+共享 Shell 和 CLI 配置使用当前用户目录；历史桌面/旧 Neovim profile 的机器专属设置仍需单独检查。
+
+安装完工具后，预览并应用 CLI 配置：
+
+```bash
+bash script/apply-cli.sh
+bash script/apply-cli.sh --apply
+```
+
+应用前会将已有目标配置打包到 `~/.local/state/dotfiles/backups/`，并选择当前备份的
+`nvim-lazy` 作为 Neovim 配置。此入口不覆盖 SSH 私钥、Codex 根目录登录文件、
+系统 `/etc` 或 i3/Sway 的机器专属桌面配置。
 
 ## 需要单独恢复的部分
 
