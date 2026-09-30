@@ -72,6 +72,9 @@ bash script/apply-cli.sh --apply
   pyenv 包包含项目和桌面依赖，应按实际需要在对应环境安装，脚本不批量重装 pip 清单。
 - 外部/AUR 软件及未被共享清单选中的桌面、驱动、内核软件仅留档，不自动批量安装。
 - Go 工具如没有可恢复的模块版本，安装时会提示手动处理。
+- 从旧设备复制 Mason 工具目录时，运行
+  `python3 script/toolchain/relocate-mason.py --source-home /旧设备用户目录`
+  修正启动脚本中的绝对路径。Python 虚拟环境应在目标机按工具原版本重建，不能直接复用旧解释器链接。
 - 快照包含工具版本和公开源码提交，不代表精确复制系统镜像；旧 Python 构建也可能受目标系统库影响。
 
 安装清单：`arch-cli.txt` 是共享开发环境，`arch-desktop.txt` 是可选桌面工具，
