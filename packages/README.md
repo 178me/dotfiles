@@ -39,6 +39,9 @@ bash script/bootstrap-arch.sh --apply
   命令入口为 `~/.local/bin`，包和依赖库在 `~/.local/opt/dotfiles-cli`；
   此模式不刷新系统库、不支持桌面/全部历史 Python 环境，也不安装 Docker 服务。
   系统升级后应重新运行并验证用户目录工具；已有非本脚本管理的命令不会被覆盖。
+  此模式的 Bash 启动配置会在正常交互登录/终端中自动进入 Zsh，设置 `SHELL` 为用户目录入口。
+  系统账号记录仍为 Bash；非交互 SSH、脚本及 `bash -ic` 不切换。
+  需要临时使用 Bash 时运行 `DOTFILES_KEEP_BASH=1 bash`。
 
 `--apply` 使用交互式 `sudo pacman -Syu --needed`，刷新包数据库时同时进行完整系统升级，
 因此 Arch 包使用目标仓库当时的版本；原机版本留在快照中作为参考。

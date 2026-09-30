@@ -6,6 +6,19 @@
 export PATH="$HOME/.local/bin:$HOME/go/bin:$PATH"
 [[ $- != *i* ]] && return
 
+# A relocated Zsh is not listed in /etc/shells. Prefer it for normal interactive
+# terminals without changing system account data or noninteractive SSH commands.
+# Use DOTFILES_KEEP_BASH=1 bash to deliberately keep an interactive Bash.
+if [[ ${DOTFILES_KEEP_BASH:-0} != 1 && -z ${BASH_EXECUTION_STRING-} &&
+      -f "$HOME/.local/opt/dotfiles-cli/packages.json" && -x "$HOME/.local/bin/zsh" ]]; then
+  export SHELL="$HOME/.local/bin/zsh"
+  if shopt -q login_shell; then
+    exec "$SHELL" -l
+  else
+    exec "$SHELL"
+  fi
+fi
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
