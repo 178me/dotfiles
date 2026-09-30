@@ -155,3 +155,6 @@ sudo chezmoi -S "$HOME/dotfiles/system" -D / apply
 - `home/dot_config/nvim-lazy`
 
 切换脚本：`script/switch_nvim.py`
+
+切换入口使用 `~/.config/nvim-<profile>` 中已经渲染的配置；缺少时先用 chezmoi 应用。
+原配置或软链会备份到 `~/.local/state/dotfiles/backups/`，插件数据和缓存继续保留。
