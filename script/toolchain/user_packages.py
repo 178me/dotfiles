@@ -102,8 +102,9 @@ def main():
     for path in (PREFIX / "usr").rglob("*"):
         if path.is_symlink() and str(path.readlink()).startswith("/usr/"):
             relocated = PREFIX / str(path.readlink()).lstrip("/")
-            path.unlink()
-            path.symlink_to(relocated)
+            if relocated.exists():
+                path.unlink()
+                path.symlink_to(relocated)
     # Arch Neovim links lpeg by absolute path; relocate that ELF dependency.
     nvim = PREFIX / "usr/bin/nvim"
     patchelf = PREFIX / "usr/bin/patchelf"
