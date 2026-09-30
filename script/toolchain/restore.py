@@ -56,7 +56,9 @@ class Installer:
             return
         # Public tool sources must work before SSH keys or Git config are restored.
         git = ["env", "GIT_CONFIG_GLOBAL=/dev/null", "GIT_CONFIG_NOSYSTEM=1", "git"]
-        self.run([*git, "clone", "--no-checkout", entry["url"], target])
+        self.run([*git, "init", target])
+        self.run([*git, "-C", target, "remote", "add", "origin", entry["url"]])
+        self.run([*git, "-C", target, "fetch", "--depth", "1", "origin", commit])
         self.run([*git, "-C", target, "checkout", "--detach", commit])
 
 
