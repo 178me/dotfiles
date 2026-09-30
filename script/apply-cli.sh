@@ -45,6 +45,7 @@ if [ "${#EXISTING[@]}" -gt 0 ]; then
   tar -czf "$BACKUP_DIR/configs.tar.gz" -C "$HOME" "${EXISTING[@]}"
 fi
 printf 'Backup directory: %s\n' "$BACKUP_DIR"
+mkdir -p "$HOME/.codex" "$HOME/.config" "$HOME/.ssh"
 chezmoi -S "$REPO_DIR" apply "${TARGETS[@]}"
 
 NVIM_TARGET="$HOME/.config/nvim-lazy"
